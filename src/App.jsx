@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from 'react';
+import { Octokit } from 'octokit';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [repoUrl, setRepoUrl] = useState('');
+  const [notes, setNotes] = useState('');
+  const [badge, setBadge] = useState('');
+  const [suggestions, setSuggestions] = useState('');
+  const [repoData, setRepoData] = useState(null);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('URL saisie :', repoUrl);
+    console.log('Notes :', notes);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <form id="evaluation-form" onSubmit={handleSubmit}>
+        <label htmlFor="repoUrl">URL du dépôt Git :</label>
+        <input
+          type="url"
+          id="repoUrl"
+          name="repoUrl"
+          placeholder="https://github.com/utilisateur/projet"
+          value={repoUrl}
+          onChange={(e) => setRepoUrl(e.target.value)}
+          required
+        />
+
+        <label htmlFor="notes">Notes ou commentaires :</label>
+        <textarea
+          id="notes"
+          name="notes"
+          rows="4"
+          placeholder="Ajoutez des informations supplémentaires..."
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+        ></textarea>
+
+        <button type="submit">Évaluer</button>
+      </form>
+    </div>
+  );
 }
 
-export default App
+export default App;
+
+
