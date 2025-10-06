@@ -48,4 +48,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         env:
-          GH_DEPLOY_TOKEN: ${{ persoeuroargo.GH_DEPLOY_TOKEN }}
+          GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
