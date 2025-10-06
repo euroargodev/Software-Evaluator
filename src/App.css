@@ -1,42 +1,91 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* ======= Style global ======= */
+body {
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: #f5f7fa;
+  color: #222;
+  margin: 0;
+  padding: 0;
+}
+
+/* ======= Conteneur principal ======= */
+div {
+  max-width: 700px;
+  margin: 80px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ======= Titre ======= */
+h1 {
   text-align: center;
+  color: #004d80;
+  margin-bottom: 20px;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* ======= Formulaire ======= */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* ======= Labels ======= */
+label {
+  font-weight: 600;
+  color: #004d80;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* ======= Inputs & Textareas ======= */
+input[type="url"],
+textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
-.card {
-  padding: 2em;
+input[type="url"]:focus,
+textarea:focus {
+  border-color: #007acc;
+  outline: none;
 }
 
-.read-the-docs {
-  color: #888;
+/* ======= Bouton ======= */
+button {
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
+button:hover {
+  background-color: #005fa3;
+}
+
+/* ======= Résultats ======= */
+#results {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #e8f4ff;
+  border: 1px solid #b3daff;
+  border-radius: 10px;
+}
+
+#badge {
+  font-weight: bold;
+  color: #007acc;
+}
+
+.hidden {
+  display: none;
+}
+
