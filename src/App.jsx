@@ -1,122 +1,91 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
 import { Octokit } from "https://esm.sh/octokit";
 import "./App.css";
 
-/**
- * App component
- * ----------------------------------------------------------
- * - Manages authentication and API access (Octokit)
- * - Handles evaluation logic and navigation between pages
- * - Displays either Home or Results depending on state
- */
+// - fetchRepoData(octokit, owner, repo) -> returns repo metadata object
+// - evaluateRepo(repoData) -> returns { badge, suggestions } (scoring logic)
+import { fetchRepoData } from "./logic/github.js";
+import { evaluateRepo } from "./logic/evaluation.js";
+
 function App() {
-  // ---------- STATE ----------
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [token, setToken] = useState(null);
-  const [user, setUser] = useState(null);
+  // UI state
   const [showResults, setShowResults] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Result state
+  const [repoData, setRepoData] = useState(null);
   const [badge, setBadge] = useState("");
   const [suggestions, setSuggestions] = useState("");
-  const [repoData, setRepoData] = useState(null);
 
-  // ---------- AUTHENTICATION ----------
   /**
-   * Loads GitHub token from localStorage (if exists)
-   * and verifies the user identity.
+   * Build an Octokit instance using the token injected at build time.
+   * If no token is present, Octokit will be unauthenticated (public requests,
+   * but subject to lower rate limits).
+   *
+   * IMPORTANT: token comes from import.meta.env.VITE_GH_DEPLOY_TOKEN,
+   * which must be created locally (.env) for dev, and injected by CI for production.
    */
-  useEffect(() => {
-    const savedToken = localStorage.getItem("gh_token");
-    if (savedToken) {
-      verifyToken(savedToken);
-    }
-  }, []);
-
-  /** Verify token validity and fetch user profile */
-  const verifyToken = async (authToken) => {
-    try {
-      const octokit = new Octokit({ auth: authToken });
-      const { data: user } = await octokit.rest.users.getAuthenticated();
-      setIsAuthenticated(true);
-      setUser(user);
-      setToken(authToken);
-    } catch (err) {
-      console.error("Invalid token:", err);
-      logout();
-    }
+  const makeOctokit = () => {
+    const token = import.meta.env.VITE_GH_DEPLOY_TOKEN || undefined;
+    return new Octokit({ auth: token });
   };
 
-  /** Handle login / logout actions */
-  const handleLogin = async (action) => {
-    if (action === "logout") {
-      logout();
-      return;
-    }
-
-    // For demo purposes: ask user to paste a PAT manually.
-    // In production → replace this with OAuth login redirect.
-    const enteredToken = prompt(
-      "Enter your GitHub Personal Access Token (classic) to authenticate:"
-    );
-    if (!enteredToken) return;
-    await verifyToken(enteredToken);
-    localStorage.setItem("gh_token", enteredToken);
-  };
-
-  /** Clear authentication state */
-  const logout = () => {
-    setIsAuthenticated(false);
-    setUser(null);
-    setToken(null);
-    localStorage.removeItem("gh_token");
-  };
-
-  // ---------- GITHUB EVALUATION ----------
-  /** Called when user submits the evaluation form */
+  /**
+   * Called by the form component (via Home -> Form).
+   * - owner, repo: strings extracted from the repository URL
+   * - notes: optional free text provided by the user
+   *
+   * This function:
+   * 1) creates Octokit using the env token (if present)
+   * 2) delegates data fetching to fetchRepoData()
+   * 3) delegates scoring to evaluateRepo()
+   * 4) stores results in state for Results.jsx to render
+   */
   const handleEvaluate = async (owner, repo, notes) => {
-    setBadge("⏳ Fetching repository data...");
-    setSuggestions("");
-    setRepoData(null);
     setShowResults(true);
+    setLoading(true);
+    setErrorMessage("");
+    setRepoData(null);
+    setBadge("");
+    setSuggestions("");
 
     try {
-      const octokit = new Octokit({ auth: token || undefined });
+      const octokit = makeOctokit();
 
-      // Fetch repository metadata from GitHub REST API
-      const { data } = await octokit.rest.repos.get({ owner, repo });
+      // fetch repository metadata and optionally other files (README/license)
+      const data = await fetchRepoData(octokit, owner, repo);
       setRepoData(data);
 
-      // Example scoring logic (simplified)
-      let score = 0;
-      if (data.license) score += 1;
-      if (data.has_wiki) score += 1;
-      if (data.has_issues) score += 1;
-      if (data.default_branch) score += 1;
+      // delegate scoring to the evaluation module
+      // evaluateRepo should return an object like: { badge: "Gold", suggestions: "..." }
+      const evaluation = await evaluateRepo(data);
+      // attach optional user notes to suggestions
+      const finalSuggestions = notes ? `${evaluation.suggestions}\n\nUser notes:\n${notes}` : evaluation.suggestions;
 
-      const computedBadge = score >= 3 ? "Gold" : score >= 2 ? "Silver" : "Bronze";
-      setBadge(computedBadge);
-      setSuggestions(
-        `Score: ${score}/4 — ${notes || "No notes provided."}`
-      );
+      setBadge(evaluation.badge);
+      setSuggestions(finalSuggestions);
     } catch (err) {
-      console.error("Evaluation error:", err);
-      setBadge("❌ Error");
-      setSuggestions(
-        err.message || "An error occurred while fetching repository data."
-      );
+      console.error("handleEvaluate error:", err);
+      setErrorMessage(err?.message || "An unexpected error occurred");
+      setBadge("Error");
+      setSuggestions(err?.message || "Unable to evaluate repository");
+    } finally {
+      setLoading(false);
     }
   };
 
-  /** Go back to home screen */
   const handleBack = () => {
+    // keep things simple: go back to home and clear results
     setShowResults(false);
     setRepoData(null);
     setBadge("");
     setSuggestions("");
+    setErrorMessage("");
   };
 
-  // ---------- RENDER ----------
   return (
     <div className="app-container">
       {showResults ? (
@@ -125,14 +94,11 @@ function App() {
           suggestions={suggestions}
           repoData={repoData}
           onBack={handleBack}
+          loading={loading}
+          errorMessage={errorMessage}
         />
       ) : (
-        <Home
-          onEvaluate={handleEvaluate}
-          onLogin={handleLogin}
-          isAuthenticated={isAuthenticated}
-          user={user}
-        />
+        <Home onEvaluate={handleEvaluate} />
       )}
     </div>
   );
