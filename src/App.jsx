@@ -27,9 +27,6 @@ function App() {
     <div className="App">
       {view === 'home' && <Home onEvaluate={handleEvaluation} />}
       {view === 'results' && <Results repoData={repoData} notes={notes} />}
-    
-      <TargetLevelSelect onLevelChange={setTargetLevel} />
-      <p>Selected level: {targetLevel}</p>
     </div>
   );
 }

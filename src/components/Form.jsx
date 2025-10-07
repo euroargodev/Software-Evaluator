@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Octokit } from "https://esm.sh/octokit";
+import TargetLevelSelect from './TargetLevelSelect';
 import './Form.css';
 
 /**
@@ -12,6 +13,7 @@ function Form({ onEvaluate }) {
   const [repoUrl, setRepoUrl] = useState('');
   const [notes, setNotes] = useState('');
   const [loading, setLoading] = useState(false);
+  const [targetLevel, setTargetLevel] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -66,6 +68,8 @@ function Form({ onEvaluate }) {
         value={notes}
         onChange={(e) => setNotes(e.target.value)}
       />
+
+      <TargetLevelSelect onLevelChange={setTargetLevel} />     
 
       <button type="submit" disabled={loading}>
         {loading ? 'Evaluating...' : 'Evaluate'}
