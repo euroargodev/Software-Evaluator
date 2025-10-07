@@ -1,38 +1,19 @@
-// src/pages/Home.jsx
-import Form from "../components/Form";
+import Form from '../components/Form/Form';
+import './Home.css';
 
 /**
  * Home page
- * ----------------------------------------------------------
- * - Displays the title, short description, and the form
- * - Receives `onEvaluate` from App.jsx and passes it to Form
+ * ----------
+ * This is the main entry page of the app, showing the evaluation form.
  */
-export default function Home({ onEvaluate, onLogin, isAuthenticated, user }) {
+function Home({ onEvaluate }) {
   return (
-    <main className="home-page">
-      <header>
-        <h1>EuroArgoOne Software Evaluator</h1>
-        <p>
-          Enter a GitHub repository URL to evaluate it according to the
-          EuroArgoOne guidelines.
-        </p>
-
-        {/* Authentication controls */}
-        <div className="auth-section">
-          {isAuthenticated ? (
-            <>
-              <p>🔒 Logged in as {user?.login}</p>
-              <button onClick={() => onLogin("logout")}>Logout</button>
-            </>
-          ) : (
-            <button onClick={() => onLogin("login")}>Sign in with GitHub</button>
-          )}
-        </div>
-      </header>
-
-      {/* Main form */}
+    <div className="home-page">
+      <h1>Software Evaluator</h1>
+      <p>Enter a public GitHub repository URL to start the evaluation.</p>
       <Form onEvaluate={onEvaluate} />
-    </main>
+    </div>
   );
 }
 
+export default Home;

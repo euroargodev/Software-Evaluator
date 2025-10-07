@@ -1,42 +1,35 @@
+import './Results.css';
+
 /**
- * Results component
- * ----------------------------------------------------------
- * Displays the evaluation output:
- * - Computed badge or score
- * - Suggestions or improvement notes
- * - Basic repository metadata (if available)
- * - "Back" button to return to the form
+ * Results page
+ * -------------
+ * Displays repository details and evaluation summary.
  */
-export default function Results({ badge, suggestions, repoData, onBack }) {
+function Results({ repoData, notes }) {
+  if (!repoData) {
+    return <p>No evaluation data available yet.</p>;
+  }
+
   return (
     <div className="results-page">
-      <h2>Evaluation Results</h2>
-
-      <div id="results">
-        <p id="badge">
-          <strong>Badge:</strong> {badge || "—"}
-        </p>
-        <p id="suggestions">
-          <strong>Suggestions:</strong> {suggestions || "—"}
-        </p>
-
-        {repoData ? (
-          <div className="repo-info">
-            <h3>{repoData.full_name}</h3>
-            <p>{repoData.description}</p>
-            <p>Owner: {repoData.owner?.login}</p>
-            <p>Default branch: {repoData.default_branch}</p>
-            <p>
-              ⭐ Stars: {repoData.stargazers_count} — 🍴 Forks: {repoData.forks_count}
-            </p>
-          </div>
-        ) : (
-          <p>No repository data available.</p>
-        )}
+      <h2>Repository Evaluation</h2>
+      <div className="repo-card">
+        <h3>{repoData.full_name}</h3>
+        <p>{repoData.description || 'No description available.'}</p>
+        <p><strong>Stars:</strong> {repoData.stargazers_count}</p>
+        <p><strong>Forks:</strong> {repoData.forks_count}</p>
+        <p><strong>Open Issues:</strong> {repoData.open_issues_count}</p>
+        <p><strong>Language:</strong> {repoData.language || 'N/A'}</p>
       </div>
 
-      <button onClick={onBack}>Back</button>
+      {notes && (
+        <div className="user-notes">
+          <h3>Your Notes</h3>
+          <p>{notes}</p>
+        </div>
+      )}
     </div>
   );
 }
 
+export default Results;
