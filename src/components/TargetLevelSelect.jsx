@@ -3,13 +3,11 @@ import { useState } from 'react';
 import guidelines from '../data/guidelines.json';
 
 export default function TargetLevelSelect({ onLevelChange }) {
-  // 🔍 Vérifier le JSON
+  
   console.log('guidelines:', guidelines);
 
-  // 1️⃣ Accéder aux nodes
   const itemsArray = guidelines?.data?.node?.items?.nodes || [];
 
-  // 2️⃣ Extraire tous les niveaux uniques
   const levels = [
     ...new Set(
       itemsArray.flatMap(item =>
@@ -20,12 +18,10 @@ export default function TargetLevelSelect({ onLevelChange }) {
     )
   ];
 
-  console.log('Extracted levels:', levels); // 🔍 Vérifier les niveaux
+  console.log('Extracted levels:', levels);
 
-  // 3️⃣ State React pour stocker le niveau sélectionné
   const [selectedLevel, setSelectedLevel] = useState('');
 
-  // 4️⃣ Fonction déclenchée au changement du dropdown
   const handleChange = (event) => {
     const level = event.target.value;
     setSelectedLevel(level);
