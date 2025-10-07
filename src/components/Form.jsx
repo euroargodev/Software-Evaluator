@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Octokit } from "octokit";
+import { Octokit } from "https://esm.sh/octokit";
 import './Form.css';
 
 /**
