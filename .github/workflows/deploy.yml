@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          path: Software-Evaluator
 
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -25,18 +27,21 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm ci
+        working-directory: Software-Evaluator
+        run: npm install
 
-      - name: Create .env file
+      - name: Create environment file
+        working-directory: Software-Evaluator
         run: echo "VITE_GH_DEPLOY_TOKEN=${{ secrets.GH_DEPLOY_TOKEN }}" > .env
 
       - name: Build Vite project
+        working-directory: Software-Evaluator
         run: npm run build
 
       - name: Upload build output
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: Software-Evaluator/dist
 
   deploy:
     name: Deploy to GitHub Pages
@@ -50,3 +55,5 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+        env:
+          GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
