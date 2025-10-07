@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Home from './pages/Home';
 import Results from './pages/Results';
+import TargetLevelSelect from './components/TargetLevelSelect';
 import './App.css';
 
 /**
@@ -13,6 +14,7 @@ function App() {
   const [repoData, setRepoData] = useState(null);
   const [notes, setNotes] = useState('');
   const [view, setView] = useState('home');
+  const [targetLevel, setTargetLevel] = useState('');
 
   // Callback passed to Form (through Home)
   const handleEvaluation = (data, userNotes) => {
@@ -25,6 +27,11 @@ function App() {
     <div className="App">
       {view === 'home' && <Home onEvaluate={handleEvaluation} />}
       {view === 'results' && <Results repoData={repoData} notes={notes} />}
+    
+      <div>
+      	<TargetLevelSelect onLevelChange={setTargetLevel} />
+      	<p>Selected level: {targetLevel}</p>
+      </div>
     </div>
   );
 }
