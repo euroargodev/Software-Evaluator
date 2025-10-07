@@ -25,7 +25,10 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Create .env file
+        run: echo "VITE_GH_DEPLOY_TOKEN=${{ secrets.GH_DEPLOY_TOKEN }}" > .env
 
       - name: Build Vite project
         run: npm run build
@@ -47,5 +50,3 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
-        env:
-          GH_DEPLOY_TOKEN: ${{ secrets.GH_DEPLOY_TOKEN }}
