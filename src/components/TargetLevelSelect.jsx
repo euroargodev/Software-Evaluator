@@ -3,13 +3,19 @@ import { useState } from 'react';
 import guidelines from '../data/guidelines.json';
 
 export default function TargetLevelSelect({ onLevelChange }) {
-  // Extract every levels from json file
+  // 🔍 Vérifier le contenu du JSON
+  console.log('guidelines:', guidelines);
+
+  // 1️⃣ Extraire tous les niveaux uniques depuis le fichier JSON
   const levels = [...new Set(guidelines.map(item => item['skill level']))];
-  console.log(guidelines);
-  // State React pour stocker le niveau sélectionné
+
+  // 🔍 Vérifier ce qui est extrait
+  console.log('levels:', levels);
+
+  // 2️⃣ State React pour stocker le niveau sélectionné
   const [selectedLevel, setSelectedLevel] = useState('');
 
-  // Fonction déclenchée au changement du dropdown
+  // 3️⃣ Fonction déclenchée au changement du dropdown
   const handleChange = (event) => {
     const level = event.target.value;
     setSelectedLevel(level);           // mettre à jour le state local
