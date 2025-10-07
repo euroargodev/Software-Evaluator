@@ -1,0 +1,40 @@
+/* === Results.css ===
+   Page des résultats / score / analyse
+*/
+
+.results-container {
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #f9f9ff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.results-container h2 {
+  text-align: center;
+  color: #2b2b2b;
+  margin-bottom: 1rem;
+}
+
+.result-item {
+  background-color: white;
+  margin: 1rem 0;
+  padding: 1rem 1.2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.result-item strong {
+  color: #646cff;
+}
+
+.badge {
+  display: inline-block;
+  background-color: #646cff;
+  color: white;
+  padding: 0.3rem 0.7rem;
+  border-radius: 1rem;
+  font-size: 0.9rem;
+  margin-left: 0.5rem;
+}

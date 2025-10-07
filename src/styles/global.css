@@ -1,0 +1,84 @@
+/* === global.css ===
+   Feuille de style principale de l'application
+   Gère la typographie, les couleurs et la mise en page globale.
+*/
+
+/* --- Reset et base --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f5f6fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* --- Liens --- */
+a {
+  color: #646cff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #4b50c4;
+}
+
+/* --- Titres --- */
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  color: #222;
+}
+
+/* --- Conteneur principal --- */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --- Boutons génériques --- */
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 0.5rem;
+}
+
+/* --- Section et conteneur centralisé --- */
+.section {
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- Animation légère d'apparition --- */
+.fade-in {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Footer simple --- */
+footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 1rem;
+  background-color: #ffffff;
+  color: #666;
+  font-size: 0.9rem;
+  border-top: 1px solid #e3e3e3;
+}
