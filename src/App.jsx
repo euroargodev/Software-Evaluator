@@ -28,10 +28,8 @@ function App() {
       {view === 'home' && <Home onEvaluate={handleEvaluation} />}
       {view === 'results' && <Results repoData={repoData} notes={notes} />}
     
-      <div>
-      	<TargetLevelSelect onLevelChange={setTargetLevel} />
-      	<p>Selected level: {targetLevel}</p>
-      </div>
+      <TargetLevelSelect onLevelChange={setTargetLevel} />
+      <p>Selected level: {targetLevel}</p>
     </div>
   );
 }
