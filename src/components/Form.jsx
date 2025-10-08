@@ -60,6 +60,8 @@ function Form({ onEvaluate }) {
         required
       />
 
+      <TargetLevelSelect onLevelChange={setTargetLevel} /> 
+
       <label htmlFor="notes">Notes or comments:</label>
       <textarea
         id="notes"
@@ -69,7 +71,6 @@ function Form({ onEvaluate }) {
         onChange={(e) => setNotes(e.target.value)}
       />
 
-      <TargetLevelSelect onLevelChange={setTargetLevel} />     
 
       <button type="submit" disabled={loading}>
         {loading ? 'Evaluating...' : 'Evaluate'}
