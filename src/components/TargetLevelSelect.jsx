@@ -18,7 +18,17 @@ export default function TargetLevelSelect({ onLevelChange }) {
     )
   ];
 
-  console.log('Extracted levels:', levels);
+  const titles = [
+    ...new Set(
+      itemsArray.flatMap(item =>
+        item.fieldValues.nodes
+          .filter(fv => fv.field?.name === 'Title')
+          .map(fv => fv.name)
+      )
+    )
+  ];
+
+  console.log('Extracted titless:', titles);
 
   const [selectedLevel, setSelectedLevel] = useState('');
 
