@@ -4,7 +4,11 @@ font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
 background-color: #f5f7fa; 
 color: #222; 
 margin: 0; 
-padding: 0; } 
+display: flex;
+  justify-content: center;
+  align-items: flex-start; /* ou center pour le centrer verticalement */
+  padding-top: 60px 
+} 
 
 /* ======= Conteneur principal ======= */ 
 
