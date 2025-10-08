@@ -24,7 +24,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="app-container">
       {view === 'home' && <Home onEvaluate={handleEvaluation} />}
       {view === 'results' && <Results repoData={repoData} notes={notes} />}
     </div>
