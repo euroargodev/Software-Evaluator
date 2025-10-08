@@ -21,11 +21,11 @@ function Form({ onEvaluate }) {
 
     try {
       // Extract repository owner and name from the GitHub URL
-      const match = repoUrl.match(/github\.com\/([^/]+)\/([^/]+)/);
+      const match = repoUrl.split("github.com/")[1].split("/");
       if (!match) throw new Error('Invalid repository URL');
 
-      const owner = match[1];
-      const repo = match[2];
+      const owner = match[0];
+      const repo = match[1];
 
       // GitHub authentication via environment variable
       const octokit = new Octokit({
