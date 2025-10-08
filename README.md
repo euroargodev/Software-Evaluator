@@ -1,13 +1,13 @@
 # EuroArgoDev Software Evaluator
 
-## 📘 Overview
+## Overview
 
 **EuroArgoDev Software Evaluator** is a web-based tool designed to **evaluate software repositories** according to the **EuroArgoDev software_guidelines**.
 The application analyzes a public GitHub repository, assigns a **maturity badge**, and provides **suggestions for improvement** based on standardized criteria.
 
 ---
 
-## 🎯 Goals
+## Goals
 
 * Automatically check the compliance of a software repository with **EuroArgoOne guidelines**
 * Assign a **maturity badge** (e.g., *Beginner*, *Intermediate*, *Advanced*)
@@ -16,17 +16,17 @@ The application analyzes a public GitHub repository, assigns a **maturity badge*
 
 ---
 
-## 🧩 Key Features
+## Key Features
 
-* 🧠 **Automated Evaluation**: Fetches repository data via the GitHub API (Octokit)
-* 🧾 **Scoring System**: Evaluates based on predefined FAIR and EuroArgo criteria
-* 🪪 **Maturity Levels**: Displays a badge representing the repository’s current level
-* ⚙️ **Target Level Selection**: Lets users choose the level they want to achieve
-* 💬 **Actionable Feedback**: Highlights strengths and improvement areas
+*  **Automated Evaluation**: Fetches repository data via the GitHub API (Octokit)
+*  **Scoring System**: Evaluates based on predefined FAIR and EuroArgo criteria
+*  **Maturity Levels**: Displays a badge representing the repository’s current level
+*  **Target Level Selection**: Lets users choose the level they want to achieve
+*  **Actionable Feedback**: Highlights strengths and improvement areas
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer                  | Technology                                                                |
 | ---------------------- | ------------------------------------------------------------------------- |
@@ -39,22 +39,22 @@ The application analyzes a public GitHub repository, assigns a **maturity badge*
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
-### 1️⃣ Clone the repository
+###  Clone the repository
 
 ```bash
 git clone https://github.com/euroargodev/Software-Evaluator.git
 cd Software-Evaluator
 ```
 
-### 2️⃣ Install dependencies
+###  Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3️⃣ Run the development server
+###  Run the development server
 
 ```bash
 npm run dev
@@ -62,19 +62,19 @@ npm run dev
 
 Then open your browser at **[http://localhost:5173/](http://localhost:5173/)**
 
-### 4️⃣ Build for production
+###  Build for production
 
 ```bash
 npm run build
 ```
 
-### 5️⃣ Deploy to GitHub Pages
+###  Deploy to GitHub Pages
 
 Deployment is handled automatically through **GitHub Actions** (`.github/workflows/deploy.yml`).
 
 ---
 
-## 🔐 Environment Variables
+## Environment Variables
 
 You’ll need a **GitHub Personal Access Token (PAT)** to authenticate API requests.
 
@@ -89,7 +89,7 @@ Then make sure the same secret exists in your GitHub repository settings under
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 software-evaluator/
@@ -136,7 +136,7 @@ software-evaluator/
 
 ---
 
-## ⚙️ How It Works
+## How It Works
 
 1. **User inputs a GitHub repository URL**
 2. **Form component** calls the GitHub API via **Octokit**
@@ -148,18 +148,18 @@ software-evaluator/
 
 ---
 
-## 🧑‍💻 Contributing
+## Contributing
 
 Pull requests are welcome!
 For major changes, please open an issue first to discuss what you’d like to change.
 
 ---
 
-## 📄 License
+## License
 
 ...
 ---
 
-## 🌐 Live Demo
+## Live Demo
 
-👉 [**Software Evaluator on GitHub Pages**](https://euroargodev.github.io/Software-Evaluator/)
+ [**Software Evaluator on GitHub Pages**](https://euroargodev.github.io/Software-Evaluator/)
