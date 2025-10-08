@@ -10,11 +10,11 @@ display: flex;
   padding-top: 60px 
 } 
 
-/* ======= Conteneur principal ======= */ 
+/* ===== App.css ===== */
 
 .app-container {
   max-width: 700px;
-  width: 90%;
+  margin: 80px auto;
   background: white;
   padding: 40px;
   border-radius: 16px;
