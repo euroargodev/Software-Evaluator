@@ -23,7 +23,7 @@ export default function TargetLevelSelect({ onLevelChange }) {
       itemsArray.flatMap(item =>
         item.fieldValues.nodes
           .filter(fv => fv.field?.name === 'Title')
-          .map(fv => fv.name)
+          .map(fv => fv.text)
       )
     )
   ];
