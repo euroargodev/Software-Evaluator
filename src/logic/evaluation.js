@@ -1,4 +1,3 @@
-// utils/evaluation.js
 export function evaluateLevels(guidelines, autoChecks, userAnswers) {
   const combined = { ...autoChecks, ...userAnswers };
   const levelScores = {};
@@ -7,7 +6,7 @@ export function evaluateLevels(guidelines, autoChecks, userAnswers) {
   itemsArray.forEach(item => {
     const levelField = item.fieldValues.nodes.find(fv => fv.field?.name === 'Skill level');
     const level = levelField ? levelField.name : 'Unknown';
-    const criteria = item.fieldValues.nodes.filter(fv => fv.field?.name === 'Criterion');
+    const criteria = item.fieldValues.nodes.filter(fv => fv.field?.name === '');
 
     const totalPoints = criteria.reduce((sum, c) => sum + (c.weight || 1), 0);
     const earnedPoints = criteria.reduce(
