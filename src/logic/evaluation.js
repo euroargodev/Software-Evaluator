@@ -1,35 +1,34 @@
-// src/logic/evaluation.js
-// Handles evaluation of repositories based on guidelines.json
+// utils/evaluation.js
+export function evaluateLevels(guidelines, autoChecks, userAnswers) {
+  const combined = { ...autoChecks, ...userAnswers };
+  const levelScores = {};
+  const itemsArray = guidelines?.data?.node?.items?.nodes || [];
 
-import guidelines from "../data/guidelines.json";
+  itemsArray.forEach(item => {
+    const levelField = item.fieldValues.nodes.find(fv => fv.field?.name === 'Skill level');
+    const level = levelField ? levelField.name : 'Unknown';
+    const criteria = item.fieldValues.nodes.filter(fv => fv.field?.name === 'Criterion');
 
-/**
- * Evaluate a repository and assign badge + suggestions
- * @param {object} repoData - output of fetchRepoData
- * @returns {object} - { badge: "Bronze|Silver|Gold", suggestions: "..." }
- */
-export function evaluateRepo(repoData) {
-  let score = 0;
-  const suggestions = [];
+    const totalPoints = criteria.reduce((sum, c) => sum + (c.weight || 1), 0);
+    const earnedPoints = criteria.reduce(
+      (sum, c) => sum + (combined[c.id] ? (c.weight || 1) : 0),
+      0
+    );
 
-  // Loop through all guidelines
-  guidelines.forEach(criterion => {
-    // Here you will check if criterion is satisfied in repoData
-    // e.g., if README exists, license exists, files present etc.
-    const satisfied = /* your logic here */ false;
+    const ratio = earnedPoints / (totalPoints || 1);
 
-    if (satisfied) {
-      score += 1; // simple scoring for now
-    } else {
-      suggestions.push(`Missing: ${criterion.title}`);
-    }
+    levelScores[level] = {
+      totalPoints,
+      earnedPoints,
+      ratio,
+      validated: ratio >= 2 / 3,
+      missing: criteria.filter(c => !combined[c.id]),
+    };
   });
 
-  // Determine badge based on score
-  const badge =
-    score >= 8 ? "Gold" :
-    score >= 5 ? "Silver" :
-    "Bronze";
+  const validatedLevel = Object.entries(levelScores)
+    .reverse()
+    .find(([_, v]) => v.validated)?.[0] || "Beginner";
 
-  return { badge, suggestions: suggestions.join("\n") };
+  return { levelScores, validatedLevel };
 }
