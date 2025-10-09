@@ -3,8 +3,8 @@ import { Octokit } from "https://esm.sh/octokit";
 import TargetLevelSelect from './TargetLevelSelect';
 import './Form.css';
 import guidelines from '../data/guidelines.json';
-import { evaluateLevels } from '../utils/evaluation';
-import { checkRepoFeatures } from '../utils/github';
+import { evaluateLevels } from '../logic/evaluation';
+import { checkRepoFeatures } from '../logic/github';
 
 function Form({ onEvaluate }) {
   const [repoUrl, setRepoUrl] = useState('');
