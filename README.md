@@ -9,7 +9,7 @@ The application analyzes a public GitHub repository, assigns a **maturity badge*
 
 ## Goals
 
-* Automatically check the compliance of a software repository with **EuroArgoOne guidelines**
+* Automatically check the compliance of a software repository with **EuroArgodev software guidelines**
 * Assign a **maturity badge** (e.g., *Beginner*, *Intermediate*, *Advanced*)
 * Suggest **improvements** to reach your desired level
 * Make the tool **easily accessible** via **GitHub Pages**
@@ -19,7 +19,7 @@ The application analyzes a public GitHub repository, assigns a **maturity badge*
 ## Key Features
 
 *  **Automated Evaluation**: Fetches repository data via the GitHub API (Octokit)
-*  **Scoring System**: Evaluates based on predefined FAIR and EuroArgo criteria
+*  **Scoring System**: Evaluates based on predefined criteria
 *  **Maturity Levels**: Displays a badge representing the repository’s current level
 *  **Target Level Selection**: Lets users choose the level they want to achieve
 *  **Actionable Feedback**: Highlights strengths and improvement areas
