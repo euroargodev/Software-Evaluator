@@ -1,19 +1,25 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Octokit } from "https://esm.sh/octokit";
-import TargetLevelSelect from './TargetLevelSelect';
-import './Form.css';
-import guidelines from '../data/guidelines.json';
-import { evaluateLevels } from '../logic/evaluation';
-import { checkRepoFeatures } from '../logic/github';
+import TargetLevelSelect from "./TargetLevelSelect";
+import "./Form.css";
+import guidelines from "../data/guidelines.json";
+import manualQuestions from "../data/manualQuestions.json";
+import { evaluateLevels } from "../logic/evaluation";
+import { checkRepoFeatures } from "../logic/github";
 
+/**
+ * Form.jsx
+ * Main form for entering GitHub repo URL and answering manual questions.
+ * Handles automatic checks + manual answers and triggers evaluation.
+ */
 function Form({ onEvaluate }) {
-  const [repoUrl, setRepoUrl] = useState('');
-  const [notes, setNotes] = useState('');
+  const [repoUrl, setRepoUrl] = useState("");
   const [loading, setLoading] = useState(false);
-  const [targetLevel, setTargetLevel] = useState('');
+  const [targetLevel, setTargetLevel] = useState("");
   const [userAnswers, setUserAnswers] = useState({});
   const [evaluationResult, setEvaluationResult] = useState(null);
 
+  // Toggle checkbox state for manual questions
   const handleCheckbox = (id) => {
     setUserAnswers(prev => ({
       ...prev,
@@ -21,44 +27,40 @@ function Form({ onEvaluate }) {
     }));
   };
 
+  // Form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
+      // Extract owner and repo name from GitHub URL
       const match = repoUrl.split("github.com/")[1]?.split("/");
-      if (!match) throw new Error('Invalid repository URL');
-
+      if (!match) throw new Error("Invalid repository URL");
       const owner = match[0];
       const repo = match[1];
-      const octokit = new Octokit({
-        auth: import.meta.env.VITE_GH_DEPLOY_TOKEN
-      });
 
-      // Récupération des infos GitHub
+      // GitHub authentication
+      const octokit = new Octokit({ auth: import.meta.env.VITE_GH_DEPLOY_TOKEN });
+
+      // Fetch repository info
       const repoData = await octokit.rest.repos.get({ owner, repo });
+
+      // Check features automatically
       const autoChecks = await checkRepoFeatures(owner, repo, octokit);
 
-      // Évaluation complète
+      // Evaluate all criteria
       const result = evaluateLevels(guidelines, autoChecks, userAnswers);
       setEvaluationResult(result);
 
-      // Envoi au parent (si besoin)
-      onEvaluate(repoData.data, notes);
+      // Send data to App.jsx
+      onEvaluate(repoData.data, result);
     } catch (error) {
-      console.error('Error fetching repo:', error);
-      alert('Failed to fetch repository data.');
+      console.error("Error fetching repo:", error);
+      alert("Failed to fetch repository data.");
     } finally {
       setLoading(false);
     }
   };
-
-  // Petites questions simulées pour le moment
-  const mockQuestions = [
-    { id: 'doc', text: 'The project has clear documentation.' },
-    { id: 'tests', text: 'Automated tests are provided.' },
-    { id: 'ci', text: 'Continuous Integration (CI) is configured.' },
-  ];
 
   return (
     <form className="evaluation-form" onSubmit={handleSubmit}>
@@ -72,11 +74,12 @@ function Form({ onEvaluate }) {
         required
       />
 
+      {/* Dropdown for selecting target level */}
       <TargetLevelSelect onLevelChange={setTargetLevel} />
 
-      <h3>Checklist</h3>
-      {mockQuestions.map(q => (
-        <label key={q.id}>
+      <h3>Manual Criteria</h3>
+      {manualQuestions.map(q => (
+        <label key={q.id} className="question-item">
           <input
             type="checkbox"
             checked={!!userAnswers[q.id]}
@@ -86,23 +89,34 @@ function Form({ onEvaluate }) {
         </label>
       ))}
 
-      <label htmlFor="notes">Notes or comments:</label>
-      <textarea
-        id="notes"
-        rows="4"
-        placeholder="Add additional information..."
-        value={notes}
-        onChange={(e) => setNotes(e.target.value)}
-      />
-
       <button type="submit" disabled={loading}>
-        {loading ? 'Evaluating...' : 'Evaluate'}
+        {loading ? "Evaluating..." : "Evaluate"}
       </button>
 
+      {/* Display evaluation results */}
       {evaluationResult && (
         <div className="results">
-          <h4>Validated Level: {evaluationResult.validatedLevel}</h4>
-          <pre>{JSON.stringify(evaluationResult.levelScores, null, 2)}</pre>
+          <h3>🧭 Evaluation Results</h3>
+          <p><strong>Validated Level:</strong> {evaluationResult.validatedLevel}</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Level</th>
+                <th>Score</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(evaluationResult.levelScores).map(([level, info]) => (
+                <tr key={level}>
+                  <td>{level}</td>
+                  <td>{Math.round(info.ratio * 100)}%</td>
+                  <td>{info.validated ? "✅ Passed" : "❌ Not reached"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </form>

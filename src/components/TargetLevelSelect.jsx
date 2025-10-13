@@ -1,13 +1,17 @@
 import { useState } from 'react';
-// On importe le JSON de guidelines
 import guidelines from '../data/guidelines.json';
 
+/**
+ * TargetLevelSelect
+ * Dropdown component that lets the user select their target skill level.
+ * Extracts unique levels from the guidelines JSON and notifies the parent
+ * component of the selection via `onLevelChange`.
+ */
 export default function TargetLevelSelect({ onLevelChange }) {
-  
-  console.log('guidelines:', guidelines);
-
+  // Extract all items from the JSON safely
   const itemsArray = guidelines?.data?.node?.items?.nodes || [];
 
+  // Get unique skill levels from the JSON
   const levels = [
     ...new Set(
       itemsArray.flatMap(item =>
@@ -18,15 +22,26 @@ export default function TargetLevelSelect({ onLevelChange }) {
     )
   ];
 
-  console.log('Extracted levels:', levels);
+  const criteria = [
+    ...new Set(
+      itemsArray.flatMap(item =>
+        item.fieldValues.nodes
+          .filter(fv => fv.field?.name === 'Title')
+          .map(fv => fv.text)
+      )
+    )
+  ];
+  console.log("Criteria :", criteria); 
 
+  // React state to store the selected level
   const [selectedLevel, setSelectedLevel] = useState('');
 
+  // When the user selects a level, update state and notify parent
   const handleChange = (event) => {
     const level = event.target.value;
     setSelectedLevel(level);
     if (onLevelChange) {
-      onLevelChange(level);
+      onLevelChange(level); // Callback to App.jsx
     }
   };
 

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "data_fair",
+    "text": "The data follows the FAIR principles (Findable, Accessible, Interoperable, Reusable).",
+    "weight": 2
+  },
+  {
+    "id": "maintenance_policy",
+    "text": "A maintenance policy is documented and followed.",
+    "weight": 1
+  },
+  {
+    "id": "user_feedback",
+    "text": "User feedback is actively collected and acted upon.",
+    "weight": 1
+  },
+  {
+    "id": "community_guidelines",
+    "text": "Community guidelines or contribution rules are clearly defined.",
+    "weight": 1
+  }
+]

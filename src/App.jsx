@@ -1,32 +1,52 @@
-import { useState } from 'react';
-import Home from './pages/Home';
-import Results from './pages/Results';
-import TargetLevelSelect from './components/TargetLevelSelect';
-import './App.css';
+import { useState } from "react";
+import Home from "./pages/Home";
+import Results from "./pages/Results";
+import "./App.css";
 
 /**
- * App component
- * -------------
- * Handles navigation between the Home and Results pages
- * and keeps track of evaluation data.
+ * App.jsx
+ * Main component of the application.
+ * It switches between the Home page (input form)
+ * and the Results page (evaluation output).
+ *
+ * It also stores the repository data and the evaluation result
+ * received from the form.
  */
 function App() {
+  // Store the GitHub repository information
   const [repoData, setRepoData] = useState(null);
-  const [notes, setNotes] = useState('');
-  const [view, setView] = useState('home');
-  const [targetLevel, setTargetLevel] = useState('');
 
-  // Callback passed to Form (through Home)
-  const handleEvaluation = (data, userNotes) => {
+  // Store the result of the evaluation (scores, level, etc.)
+  const [evaluationResult, setEvaluationResult] = useState(null);
+
+  // Control which page is visible: "home" or "results"
+  const [view, setView] = useState("home");
+
+  // Store the target level selected by the user
+  const [targetLevel, setTargetLevel] = useState("");
+
+  /**
+   * Called when the user submits the form.
+   * Receives:
+   * - `data`: info fetched from GitHub
+   * - `result`: evaluation result (calculated later)
+   */
+  const handleEvaluation = (data, result) => {
     setRepoData(data);
-    setNotes(userNotes);
-    setView('results');
+    setEvaluationResult(result);
+    setView("results"); // Switch to the results page
   };
 
   return (
     <div className="app-container">
-      {view === 'home' && <Home onEvaluate={handleEvaluation} />}
-      {view === 'results' && <Results repoData={repoData} notes={notes} />}
+      {view === "home" && <Home onEvaluate={handleEvaluation} />}
+      {view === "results" && (
+        <Results
+          repoData={repoData}
+          evaluationResult={evaluationResult}
+          targetLevel={targetLevel}
+        />
+      )}
     </div>
   );
 }
