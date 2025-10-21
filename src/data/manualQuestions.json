@@ -1,22 +1,30 @@
 [
   {
-    "id": "data_fair",
-    "text": "The data follows the FAIR principles (Findable, Accessible, Interoperable, Reusable).",
-    "weight": 2
+    "id": 0,
+    "title": "Other Data used by the software are explicitly identified and traceable with a persistent identifier (DOI) when available",
+    "level": "Beginner",
+    "category": "",
+    "SDM": ""
   },
   {
-    "id": "maintenance_policy",
-    "text": "A maintenance policy is documented and followed.",
-    "weight": 1
+    "id": 1,
+    "title": "Argo papers and DOIs are referenced in the software metadata",
+    "level": "Beginner",
+    "category": "",
+    "SDM": ""
   },
   {
-    "id": "user_feedback",
-    "text": "User feedback is actively collected and acted upon.",
-    "weight": 1
+    "id": 2,
+    "title": "The software has been presented to the Argo community (e.g. Data Management Team meeting)",
+    "level": "Beginner",
+    "category": "",
+    "SDM": ""
   },
   {
-    "id": "community_guidelines",
-    "text": "Community guidelines or contribution rules are clearly defined.",
-    "weight": 1
+    "id": 3,
+    "title": "The software documentation includes usage guidelines and examples",
+    "level": "Beginner",
+    "category": "",
+    "SDM": ""
   }
 ]

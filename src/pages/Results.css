@@ -29,6 +29,22 @@
   color: #646cff;
 }
 
+.back-btn {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #e0e0e0;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.back-btn:hover {
+  background-color: #ccc;
+}
+
 .badge {
   display: inline-block;
   background-color: #646cff;

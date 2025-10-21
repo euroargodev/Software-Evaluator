@@ -1,0 +1,58 @@
+[
+  {
+    "id": "1",
+    "title": "The project includes a README file",
+    "level": "Novice",
+    "type": "auto",
+    "weight": 1
+  },
+  {
+    "id": "2",
+    "title": "The project includes a LICENSE file",
+    "level": "Novice",
+    "type": "auto",
+    "weight": 1
+  },
+  {
+    "id": "3",
+    "title": "The project includes continuous integration",
+    "level": "Intermediate",
+    "type": "auto",
+    "weight": 1.5
+  },
+  {
+    "id": "4",
+    "title": "The project has multiple contributors",
+    "level": "Advanced",
+    "type": "auto",
+    "weight": 1.2
+  },
+  {
+    "id": "5",
+    "title": "The software documentation includes usage guidelines",
+    "level": "Novice",
+    "type": "manual",
+    "weight": 1
+  },
+  {
+    "id": "6",
+    "title": "The software documentation includes installation instructions",
+    "level": "Beginner",
+    "type": "manual",
+    "weight": 1
+  },
+  {
+    "id": "7",
+    "title": "The project defines contribution guidelines",
+    "level": "Intermediate",
+    "type": "manual",
+    "weight": 1.2
+  },
+  {
+    "id": "8",
+    "title": "The project regularly organizes user meetings",
+    "level": "Advanced",
+    "type": "manual",
+    "weight": 1.5
+  }
+]

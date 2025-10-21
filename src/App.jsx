@@ -5,46 +5,51 @@ import "./App.css";
 
 /**
  * App.jsx
- * Main component of the application.
- * It switches between the Home page (input form)
- * and the Results page (evaluation output).
- *
- * It also stores the repository data and the evaluation result
- * received from the form.
+ * ------------------------
+ * Main entry of the application.
+ * Controls navigation between:
+ *  - EvaluationStart (first question)
+ *  - Home (evaluation form)
+ *  - Results (summary and badge)
  */
 function App() {
-  // Store the GitHub repository information
   const [repoData, setRepoData] = useState(null);
-
-  // Store the result of the evaluation (scores, level, etc.)
   const [evaluationResult, setEvaluationResult] = useState(null);
-
-  // Control which page is visible: "home" or "results"
   const [view, setView] = useState("home");
-
-  // Store the target level selected by the user
   const [targetLevel, setTargetLevel] = useState("");
+  const [isFirstEvaluation, setIsFirstEvaluation] = useState(null);
 
-  /**
-   * Called when the user submits the form.
-   * Receives:
-   * - `data`: info fetched from GitHub
-   * - `result`: evaluation result (calculated later)
-   */
+
+  // Callback: called when the user submits the evaluation form
   const handleEvaluation = (data, result) => {
     setRepoData(data);
     setEvaluationResult(result);
-    setView("results"); // Switch to the results page
+    setView("results");
   };
+
+  const goBackToHome = () => {
+  setView("home");
+};
 
   return (
     <div className="app-container">
-      {view === "home" && <Home onEvaluate={handleEvaluation} />}
+      
+      {view === "home" && 
+        <Home 
+          onEvaluate={handleEvaluation} 
+          setTargetLevel={setTargetLevel}
+          repoData={repoData}
+          evaluationResult={evaluationResult}
+          isFirstEvaluation={isFirstEvaluation}
+          setIsFirstEvaluation={setIsFirstEvaluation}
+        />}
+
       {view === "results" && (
         <Results
           repoData={repoData}
           evaluationResult={evaluationResult}
           targetLevel={targetLevel}
+          onGoBack={goBackToHome}
         />
       )}
     </div>

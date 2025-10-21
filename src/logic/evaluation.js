@@ -1,76 +1,123 @@
+/*export function evaluateProject(criteria, autoChecks, manualAnswers) {
+  const levelWeights = {
+    Novice: 1,
+    Beginner: 1.2,
+    Intermediate: 1.5,
+    Advanced: 2,
+    Expert: 2.5
+  };
+
+  const results = {};
+  let totalWeight = 0;
+  let weightedScore = 0;
+
+  for (const c of criteria) {
+    const levelWeight = levelWeights[c.level] || 1;
+    const isMet =
+      c.type === "auto"
+        ? autoChecks[c.id]?.status === "met"
+        : manualAnswers[c.id]?.status === "met";
+
+    totalWeight += levelWeight;
+    if (isMet) weightedScore += levelWeight;
+
+    results[c.id] = { title: c.title, met: isMet, level: c.level };
+  }
+
+  const globalScore = weightedScore / totalWeight;
+
+  const validatedLevel =
+    globalScore > 0.9 ? "Expert" :
+    globalScore > 0.75 ? "Advanced" :
+    globalScore > 0.6 ? "Intermediate" :
+    globalScore > 0.4 ? "Beginner" : "Novice";
+
+  return {
+    validatedLevel,
+    globalScore,
+    details: results
+  };
+}
+*/
+
+
+// Mapping entre ids numériques de miniGuidelines et les auto-checks GitHub
+const autoCheckMapping = {
+  1: "hasReadme",
+  2: "hasLicense",
+  3: "hasCI",
+  4: "hasContributors",
+};
+
+const levelWeights = {
+  Novice: 1,
+  Beginner: 1.2,
+  Intermediate: 1.5,
+  Advanced: 2,
+  Expert: 2.5
+};
+
 /**
- * evaluation
- * Calculates how well a repository meets the evaluation criteria.
- *
- * It combines:
- * - automatic checks from GitHub (autoChecks)
- * - manual answers from the user (userAnswers)
- * - the list of criteria in the JSON (guidelines)
- *
- * Returns a score per skill level (Beginner, Intermediate, etc.)
- * and identifies the highest validated level.
+ * Évalue un projet en fonction des critères (auto + manuel)
+ * @param {Array} criteria miniGuidelines ou newGuidelines
+ * @param {Object} autoChecks résultat de checkRepoFeatures
+ * @param {Object} userAnswers réponses manuelles
  */
-export function evaluateLevels(guidelines, autoChecks, userAnswers) {
-  // Juste pour vérifier ce que la fonction reçoit
-  console.log("evaluateLevels called with:", {
-    guidelineItems: guidelines?.data?.node?.items?.nodes.length,
-    autoChecksKeys: Object.keys(autoChecks || {}).length,
-    userAnswersKeys: Object.keys(userAnswers || {}).length,
+export function evaluateProject(criteria, autoChecks = {}, userAnswers = {}) {
+  const results = {};
+  const levelScoresRaw = {};
+
+  // Initialiser les scores par niveau
+  Object.keys(levelWeights).forEach(level => {
+    levelScoresRaw[level] = { weight: 0, met: 0 };
   });
 
-  // Combine tous les critères : automatiques + manuels
-  const combined = { ...autoChecks, ...userAnswers };
+  let totalWeight = 0;
+  let weightedScore = 0;
 
-  // Contiendra les résultats par niveau
+  for (const c of criteria) {
+    const levelWeight = levelWeights[c.level] || 1;
+
+    let isMet;
+    if (c.type === "auto") {
+      const autoKey = autoCheckMapping[c.id];
+      isMet = autoChecks[autoKey]?.status === "met";
+    } else {
+      isMet = userAnswers[c.id]?.status === "met";
+    }
+
+    results[c.id] = { title: c.title, met: !!isMet, level: c.level };
+
+    // Calcul du score pondéré
+    totalWeight += levelWeight;
+    if (isMet) weightedScore += levelWeight;
+
+    // Stocker pour levelScores
+    levelScoresRaw[c.level].weight += levelWeight;
+    if (isMet) levelScoresRaw[c.level].met += levelWeight;
+  }
+
+  // Calculer ratio par niveau
   const levelScores = {};
-
-  // Récupération de tous les "items" (critères) du JSON
-  const itemsArray = guidelines?.data?.node?.items?.nodes || [];
-
-  // Regroupe les critères selon leur "Skill level"
-  const groupedByLevel = {};
-
-  itemsArray.forEach(item => {
-    const fields = item.fieldValues.nodes;
-
-    // Trouve le niveau (Beginner, Intermediate, etc.)
-    const level = fields.find(fv => fv.field?.name === 'Skill level')?.name || 'Unknown';
-
-    // Trouve le titre du critère
-    const title = fields.find(fv => fv.field?.name === 'Title')?.text || 'Untitled';
-
-    // Chaque critère a un identifiant unique
-    const id = item.id;
-
-    // On range le critère dans le bon niveau
-    if (!groupedByLevel[level]) groupedByLevel[level] = [];
-    groupedByLevel[level].push({ id, title, weight: 1 }); // TODO: use real weights if available
-  });
-
-  // Calcule les scores pour chaque niveau
-  Object.entries(groupedByLevel).forEach(([level, criteria]) => {
-    const totalPoints = criteria.reduce((sum, c) => sum + c.weight, 0);
-    const earnedPoints = criteria.reduce(
-      (sum, c) => sum + (combined[c.id] ? c.weight : 0),
-      0
-    );
-
-    const ratio = earnedPoints / (totalPoints || 1);
-
+  Object.entries(levelScoresRaw).forEach(([level, score]) => {
     levelScores[level] = {
-      totalPoints,
-      earnedPoints,
-      ratio,
-      validated: ratio >= 2 / 3, // seuil : 66%
-      missing: criteria.filter(c => !combined[c.id]), // critères non validés
+      ratio: score.weight > 0 ? score.met / score.weight : 0,
+      validated: score.weight > 0 ? score.met / score.weight >= 0.75 : false
     };
   });
 
-  // Trouve le niveau le plus élevé validé
-  const validatedLevel =
-    Object.entries(levelScores)
-      .reverse()
-      .find(([_, v]) => v.validated)?.[0] || 'Beginner';
+  const globalScore = weightedScore / totalWeight;
 
-  return { levelScores, validatedLevel };
+  const validatedLevel =
+    globalScore > 0.9 ? "Expert" :
+    globalScore > 0.75 ? "Advanced" :
+    globalScore > 0.6 ? "Intermediate" :
+    globalScore > 0.4 ? "Beginner" : "Novice";
+
+  return {
+    validatedLevel,
+    globalScore,
+    details: results,
+    levelScores
+  };
 }

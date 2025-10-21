@@ -22,17 +22,6 @@ export default function TargetLevelSelect({ onLevelChange }) {
     )
   ];
 
-  const criteria = [
-    ...new Set(
-      itemsArray.flatMap(item =>
-        item.fieldValues.nodes
-          .filter(fv => fv.field?.name === 'Title')
-          .map(fv => fv.text)
-      )
-    )
-  ];
-  console.log("Criteria :", criteria); 
-
   // React state to store the selected level
   const [selectedLevel, setSelectedLevel] = useState('');
 

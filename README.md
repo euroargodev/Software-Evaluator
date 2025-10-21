@@ -108,9 +108,7 @@ software-evaluator/
 │   │
 │   ├── logic/               # Business logic (no React)
 │   │   ├── github.js        # GitHub API interaction
-│   │   ├── evaluation.js    # Scoring logic
-│   │   ├── parser.js        # Text analysis helpers
-│   │   └── utils.js         # General utility functions
+│   │   └── evaluation.js    # Scoring logic
 │   │
 │   ├── data/                # Static data & JSON files
 │   │   └── guidelines.json  # Evaluation criteria (levels, FAIR principles, etc.)

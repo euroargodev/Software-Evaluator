@@ -1,0 +1,125 @@
+0: "Other Data used by the software are explicitly identified and traceable with a persistent identifier (DOI) when available"
+​
+1: "Argo papers and DOIs are referenced in the software metadata"
+​
+2: "The software has been presented to the Argo community (e.g. Data Management Team meeting)"
+​
+3: "The software documentation includes usage guidelines and examples"
+​
+4: "The software uses an open-source programming language (https://en.wikipedia.org/wiki/List_of_open-source_programming_languages)"
+​
+5: "The software uses a programming language adopted within the Argo community (e.g. Matlab, Python, R, Java, Julia)"
+​
+6: "The codebase includes comments and is documented following referenced standards (e.g. numpy style docstrings in Python)"
+​
+7: "The codebase is formatted following referenced standards (e.g. black in Python)"
+​
+8: "The project is hosted on a web-based developer platform (e.g., GitHub or GitLab)."
+​
+9: "The software provides a clear description of its dependencies"
+​
+10: "The software is released under an open-source license (include an open-source LICENSE file with the license content to the codebase)"
+​
+11: "The project includes a basic documentation (e.g. a README file)"
+​
+12: "The software documentation has an API reference section automatically generated"
+​
+13: "The software documentation is hosted on the web"
+​
+14: "The software documentation includes installation guidelines"
+​
+15: "The software includes continuous integration and unit testing"
+​
+16: "Unit tests cover multiple platforms and operating systems"
+​
+17: "The software includes continuous deployment"
+​
+18: "The software is distributed via well-known services (e.g., pip or conda for Python)"
+​
+19: "The software has a unique persistent identifier (e.g. DOI from paper or Zenodo, SWHID)"
+​
+20: "There is a published paper associated with the software (e.g. JOSS article)"
+​
+21: "Argo Data used by the software are traceable with a persistent identifier (Argo GDAC DOI or snapshot DOIs)"
+​
+22: "Other Data used by the software should be accessible online"
+​
+23: "Data produced by the software respect Argo file formats and conventions wherever relevant (e.g. NetCDF CF-1.7)"
+​
+24: "Metadata produced by the software follow Argo conventions (as in reference tables provided by the NVS server)"
+​
+25: "The software uses the Argo vocabulary server (to enforce conventions as defined in Argo reference tables)"
+​
+26: "The software documentation and codebase are written in English"
+​
+27: "Software training sessions are periodically organized"
+​
+28: "The methodology implemented by the software has been presented to the Argo community (e.g. Data Management Team meeting)"
+​
+29: "A version control tool is used to manage the project (e.g., Git)"
+​
+30: "Argo Data accessed remotely by the software are retrieved from an official GDAC server (http, ftp, s3 servers)"
+​
+31: "The project is hosted on an Argo developer platform (eg: github/euroargodev, github/ArgoDMQC, github/ArgoRTQC or any other project or institute level organisation)"
+​
+32: "The project includes a README file"
+​
+33: "The project includes a LICENSE file"
+​
+34: "The project has multiple collaborators from outside the Argo community"
+​
+35: "The project has multiple collaborators from the Argo community"
+​
+36: "Each collaborator is clearly identified within the project"
+​
+37: "The project includes a document describing expected contributions (e.g. a CONTRIBUTING file)"
+​
+38: "Issues or bugs are managed through the development web platform (e.g., GitHub or GitLab issues)"
+​
+39: "Issues or bug reports are described as fully as possible (e.g. use labels, reproducible example)"
+​
+40: "Issues or bugs are explicitly referencing the concerned Argo mission (e.g. core, deep, BGC, ...) or component (e.g. trajectories, decoding,...)"
+​
+41: "Every significant change within the code is managed through a pull (or merge) request"
+​
+42: "Each pull request is reviewed by at least one collaborator"
+​
+43: "Code review meetings are organized when needed"
+​
+44: "Project meetings are periodically organized"
+​
+45: "User meetings or workshops are held and communicated within the Argo community"
+​
+46: "The project includes a CONTRIBUTING file"
+​
+47: "The software documentation includes the list of operating systems and environments supported"
+​
+48: "The software documentation includes the definition of the execution environment supported"
+​
+49: "The project includes a change log"
+​
+50: "The software documentation includes the list of changes to the codebase between each software releases"
+​
+51: "The project clearly list all software identifiers in the README file (e.g. DOI, SWHID)"
+​
+52: "The software is registered in at least one public software registry (e.g., Zenodo, Seanoe, Research Software Directory)"
+​
+53: "The software is registered in an Argo software registry (e.g. AST and Argo-BGC dedicated webpages)"
+​
+54: "Data produced by the software preserve the Argo license (CC BY 4.0)"
+​
+55: "The project include a CITATION.cff file to indicate how to cite the software"
+​
+56: "The codebase is designed with modular components to facilitate reuse, testing and maintenance"
+​
+57: 'The codebase is "consistent", i.e. it follows consistent naming conventions, coding styles, and design patterns throughout the software'
+​
+58: "The codebase includes comments and is documented to explain the purpose and functionality of each module, class, and function"
+​
+59: "The project defines expected standards of conduct when engaging in the project (e.g. includes a CODE_OF_CONDUCT file to the codebase)"
+​
+60: "Argo Data accessed locally by the software must be assumed to be organised following the GDAC folder structure"
+​
+61: "Argo Meta-Data accessed remotely by the software are retrieved from an official Argo sources (GDAC ftp, GDAC https, NVS, SparQL, STAC)"
+​
+62: "The project allows any user to submit an issue or bug report and ease the process (e.g. provide list of labels, issue templates)"
