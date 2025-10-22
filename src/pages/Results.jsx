@@ -10,7 +10,6 @@ const badgeColors = {
 };
 
 function Results({ repoData, evaluationResult, targetLevel, onGoBack }) {
-  console.log("📦 Results props:", { repoData, evaluationResult, targetLevel });
   if (!evaluationResult)
     return <p>No results available. Please run an evaluation first.</p>;
 
@@ -21,9 +20,11 @@ function Results({ repoData, evaluationResult, targetLevel, onGoBack }) {
     feedback = [],
   } = evaluationResult;
 
+  const repo = repoData ? `${repoData.owner}/${repoData.repo}` : "Unknown";
+
   const handleDownload = () => {
     const fileData = {
-      repository: repoData?.name || "Unknown",
+      repository: repo,
       evaluatedAt: new Date().toISOString(),
       validatedLevel,
       globalScore,
