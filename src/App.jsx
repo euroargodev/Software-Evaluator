@@ -22,8 +22,14 @@ function App() {
 
   // Callback: called when the user submits the evaluation form
   const handleEvaluation = (data, result) => {
+    console.log("✅ handleEvaluation called:", { data, result });
     setRepoData(data);
-    setEvaluationResult(result);
+    if (result instanceof Promise) {
+      console.warn("⚠️ result is still a Promise!");
+    } else {
+      console.log("✅ result is a plain object");
+    }
+    setEvaluationResult(result)
     setView("results");
   };
 
@@ -48,7 +54,6 @@ function App() {
         <Results
           repoData={repoData}
           evaluationResult={evaluationResult}
-          targetLevel={targetLevel}
           onGoBack={goBackToHome}
         />
       )}
