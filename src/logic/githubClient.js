@@ -1,5 +1,5 @@
 // src/logic/githubClient.js
-import { Octokit } from "octokit";
+import { Octokit } from "https://esm.sh/octokit";
 
 let octokitInstance = null;
 
