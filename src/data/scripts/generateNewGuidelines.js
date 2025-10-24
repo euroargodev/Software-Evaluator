@@ -7,16 +7,39 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const inputPath = path.resolve(__dirname, "../guidelines.json");
-const newGuidelinesPath = path.resolve(__dirname, "../newGuidelines.json");
-const manualPath = path.resolve(__dirname, "../manualQuestions.json");
-const autoMapPath = path.resolve(__dirname, "../autoCheckMap.js");
+const outputPath = path.resolve(__dirname, "../guidelines_v2.json");
+const overridesPath = path.resolve(__dirname, "../metadataOverrides.json");
 
-// Liste des critères vérifiables automatiquement
+// 🔧 IDs détectables automatiquement (on peut les élargir plus tard)
 const autoIds = [
-  8, 10, 11, 29, 32, 34, 35, 36, 37, 38, 39,
-  41, 42, 49, 50, 55, 59, 15, 17
+  8, 10, 11, 15, 17, 29, 32, 34, 35, 36, 37, 38,
+  39, 41, 42, 49, 50, 55, 59
 ];
 
+//Fonction utilitaire pour classifier un critère par thème
+function classifyCriterion(title) {
+  if (!title) return "General";
+  const t = title.toLowerCase();
+  if (t.includes("readme") || t.includes("documentation")) return "Documentation";
+  if (t.includes("license") || t.includes("licence")) return "Licensing";
+  if (t.includes("doi") || t.includes("identifier") || t.includes("citation")) return "FAIR Data";
+  if (t.includes("community") || t.includes("contributor")) return "Community";
+  if (t.includes("version") || t.includes("release")) return "Versioning";
+  if (t.includes("test") || t.includes("ci") || t.includes("workflow")) return "Continuous Integration";
+  if (t.includes("guideline") || t.includes("contribution")) return "Governance";
+  return "General";
+}
+
+//Génère une question à poser à l’utilisateur à partir du titre
+function generateQuestion(title) {
+  if (!title) return "Is this criterion met by your project?";
+  const formatted = title.trim();
+  return formatted.endsWith("?")
+    ? formatted
+    : `Does your project meet the following criterion: "${formatted}"?`;
+}
+
+//Génération du fichier enrichi
 function generateNewGuidelines() {
   if (!fs.existsSync(inputPath)) {
     console.error("❌ guidelines.json not found at:", inputPath);
@@ -25,70 +48,64 @@ function generateNewGuidelines() {
 
   const raw = fs.readFileSync(inputPath, "utf-8");
   const guidelines = JSON.parse(raw);
+  const overrides = fs.existsSync(overridesPath)
+    ? JSON.parse(fs.readFileSync(overridesPath, "utf-8"))
+    : {};
 
-  // Adapté à la structure typique du fichier guidelines.json
   const nodes = guidelines.data?.node?.items?.nodes || [];
+  console.log(`🔍 Found ${nodes.length} criteria in source file.`);
 
   const simplified = nodes.map((item, i) => {
     const fields = Object.fromEntries(
       item.fieldValues.nodes.map(fv => [fv.field?.name || "unknown", fv.text || fv.name])
     );
 
+    const title = fields["Title"] || "Untitled";
     const id = i;
-    return {
+    const level = fields["Skill level"] || "Unknown";
+    const type = autoIds.includes(id) ? "auto" : "manual";
+
+    const baseCriterion = {
       id,
-      title: fields["Title"] || "Untitled",
-      level: fields["Skill level"] || "Unknown",
-      "Software Development Model (SDM)": fields["Software Development Model (SDM)"] || "",
-      scope: fields["Scope"] || "",
-      "SDM requirement level": fields["SDM requirement level"] || "",
+      title,
+      question: generateQuestion(title),
+      category: classifyCriterion(title),
+      level,
+      type,
+      weight: {
+        Novice: 1,
+        Beginner: 1.2,
+        Intermediate: 1.5,
+        Advanced: 2,
+        Expert: 2.5,
+      }[level] || 1,
       FAIR4RS: fields["FAIR4RS"] || "",
+      "Software Development Model (SDM)": fields["Software Development Model (SDM)"] || "",
+      "SDM requirement level": fields["SDM requirement level"] || "",
       "Argo FAIR tools": fields["Argo FAIR tools"] || "",
       "Project Aspects": fields["Project Aspects"] || "",
-      type: autoIds.includes(id) ? "auto" : "manual"
+      ui: {
+        inputType: type === "manual" ? "boolean" : "auto",
+        editable: type === "manual",
+        visible: true,
+      },
+      metadata: {
+        generatedAt: new Date().toISOString(),
+        sourceFile: "guidelines.json",
+        version: "2.0",
+      },
+    };
+
+    // fusion avec metadataOverrides.json s’il existe
+    return {
+      ...baseCriterion,
+      ...(overrides[id] || {}),
     };
   });
 
-  // Écriture du fichier principal
-  fs.writeFileSync(newGuidelinesPath, JSON.stringify(simplified, null, 2), "utf-8");
-
-  // Génération de manualQuestions.json
-  const manualQuestions = simplified
-    .filter(item => item.type === "manual")
-    .map(item => ({
-      id: item.id,
-      title: item.title,
-      level: item.level,
-      category: item["Project Aspects"],
-      SDM: item["Software Development Model (SDM)"]
-    }));
-  fs.writeFileSync(manualPath, JSON.stringify(manualQuestions, null, 2), "utf-8");
-
-  // Génération de autoCheckMap.js
-  const autoChecks = simplified
-    .filter(item => item.type === "auto")
-    .map(item => ({
-      id: item.id,
-      title: item.title,
-      check: `${item.id}`
-    }));
-
-  const autoJsContent = `// Auto-generated file — DO NOT EDIT MANUALLY
-export const autoCheckMap = {
-${autoChecks.map(c => `  ${c.id}: { title: "${c.title}", check: "${c.check}" }`).join(",\n")}
-};`;
-
-  fs.writeFileSync(autoMapPath, autoJsContent, "utf-8");
-
-  // Résumé console
-  const autoCount = simplified.filter(c => c.type === "auto").length;
-  const manualCount = simplified.length - autoCount;
-
-  console.log(" newGuidelines.json generated successfully!");
-  console.log(` Total: ${simplified.length}`);
-  console.log(`   - Auto: ${autoCount}`);
-  console.log(`   - Manual: ${manualCount}`);
-  console.log(` manualQuestions.json and autoCheckMap.js created.`);
+  fs.writeFileSync(outputPath, JSON.stringify(simplified, null, 2), "utf-8");
+  console.log(`guidelines_v2.json generated successfully!`);
+  console.log(`Total: ${simplified.length} enriched criteria`);
 }
 
 generateNewGuidelines();

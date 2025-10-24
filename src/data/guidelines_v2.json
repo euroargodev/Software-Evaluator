@@ -2,757 +2,1513 @@
   {
     "id": 0,
     "title": "Other Data used by the software are explicitly identified and traceable with a persistent identifier (DOI) when available",
+    "question": "Does your project meet the following criterion: \"Other Data used by the software are explicitly identified and traceable with a persistent identifier (DOI) when available\"?",
+    "category": "FAIR Data",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 1,
     "title": "Argo papers and DOIs are referenced in the software metadata",
+    "question": "Does your project meet the following criterion: \"Argo papers and DOIs are referenced in the software metadata\"?",
+    "category": "FAIR Data",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "Findable",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 2,
     "title": "The software has been presented to the Argo community (e.g. Data Management Team meeting)",
+    "question": "Does your project meet the following criterion: \"The software has been presented to the Argo community (e.g. Data Management Team meeting)\"?",
+    "category": "Community",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 3,
     "title": "The software documentation includes usage guidelines and examples",
+    "question": "Does your project meet the following criterion: \"The software documentation includes usage guidelines and examples\"?",
+    "category": "Documentation",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 4,
     "title": "The software uses an open-source programming language (https://en.wikipedia.org/wiki/List_of_open-source_programming_languages)",
+    "question": "Does your project meet the following criterion: \"The software uses an open-source programming language (https://en.wikipedia.org/wiki/List_of_open-source_programming_languages)\"?",
+    "category": "General",
     "level": "Novice",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1,
     "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 5,
     "title": "The software uses a programming language adopted within the Argo community (e.g. Matlab, Python, R, Java, Julia)",
+    "question": "Does your project meet the following criterion: \"The software uses a programming language adopted within the Argo community (e.g. Matlab, Python, R, Java, Julia)\"?",
+    "category": "Community",
     "level": "Novice",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1,
     "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 6,
     "title": "The codebase includes comments and is documented following referenced standards (e.g. numpy style docstrings in Python)",
+    "question": "Does your project meet the following criterion: \"The codebase includes comments and is documented following referenced standards (e.g. numpy style docstrings in Python)\"?",
+    "category": "General",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 7,
     "title": "The codebase is formatted following referenced standards (e.g. black in Python)",
+    "question": "Does your project meet the following criterion: \"The codebase is formatted following referenced standards (e.g. black in Python)\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 8,
     "title": "The project is hosted on a web-based developer platform (e.g., GitHub or GitLab).",
+    "question": "Does your project meet the following criterion: \"The project is hosted on a web-based developer platform (e.g., GitHub or GitLab).\"?",
+    "category": "General",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1.2,
     "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 9,
     "title": "The software provides a clear description of its dependencies",
+    "question": "Does your project meet the following criterion: \"The software provides a clear description of its dependencies\"?",
+    "category": "Continuous Integration",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 10,
     "title": "The software is released under an open-source license (include an open-source LICENSE file with the license content to the codebase)",
+    "question": "Does your project meet the following criterion: \"The software is released under an open-source license (include an open-source LICENSE file with the license content to the codebase)\"?",
+    "category": "Licensing",
     "level": "Novice",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1,
     "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 11,
     "title": "The project includes a basic documentation (e.g. a README file)",
+    "question": "Does your project meet the following criterion: \"The project includes a basic documentation (e.g. a README file)\"?",
+    "category": "Documentation",
     "level": "Novice",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 12,
     "title": "The software documentation has an API reference section automatically generated",
+    "question": "Does your project meet the following criterion: \"The software documentation has an API reference section automatically generated\"?",
+    "category": "Documentation",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 13,
     "title": "The software documentation is hosted on the web",
+    "question": "Does your project meet the following criterion: \"The software documentation is hosted on the web\"?",
+    "category": "Documentation",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 14,
     "title": "The software documentation includes installation guidelines",
+    "question": "Does your project meet the following criterion: \"The software documentation includes installation guidelines\"?",
+    "category": "Documentation",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 15,
     "title": "The software includes continuous integration and unit testing",
+    "question": "Does your project meet the following criterion: \"The software includes continuous integration and unit testing\"?",
+    "category": "Continuous Integration",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1.5,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 16,
     "title": "Unit tests cover multiple platforms and operating systems",
+    "question": "Does your project meet the following criterion: \"Unit tests cover multiple platforms and operating systems\"?",
+    "category": "Continuous Integration",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 2,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 17,
     "title": "The software includes continuous deployment",
+    "question": "Does your project meet the following criterion: \"The software includes continuous deployment\"?",
+    "category": "General",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 18,
     "title": "The software is distributed via well-known services (e.g., pip or conda for Python)",
+    "question": "Does your project meet the following criterion: \"The software is distributed via well-known services (e.g., pip or conda for Python)\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 19,
     "title": "The software has a unique persistent identifier (e.g. DOI from paper or Zenodo, SWHID)",
+    "question": "Does your project meet the following criterion: \"The software has a unique persistent identifier (e.g. DOI from paper or Zenodo, SWHID)\"?",
+    "category": "FAIR Data",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 20,
     "title": "There is a published paper associated with the software (e.g. JOSS article)",
+    "question": "Does your project meet the following criterion: \"There is a published paper associated with the software (e.g. JOSS article)\"?",
+    "category": "Continuous Integration",
     "level": "Expert",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 2.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 21,
     "title": "Argo Data used by the software are traceable with a persistent identifier (Argo GDAC DOI or snapshot DOIs)",
+    "question": "Does your project meet the following criterion: \"Argo Data used by the software are traceable with a persistent identifier (Argo GDAC DOI or snapshot DOIs)\"?",
+    "category": "FAIR Data",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "Findable",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.915Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 22,
     "title": "Other Data used by the software should be accessible online",
+    "question": "Does your project meet the following criterion: \"Other Data used by the software should be accessible online\"?",
+    "category": "General",
     "level": "Novice",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1,
     "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 23,
     "title": "Data produced by the software respect Argo file formats and conventions wherever relevant (e.g. NetCDF CF-1.7)",
+    "question": "Does your project meet the following criterion: \"Data produced by the software respect Argo file formats and conventions wherever relevant (e.g. NetCDF CF-1.7)\"?",
+    "category": "General",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "Findable",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 24,
     "title": "Metadata produced by the software follow Argo conventions (as in reference tables provided by the NVS server)",
+    "question": "Does your project meet the following criterion: \"Metadata produced by the software follow Argo conventions (as in reference tables provided by the NVS server)\"?",
+    "category": "General",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "Interoperable",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 25,
     "title": "The software uses the Argo vocabulary server (to enforce conventions as defined in Argo reference tables)",
+    "question": "Does your project meet the following criterion: \"The software uses the Argo vocabulary server (to enforce conventions as defined in Argo reference tables)\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "Interoperable",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 26,
     "title": "The software documentation and codebase are written in English",
+    "question": "Does your project meet the following criterion: \"The software documentation and codebase are written in English\"?",
+    "category": "Documentation",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 27,
     "title": "Software training sessions are periodically organized",
+    "question": "Does your project meet the following criterion: \"Software training sessions are periodically organized\"?",
+    "category": "General",
     "level": "Expert",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 2.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 28,
     "title": "The methodology implemented by the software has been presented to the Argo community (e.g. Data Management Team meeting)",
+    "question": "Does your project meet the following criterion: \"The methodology implemented by the software has been presented to the Argo community (e.g. Data Management Team meeting)\"?",
+    "category": "Community",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 29,
     "title": "A version control tool is used to manage the project (e.g., Git)",
+    "question": "Does your project meet the following criterion: \"A version control tool is used to manage the project (e.g., Git)\"?",
+    "category": "Versioning",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1.2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 30,
     "title": "Argo Data accessed remotely by the software are retrieved from an official GDAC server (http, ftp, s3 servers)",
+    "question": "Does your project meet the following criterion: \"Argo Data accessed remotely by the software are retrieved from an official GDAC server (http, ftp, s3 servers)\"?",
+    "category": "Continuous Integration",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "Accessible",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 31,
     "title": "The project is hosted on an Argo developer platform (eg: github/euroargodev, github/ArgoDMQC, github/ArgoRTQC or any other project or institute level organisation)",
+    "question": "Does your project meet the following criterion: \"The project is hosted on an Argo developer platform (eg: github/euroargodev, github/ArgoDMQC, github/ArgoRTQC or any other project or institute level organisation)\"?",
+    "category": "General",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 32,
     "title": "The project includes a README file",
+    "question": "Does your project meet the following criterion: \"The project includes a README file\"?",
+    "category": "Documentation",
     "level": "Novice",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1,
     "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 33,
     "title": "The project includes a LICENSE file",
+    "question": "Does your project meet the following criterion: \"The project includes a LICENSE file\"?",
+    "category": "Licensing",
     "level": "Novice",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 34,
     "title": "The project has multiple collaborators from outside the Argo community",
+    "question": "Does your project meet the following criterion: \"The project has multiple collaborators from outside the Argo community\"?",
+    "category": "Community",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 35,
     "title": "The project has multiple collaborators from the Argo community",
+    "question": "Does your project meet the following criterion: \"The project has multiple collaborators from the Argo community\"?",
+    "category": "Community",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 36,
     "title": "Each collaborator is clearly identified within the project",
+    "question": "Does your project meet the following criterion: \"Each collaborator is clearly identified within the project\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 37,
     "title": "The project includes a document describing expected contributions (e.g. a CONTRIBUTING file)",
+    "question": "Does your project meet the following criterion: \"The project includes a document describing expected contributions (e.g. a CONTRIBUTING file)\"?",
+    "category": "Governance",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 38,
     "title": "Issues or bugs are managed through the development web platform (e.g., GitHub or GitLab issues)",
+    "question": "Does your project meet the following criterion: \"Issues or bugs are managed through the development web platform (e.g., GitHub or GitLab issues)\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 39,
     "title": "Issues or bug reports are described as fully as possible (e.g. use labels, reproducible example)",
+    "question": "Does your project meet the following criterion: \"Issues or bug reports are described as fully as possible (e.g. use labels, reproducible example)\"?",
+    "category": "Continuous Integration",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 40,
     "title": "Issues or bugs are explicitly referencing the concerned Argo mission (e.g. core, deep, BGC, ...) or component (e.g. trajectories, decoding,...)",
+    "question": "Does your project meet the following criterion: \"Issues or bugs are explicitly referencing the concerned Argo mission (e.g. core, deep, BGC, ...) or component (e.g. trajectories, decoding,...)\"?",
+    "category": "Continuous Integration",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 41,
     "title": "Every significant change within the code is managed through a pull (or merge) request",
+    "question": "Does your project meet the following criterion: \"Every significant change within the code is managed through a pull (or merge) request\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 42,
     "title": "Each pull request is reviewed by at least one collaborator",
+    "question": "Does your project meet the following criterion: \"Each pull request is reviewed by at least one collaborator\"?",
+    "category": "General",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 43,
     "title": "Code review meetings are organized when needed",
+    "question": "Does your project meet the following criterion: \"Code review meetings are organized when needed\"?",
+    "category": "General",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 44,
     "title": "Project meetings are periodically organized",
+    "question": "Does your project meet the following criterion: \"Project meetings are periodically organized\"?",
+    "category": "General",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 45,
     "title": "User meetings or workshops are held and communicated within the Argo community",
+    "question": "Does your project meet the following criterion: \"User meetings or workshops are held and communicated within the Argo community\"?",
+    "category": "Community",
     "level": "Expert",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 2.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 46,
     "title": "The project includes a CONTRIBUTING file",
+    "question": "Does your project meet the following criterion: \"The project includes a CONTRIBUTING file\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 47,
     "title": "The software documentation includes the list of operating systems and environments supported",
+    "question": "Does your project meet the following criterion: \"The software documentation includes the list of operating systems and environments supported\"?",
+    "category": "Documentation",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 48,
     "title": "The software documentation includes the definition of the execution environment supported",
+    "question": "Does your project meet the following criterion: \"The software documentation includes the definition of the execution environment supported\"?",
+    "category": "Documentation",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 49,
     "title": "The project includes a change log",
+    "question": "Does your project meet the following criterion: \"The project includes a change log\"?",
+    "category": "General",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 50,
     "title": "The software documentation includes the list of changes to the codebase between each software releases",
+    "question": "Does your project meet the following criterion: \"The software documentation includes the list of changes to the codebase between each software releases\"?",
+    "category": "Documentation",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 2,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 51,
     "title": "The project clearly list all software identifiers in the README file (e.g. DOI, SWHID)",
+    "question": "Does your project meet the following criterion: \"The project clearly list all software identifiers in the README file (e.g. DOI, SWHID)\"?",
+    "category": "Documentation",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 52,
     "title": "The software is registered in at least one public software registry (e.g., Zenodo, Seanoe, Research Software Directory)",
+    "question": "Does your project meet the following criterion: \"The software is registered in at least one public software registry (e.g., Zenodo, Seanoe, Research Software Directory)\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 53,
     "title": "The software is registered in an Argo software registry (e.g. AST and Argo-BGC dedicated webpages)",
+    "question": "Does your project meet the following criterion: \"The software is registered in an Argo software registry (e.g. AST and Argo-BGC dedicated webpages)\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 54,
     "title": "Data produced by the software preserve the Argo license (CC BY 4.0)",
+    "question": "Does your project meet the following criterion: \"Data produced by the software preserve the Argo license (CC BY 4.0)\"?",
+    "category": "Licensing",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "Reusable",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 55,
     "title": "The project include a CITATION.cff file to indicate how to cite the software",
+    "question": "Does your project meet the following criterion: \"The project include a CITATION.cff file to indicate how to cite the software\"?",
+    "category": "FAIR Data",
     "level": "Advanced",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 2,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 56,
     "title": "The codebase is designed with modular components to facilitate reuse, testing and maintenance",
+    "question": "Does your project meet the following criterion: \"The codebase is designed with modular components to facilitate reuse, testing and maintenance\"?",
+    "category": "Continuous Integration",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 57,
     "title": "The codebase is \"consistent\", i.e. it follows consistent naming conventions, coding styles, and design patterns throughout the software",
+    "question": "Does your project meet the following criterion: \"The codebase is \"consistent\", i.e. it follows consistent naming conventions, coding styles, and design patterns throughout the software\"?",
+    "category": "General",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 58,
     "title": "The codebase includes comments and is documented to explain the purpose and functionality of each module, class, and function",
+    "question": "Does your project meet the following criterion: \"The codebase includes comments and is documented to explain the purpose and functionality of each module, class, and function\"?",
+    "category": "General",
     "level": "Novice",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 59,
     "title": "The project defines expected standards of conduct when engaging in the project (e.g. includes a CODE_OF_CONDUCT file to the codebase)",
+    "question": "Does your project meet the following criterion: \"The project defines expected standards of conduct when engaging in the project (e.g. includes a CODE_OF_CONDUCT file to the codebase)\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "auto",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "auto"
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 60,
     "title": "Argo Data accessed locally by the software must be assumed to be organised following the GDAC folder structure",
+    "question": "Does your project meet the following criterion: \"Argo Data accessed locally by the software must be assumed to be organised following the GDAC folder structure\"?",
+    "category": "General",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "Accessible",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 61,
     "title": "Argo Meta-Data accessed remotely by the software are retrieved from an official Argo sources (GDAC ftp, GDAC https, NVS, SparQL, STAC)",
+    "question": "Does your project meet the following criterion: \"Argo Meta-Data accessed remotely by the software are retrieved from an official Argo sources (GDAC ftp, GDAC https, NVS, SparQL, STAC)\"?",
+    "category": "Continuous Integration",
     "level": "Beginner",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.2,
     "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "Reusable",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   },
   {
     "id": 62,
     "title": "The project allows any user to submit an issue or bug report and ease the process (e.g. provide list of labels, issue templates)",
+    "question": "Does your project meet the following criterion: \"The project allows any user to submit an issue or bug report and ease the process (e.g. provide list of labels, issue templates)\"?",
+    "category": "General",
     "level": "Intermediate",
-    "Software Development Model (SDM)": "",
-    "scope": "",
-    "SDM requirement level": "",
+    "type": "manual",
+    "weight": 1.5,
     "FAIR4RS": "",
+    "Software Development Model (SDM)": "",
+    "SDM requirement level": "",
     "Argo FAIR tools": "",
     "Project Aspects": "",
-    "type": "manual"
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2025-10-23T10:23:00.916Z",
+      "sourceFile": "guidelines.json",
+      "version": "2.0"
+    }
   }
 ]

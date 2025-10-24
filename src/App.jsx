@@ -16,19 +16,13 @@ function App() {
   const [repoData, setRepoData] = useState(null);
   const [evaluationResult, setEvaluationResult] = useState(null);
   const [view, setView] = useState("home");
-  const [setTargetLevel] = useState("");
+  const [targetLevel, setTargetLevel] = useState("");
   const [isFirstEvaluation, setIsFirstEvaluation] = useState(null);
 
 
   // Callback: called when the user submits the evaluation form
   const handleEvaluation = (data, result) => {
-    console.log("✅ handleEvaluation called:", { data});
     setRepoData(data);
-    if (result instanceof Promise) {
-      console.warn("⚠️ result is still a Promise!");
-    } else {
-      console.log("✅ result is a plain object");
-    }
     setEvaluationResult(result)
     setView("results");
   };

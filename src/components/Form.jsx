@@ -1,7 +1,7 @@
 import { useState } from "react";
 import TargetLevelSelect from "./TargetLevelSelect";
 import "./Form.css";
-import miniGuidelines from "../data/miniGuidelines.json";
+import guidelines from "../data/guidelines_v2.json";
 import CriterionQuestion from "./CriterionQuestion";
 import { evaluateProject } from "../logic/evaluation";
 import { githubCriterionMap } from "../logic/github";
@@ -23,7 +23,7 @@ function Form({ onEvaluate, setTargetLevel, isFirstEvaluation, setIsFirstEvaluat
       const repo = match[1];
 
       // Prépare les critères avec fonctions
-      const guidelinesWithFunctions = miniGuidelines.map((c) => ({
+      const guidelinesWithFunctions = guidelines.map((c) => ({
         ...c,
         function:
           c.type === "auto"
@@ -72,7 +72,7 @@ function Form({ onEvaluate, setTargetLevel, isFirstEvaluation, setIsFirstEvaluat
       {!isFirstEvaluation && <TargetLevelSelect onLevelChange={setTargetLevel} />}
 
       <h3>Manual Criteria</h3>
-      {miniGuidelines
+      {guidelines
         .filter((c) => c.type === "manual")
         .map((q) => (
           <CriterionQuestion
