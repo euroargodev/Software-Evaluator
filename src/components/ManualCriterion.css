@@ -1,0 +1,134 @@
+.manual-criterion {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  padding: 0.75rem;
+  border: 1px solid #ececec;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  overflow: visible;
+  z-index: 0;
+  transition: box-shadow 0.2s ease;
+}
+
+.manual-criterion:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* === TITRE & INFO === */
+.mc-header .mc-title {
+  font-weight: 600;
+  color: #222;
+}
+
+.mc-info {
+  font-size: 0.85rem;
+  color: #8d8181;
+  margin-top: 0.25rem;
+}
+
+/* === BOUTONS MET / UNMET === */
+.mc-controls {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.mc-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background: #fafafa;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+}
+
+/* === BOUTON MET === */
+.mc-btn.mc-met.active {
+  background: #e9f9ef;
+  border-color: #1c7c37;
+  color: #1c7c37;
+  box-shadow: inset 0 0 0 1px #1c7c37;
+}
+
+.mc-btn.mc-met:hover {
+  background: #dff5e9;
+}
+
+/* === BOUTON UNMET === */
+.mc-btn.mc-unmet.active {
+  background: #fdeaea;
+  border-color: #d9534f;
+  color: #b52b27;
+  box-shadow: inset 0 0 0 1px #d9534f;
+}
+
+.mc-btn.mc-unmet:hover {
+  background: #fbe2e2;
+}
+
+/* Petites icônes rondes */
+.mc-icon {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.mc-btn:hover .mc-icon {
+  transform: scale(1.1);
+}
+
+.mc-icon.met { 
+  background: #24a148; 
+}
+.mc-icon.unmet { background: #d9534f; }
+
+/* === CHAMP EVIDENCE === */
+.mc-evidence {
+  margin-top: 0.6rem;
+  position: relative;
+  z-index: 1;
+  animation: fadeIn 0.3s ease;
+}
+
+.mc-evidence label {
+  display: block;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.mc-evidence input {
+  margin-top: 0.35rem;
+  width: 100%;
+  padding: 0.45rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+}
+
+.mc-evidence input:focus {
+  border-color: #4b64f3;
+  outline: none;
+}
+
+.required {
+  color: #d9534f;
+  margin-left: 0.25rem;
+  font-weight: 700;
+}
+
+/* === Animation légère quand le champ apparaît === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}

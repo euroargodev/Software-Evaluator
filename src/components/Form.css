@@ -1,51 +1,50 @@
-/* === Form.css ===
-   Style du formulaire principal d'évaluation
-   (inputs, boutons, structure générale)
-*/
-
-.form-container {
+.form-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* espace vertical entre les éléments */
-  max-width: 600px;
-  margin: 2rem auto;
+  gap: 1.5rem;
+  width: 100%;
+  min-height: 100vh;
   padding: 2rem;
-  background-color: #ffffff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background: #f9f9fb;
+  box-sizing: border-box;
 }
 
-.form-container label {
-  font-weight: 600;
-  color: #2a2a2a;
+.form-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  background: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 
-.form-container input,
-.form-container textarea {
-  padding: 0.7rem;
-  border-radius: 0.5rem;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+.form-header input {
+  flex: 1;
+  min-width: 250px;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
 }
 
-.form-container input:focus,
-.form-container textarea:focus {
-  border-color: #646cff; /* couleur principale (bleu Vite) */
-  outline: none;
-}
-
-.form-container button {
-  background-color: #646cff;
-  color: white;
+.evaluate-btn {
+  background: #007acc;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
   border: none;
-  padding: 0.8rem 1.2rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  transition: background 0.2s ease;
 }
 
-.form-container button:hover {
-  background-color: #4b50c4;
+.evaluate-btn:hover {
+  background: #005fa3;
+}
+
+.criteria-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 1.5rem;
 }

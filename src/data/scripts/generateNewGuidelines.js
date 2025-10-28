@@ -10,13 +10,13 @@ const inputPath = path.resolve(__dirname, "../guidelines.json");
 const outputPath = path.resolve(__dirname, "../guidelines_v2.json");
 const overridesPath = path.resolve(__dirname, "../metadataOverrides.json");
 
-// 🔧 IDs détectables automatiquement (on peut les élargir plus tard)
+//IDs détectables automatiquement (on peut les élargir plus tard)
 const autoIds = [
   8, 10, 11, 15, 17, 29, 32, 34, 35, 36, 37, 38,
   39, 41, 42, 49, 50, 55, 59
 ];
 
-//Fonction utilitaire pour classifier un critère par thème
+//Classification par mots-clés
 function classifyCriterion(title) {
   if (!title) return "General";
   const t = title.toLowerCase();
@@ -30,13 +30,28 @@ function classifyCriterion(title) {
   return "General";
 }
 
+// Regroupement par thème logique
+function getCriterionGroup(id) {
+  if ([0, 1, 19, 21, 51, 52, 53].includes(id)) return "Metadata & Identification";
+  if ([3, 11, 12, 13, 14, 47, 48, 50].includes(id)) return "Documentation";
+  if ([4, 5, 6, 7, 56, 57, 58].includes(id)) return "Code Quality & Standards";
+  if ([15, 16, 17].includes(id)) return "Testing & Integration";
+  if ([10, 33, 55, 59].includes(id)) return "Licensing & Citation";
+  if ([27, 28, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 62].includes(id))
+    return "Community & Collaboration";
+  if ([8, 9, 29, 30, 31, 32, 49].includes(id)) return "Version Control & Hosting";
+  if ([20, 22, 23, 24, 25, 54, 60, 61].includes(id)) return "Data & FAIR Compliance";
+  if ([26].includes(id)) return "Language & Accessibility";
+  return "Other";
+}
+
 //Génère une question à poser à l’utilisateur à partir du titre
 function generateQuestion(title) {
   if (!title) return "Is this criterion met by your project?";
   const formatted = title.trim();
   return formatted.endsWith("?")
     ? formatted
-    : `Does your project meet the following criterion: "${formatted}"?`;
+    : `${formatted}`;
 }
 
 //Génération du fichier enrichi
@@ -53,7 +68,7 @@ function generateNewGuidelines() {
     : {};
 
   const nodes = guidelines.data?.node?.items?.nodes || [];
-  console.log(`🔍 Found ${nodes.length} criteria in source file.`);
+  console.log(`Found ${nodes.length} criteria in source file.`);
 
   const simplified = nodes.map((item, i) => {
     const fields = Object.fromEntries(
@@ -70,6 +85,7 @@ function generateNewGuidelines() {
       title,
       question: generateQuestion(title),
       category: classifyCriterion(title),
+      group: getCriterionGroup(id), 
       level,
       type,
       weight: {
@@ -96,7 +112,7 @@ function generateNewGuidelines() {
       },
     };
 
-    // fusion avec metadataOverrides.json s’il existe
+    // Fusion avec metadataOverrides.json s’il existe
     return {
       ...baseCriterion,
       ...(overrides[id] || {}),
@@ -106,6 +122,7 @@ function generateNewGuidelines() {
   fs.writeFileSync(outputPath, JSON.stringify(simplified, null, 2), "utf-8");
   console.log(`guidelines_v2.json generated successfully!`);
   console.log(`Total: ${simplified.length} enriched criteria`);
+  console.log(`Groups detected: ${[...new Set(simplified.map(c => c.group))].join(", ")}`);
 }
 
 generateNewGuidelines();

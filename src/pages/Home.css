@@ -1,26 +1,19 @@
-/* === Home.css ===
-   Page d'accueil du site
-   Présente le titre, une petite intro, et le formulaire
-*/
+/* === Home.css === */
 
-.home-container {
+.home-page {
   text-align: center;
   margin-top: 3rem;
   padding: 1rem;
 }
 
-.home-container h1 {
+.home-page h1 {
   font-size: 2.2rem;
   color: #242424;
 }
 
-.home-container p {
+.home-page p {
   color: #555;
-  max-width: 600px;
+  width: 100%;
   margin: 0.5rem auto 2rem auto;
   font-size: 1.1rem;
-}
-
-.home-container .form-section {
-  margin-top: 2rem;
 }

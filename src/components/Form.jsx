@@ -2,10 +2,10 @@ import { useState } from "react";
 import TargetLevelSelect from "./TargetLevelSelect";
 import "./Form.css";
 import guidelines from "../data/guidelines_v2.json";
-import CriterionQuestion from "./CriterionQuestion";
 import { evaluateProject } from "../logic/evaluation";
 import { githubCriterionMap } from "../logic/github";
 import { checkManualCriterion } from "../logic/githubTests";
+import GroupedManualCriteriaBoard from "../components/GroupedManualCriteriaBoard";
 
 function Form({ onEvaluate, setTargetLevel, isFirstEvaluation, setIsFirstEvaluation }) {
   const [repoUrl, setRepoUrl] = useState("");
@@ -18,7 +18,12 @@ function Form({ onEvaluate, setTargetLevel, isFirstEvaluation, setIsFirstEvaluat
 
     try {
       const match = repoUrl.split("github.com/")[1]?.split("/");
-      if (!match) throw new Error("Invalid repository URL");
+      if (!repoUrl.includes("github.com/")) {
+        alert("Please enter a valid GitHub repository URL before evaluating.");
+        setLoading(false);
+        return;
+      }
+
       const owner = match[0];
       const repo = match[1];
 
@@ -57,8 +62,9 @@ function Form({ onEvaluate, setTargetLevel, isFirstEvaluation, setIsFirstEvaluat
     );
   }
 
-  return (
-    <form className="evaluation-form" onSubmit={handleSubmit}>
+return (
+  <div className="form-wrapper">
+    <header className="form-header">
       <label htmlFor="repoUrl">GitHub Repository URL:</label>
       <input
         type="url"
@@ -69,31 +75,30 @@ function Form({ onEvaluate, setTargetLevel, isFirstEvaluation, setIsFirstEvaluat
         required
       />
 
-      {!isFirstEvaluation && <TargetLevelSelect onLevelChange={setTargetLevel} />}
+      {!isFirstEvaluation && (
+        <TargetLevelSelect onLevelChange={setTargetLevel} />
+      )}
 
-      <h3>Manual Criteria</h3>
-      {guidelines
-        .filter((c) => c.type === "manual")
-        .map((q) => (
-          <CriterionQuestion
-            key={q.id}
-            id={q.id}
-            title={q.title}
-            info={q.info || ""}
-            onAnswerChange={(id, answer, evidence) =>
-              setUserAnswers((prev) => ({
-                ...prev,
-                [id]: { status: answer.toLowerCase(), evidence },
-              }))
-            }
-          />
-        ))}
-
-      <button type="submit" disabled={loading}>
+      <button
+        type="button"
+        className="evaluate-btn"
+        onClick={handleSubmit}
+        disabled={loading}
+      >
         {loading ? "Evaluating..." : "Evaluate"}
       </button>
-    </form>
-  );
+    </header>
+
+    <main className="criteria-grid">
+      <GroupedManualCriteriaBoard
+        guidelines={guidelines}
+        userAnswers={userAnswers || {}}
+        setUserAnswers={setUserAnswers}
+      />
+    </main>
+  </div>
+);
+
 }
 
 export default Form;

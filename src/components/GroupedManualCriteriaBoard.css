@@ -1,0 +1,55 @@
+/* === GroupedManualCriteriaBoard.css ===
+   Grille de cartes pour les critères manuels
+*/
+
+.criteria-grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 1.8rem;
+  justify-items: stretch;
+  align-items: start;
+}
+
+.criteria-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.criteria-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+}
+
+.criteria-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.criteria-header h3 {
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.criteria-count {
+  background: #2563eb;
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 50%;
+}
+
+.criteria-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
