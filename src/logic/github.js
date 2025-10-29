@@ -1,5 +1,4 @@
 // src/logic/github.js
-import * as tests from "./githubTests.js";
 
 /**
  * Mapping between guidelines_v2 numeric IDs and test functions.
@@ -7,61 +6,107 @@ import * as tests from "./githubTests.js";
  *
  * Only auto-checkable IDs are listed here. Manual criteria are not mapped.
  */
+import * as tests from "./githubTests.js";
+
 export const githubCriterionMap = {
-  8: tests.checkRepoHosting || (() => ({ status: "met" })), // repo exists -> we'll treat separately if needed
+  // --- Langage et licence ---
+  4: tests.checkOpenSourceLanguage,
+  5: tests.checkLanguageAdoptedByArgo,
   10: tests.checkLicense,
-  11: tests.checkLicense, // license info appears twice in original; map to same test
+  33: tests.checkLicense,
+  54: tests.checkArgoLicenseCompliance,
+
+  // --- Hébergement / version control ---
+  8: tests.checkArgoHosting,
+  29: async () => ({ status: "met" }), // Git détecté (toujours met si sur GitHub)
+  31: tests.checkArgoHosting,
+
+  // --- Documentation ---
+  9: tests.checkDependenciesFile,
+  11: tests.checkReadme,
+  13: tests.checkDocsHosted,
+  32: tests.checkReadme,
+  47: tests.checkSupportedOS,
+
+  // --- CI / CD / tests ---
   15: tests.checkCI,
   16: tests.checkUnitTests,
   17: tests.checkCD,
+
+  // --- Distribution / enregistrement ---
   18: tests.checkDistribution,
-  29: async (o, r) => ({ status: "met" }), // version control: repo is on GitHub -> met by definition
-  32: tests.checkReadme,
-  33: tests.checkLicense,
-  34: tests.checkContributors,
-  35: tests.checkContributors,
+  19: tests.checkReadmeHasIdentifiersOrCitations,
+  51: tests.checkReadmeHasIdentifiersOrCitations,
+  52: tests.checkDistribution,
+  53: tests.checkDistribution,
+
+  // --- Collaborations / gestion du projet ---
+  34: tests.checkContributorsExternal,
+  35: tests.checkContributorsArgo,
   36: tests.checkIdentifiedContributors,
   37: tests.checkContributingFile,
   38: tests.checkIssuesEnabled,
   39: tests.checkIssueLabels,
   41: tests.checkPRsExist,
   42: tests.checkPRsReviewed,
-  46: tests.checkContributingFile,
-  47: tests.checkSupportedOS || (() => ({ status: "unmet" })), // placeholder
+
+  // --- Documentation et releases ---
   49: tests.checkChangeLog,
   50: tests.checkReleases,
-  51: tests.checkReadmeHasIdentifiersOrCitations,
-  52: tests.checkDistribution, // heuristic: presence of registry info in files
-  53: tests.checkDistribution,
   55: tests.checkCITATIONcff,
   59: tests.checkCodeOfConduct,
-  // add more mappings if needed
 };
 
 /**
  * Run all mapped automatic tests and return an object of results.
  * Each property key is the numeric criterion id (as string) and the value is { status: 'met'|'unmet' }.
+ * Tests are run in PARALLEL for maximum performance.
  */
-export async function checkRepoFeatures(owner, repo) {
-  const results = {};
-
-  // If repo doesn't exist (quick check) return fast unmet set
+export async function checkRepoFeatures(owner, repo, onProgress = null) {
   const octokit = tests.getGitHubClient ? tests.getGitHubClient() : null;
-  // We won't re-check repo existence here (assumes caller already fetched repo), but callers can adapt.
 
-  for (const [id, fn] of Object.entries(githubCriterionMap)) {
+  // Quick check if repo exists
+  if (octokit) {
     try {
-      if (typeof fn === "function") {
-        const res = await fn(owner, repo);
-        // Ensure normalized shape
-        results[id] = { status: res?.status === "met" ? "met" : "unmet" };
-      } else {
-        results[id] = { status: "unmet" };
-      }
-    } catch (err) {
-      console.error(`Error running githubCriterionMap[${id}]`, err);
-      results[id] = { status: "unmet" };
+      await octokit.rest.repos.get({ owner, repo });
+      console.log(`✅ Repository ${owner}/${repo} found`);
+    } catch (error) {
+      console.error(`❌ Repository ${owner}/${repo} not found or inaccessible`);
+      // Return all tests as unmet
+      return Object.fromEntries(
+        Object.keys(githubCriterionMap).map(id => [id, { status: "unmet", error: "Repository not found" }])
+      );
     }
   }
-  return results;
+
+  // Run all tests in parallel
+  const entries = Object.entries(githubCriterionMap);
+  const totalTests = entries.length;
+  let completed = 0;
+
+  const promises = entries.map(async ([id, testFn]) => {
+    try {
+      const result = await testFn(owner, repo);
+      completed++;
+      if (onProgress) {
+        onProgress(completed, totalTests);
+      }
+      return [id, result];
+    } catch (error) {
+      console.error(`❌ Test ${id} failed:`, error.message);
+      completed++;
+      if (onProgress) {
+        onProgress(completed, totalTests);
+      }
+      return [id, { status: "unmet", error: error.message }];
+    }
+  });
+
+  const results = await Promise.allSettled(promises);
+
+  return Object.fromEntries(
+    results
+      .filter(r => r.status === "fulfilled")
+      .map(r => r.value)
+  );
 }

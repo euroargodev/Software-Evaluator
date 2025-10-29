@@ -1,54 +1,41 @@
-import { useState } from 'react';
-import guidelines from '../data/guidelines.json';
+import PropTypes from "prop-types";
 
-/**
- * TargetLevelSelect
- * Dropdown component that lets the user select their target skill level.
- * Extracts unique levels from the guidelines JSON and notifies the parent
- * component of the selection via `onLevelChange`.
- */
-export default function TargetLevelSelect({ onLevelChange }) {
-  // Extract all items from the JSON safely
-  const itemsArray = guidelines?.data?.node?.items?.nodes || [];
 
-  // Get unique skill levels from the JSON
-  const levels = [
-    ...new Set(
-      itemsArray.flatMap(item =>
-        item.fieldValues.nodes
-          .filter(fv => fv.field?.name === 'Skill level')
-          .map(fv => fv.name)
-      )
-    )
-  ];
-
-  // React state to store the selected level
-  const [selectedLevel, setSelectedLevel] = useState('');
-
-  // When the user selects a level, update state and notify parent
-  const handleChange = (event) => {
-    const level = event.target.value;
-    setSelectedLevel(level);
-    if (onLevelChange) {
-      onLevelChange(level); // Callback to App.jsx
-    }
-  };
-
+function TargetLevelSelect({ targetLevel, maxLevel, onChange, disabled }) {
   return (
-    <div className="target-level-container">
+    <div className="target-level-select">
       <label htmlFor="targetLevel">
-        Select the target skill level you want to achieve:
+        <strong>🎯 Target Level:</strong>
       </label>
+      <p className="helper-text">
+        Select the level you want to achieve (0 = evaluate all levels)
+      </p>
       <select
         id="targetLevel"
-        value={selectedLevel}
-        onChange={handleChange}
+        value={targetLevel}
+        onChange={(e) => onChange(Number(e.target.value))}
+        disabled={disabled}
       >
-        <option value="" disabled>-- Choose a level --</option>
-        {levels.map((level) => (
-          <option key={level} value={level}>{level}</option>
+        <option value={0}>All Levels (0)</option>
+        {Array.from({ length: maxLevel }, (_, i) => i + 1).map((level) => (
+          <option key={level} value={level}>
+            Level {level}
+          </option>
         ))}
       </select>
     </div>
   );
 }
+
+TargetLevelSelect.propTypes = {
+  targetLevel: PropTypes.number.isRequired,
+  maxLevel: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+};
+
+TargetLevelSelect.defaultProps = {
+  disabled: false,
+};
+
+export default TargetLevelSelect;

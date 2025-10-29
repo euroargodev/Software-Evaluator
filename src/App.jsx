@@ -1,54 +1,36 @@
+// src/App.jsx
 import { useState } from "react";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
 import "./App.css";
 
-/**
- * App.jsx
- * ------------------------
- * Main entry of the application.
- * Controls navigation between:
- *  - EvaluationStart (first question)
- *  - Home (evaluation form)
- *  - Results (summary and badge)
- */
 function App() {
-  const [repoData, setRepoData] = useState(null);
+  const [repository, setRepository] = useState(null);
   const [evaluationResult, setEvaluationResult] = useState(null);
-  const [view, setView] = useState("home");
-  const [targetLevel, setTargetLevel] = useState("");
-  const [isFirstEvaluation, setIsFirstEvaluation] = useState(null);
+  const [userAnswers, setUserAnswers] = useState({});
+  const [view, setView] = useState("home"); // "home" or "results"
 
-
-  // Callback: called when the user submits the evaluation form
-  const handleEvaluation = (data, result) => {
-    setRepoData(data);
-    setEvaluationResult(result)
+  const handleEvaluate = (repo, result, answers = {}) => {
+    setRepository(repo);
+    setEvaluationResult(result);
+    setUserAnswers(answers);
     setView("results");
   };
 
-  const goBackToHome = () => {
-  setView("home");
-};
+  const handleGoBack = () => {
+    setView("home");
+  };
 
   return (
     <div className="app-container">
+      {view === "home" && <Home onEvaluate={handleEvaluate} />}
       
-      {view === "home" && 
-        <Home 
-          onEvaluate={handleEvaluation} 
-          setTargetLevel={setTargetLevel}
-          repoData={repoData}
-          evaluationResult={evaluationResult}
-          isFirstEvaluation={isFirstEvaluation}
-          setIsFirstEvaluation={setIsFirstEvaluation}
-        />}
-
       {view === "results" && (
         <Results
-          repoData={repoData}
+          repository={repository}
           evaluationResult={evaluationResult}
-          onGoBack={goBackToHome}
+          userAnswers={userAnswers}
+          onGoBack={handleGoBack}
         />
       )}
     </div>

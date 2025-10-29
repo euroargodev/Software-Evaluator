@@ -1,3 +1,5 @@
+/* === Form.css === */
+
 .form-wrapper {
   display: flex;
   flex-direction: column;
@@ -9,6 +11,10 @@
   box-sizing: border-box;
 }
 
+/* ========================================
+   HEADER SECTION (URL + File Upload)
+======================================== */
+
 .form-header {
   display: flex;
   flex-wrap: wrap;
@@ -17,34 +23,371 @@
   background: #fff;
   padding: 1rem 1.5rem;
   border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
-.form-header input {
+.form-header input[type="url"],
+.form-header input[type="file"] {
   flex: 1;
   min-width: 250px;
   padding: 0.6rem;
   border: 1px solid #ddd;
   border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
 }
 
-.evaluate-btn {
-  background: #007acc;
-  color: #fff;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+.form-header input[type="url"]:focus {
+  outline: none;
+  border-color: #007acc;
+  box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+}
+
+/* ========================================
+   FORM GROUPS (Labels + Inputs)
+======================================== */
+
+.form-group {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
   font-weight: 600;
-  transition: background 0.2s ease;
+  color: #333;
+  font-size: 1rem;
 }
 
-.evaluate-btn:hover {
-  background: #005fa3;
+.form-group input[type="url"],
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-group input[type="url"]:focus {
+  outline: none;
+  border-color: #007acc;
+  box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+}
+
+.form-group input[type="file"] {
+  cursor: pointer;
+}
+
+.success-message {
+  color: #22c55e;
+  margin-top: 0.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* ========================================
+   MANUAL CRITERIA SECTION
+======================================== */
+
+.manual-section {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.manual-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #333;
+  font-weight: 700;
 }
 
 .criteria-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* ========================================
+   PROGRESS BAR
+======================================== */
+
+.progress-container {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  margin: 1rem 0;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 1.5rem;
+  background-color: #e0e0e0;
+  border-radius: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #007acc 0%, #005fa3 100%);
+  transition: width 0.4s ease;
+  border-radius: 1rem;
+}
+
+.progress-message {
+  text-align: center;
+  margin-top: 0.75rem;
+  color: #555;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.evaluate-btn,
+.btn-submit {
+  background: #007acc;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.evaluate-btn:hover,
+.btn-submit:hover {
+  background: #005fa3;
+  transform: translateY(-1px);
+}
+
+.evaluate-btn:active,
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+.btn-disabled {
+  background: #ccc;
+  color: #666;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: not-allowed;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* ========================================
+   FOOTER / SECONDARY ACTIONS
+======================================== */
+
+.form-footer {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: #007acc;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.btn-link:hover {
+  color: #005fa3;
+}
+
+/* ========================================
+   EVALUATION START SCREEN
+======================================== */
+
+.evaluation-start {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  margin: 3rem auto;
+}
+
+.evaluation-start h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.evaluation-start p {
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #007acc;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+  background-color: #005fa3;
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #22c55e;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #16a34a;
+  transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 768px) {
+  .form-wrapper {
+    padding: 1rem;
+  }
+
+  .form-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-header input {
+    min-width: 100%;
+  }
+
+  .criteria-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .evaluation-start {
+    padding: 2rem 1rem;
+  }
+}
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-group,
+.manual-section,
+.progress-container {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* ========================================
+   LOADING STATE
+======================================== */
+
+.form-wrapper.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.form-wrapper.loading .evaluate-btn,
+.form-wrapper.loading .btn-submit {
+  cursor: wait;
+}
+
+/* ========================================
+   ERROR MESSAGES
+======================================== */
+
+.error-message {
+  color: #ef4444;
+  background-color: #fee;
+  border: 1px solid #fcc;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.warning-message {
+  color: #f59e0b;
+  background-color: #fef3c7;
+  border: 1px solid #fde68a;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
 }

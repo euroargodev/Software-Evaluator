@@ -10,11 +10,23 @@ const inputPath = path.resolve(__dirname, "../guidelines.json");
 const outputPath = path.resolve(__dirname, "../guidelines_v2.json");
 const overridesPath = path.resolve(__dirname, "../metadataOverrides.json");
 
-//IDs détectables automatiquement (on peut les élargir plus tard)
+// Critères automatiquement détectables
 const autoIds = [
-  8, 10, 11, 15, 17, 29, 32, 34, 35, 36, 37, 38,
-  39, 41, 42, 49, 50, 55, 59
+  4, 5,        // langage utilisé (open-source / adopté Argo)
+  8,           // hébergé sur GitHub/GitLab
+  9,           // dépendances (requirements.txt, setup.py, etc.)
+  10, 33,      // LICENSE
+  11, 32,      // README
+  13,          // doc hébergée (doc site détectable ? optionnel)
+  15, 16, 17,  // CI, tests, CD
+  18, 52, 53,  // distribution / registre public ou Argo
+  19, 51, 55,  // DOI / identifiants / CITATION
+  29, 31,      // version control / hébergement Argo
+  34, 35, 36, 37, 38, 39, 41, 42, // collaboration et gestion issues/PRs
+  47, 49, 50, 59, // doc OS support / changelog / releases / code of conduct
+  54, // respect licence Argo (à estimer heuristiquement via LICENSE)
 ];
+
 
 //Classification par mots-clés
 function classifyCriterion(title) {
