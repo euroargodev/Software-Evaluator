@@ -1,66 +1,93 @@
 // src/logic/github.js
-
-/**
- * Mapping between guidelines_v2 numeric IDs and test functions.
- * Add or adjust ids according to your generated guidelines_v2.json
- *
- * Only auto-checkable IDs are listed here. Manual criteria are not mapped.
- */
 import * as tests from "./githubTests.js";
 
 export const githubCriterionMap = {
-  // --- Langage et licence ---
-  4: tests.checkOpenSourceLanguage,
-  5: tests.checkLanguageAdoptedByArgo,
-  10: tests.checkLicense,
-  33: tests.checkLicense,
-  54: tests.checkArgoLicenseCompliance,
+  // ==================== DATA & IDENTIFIERS ====================
+  0: tests.checkDataDOIinReadme,              // Data with DOI
+  1: tests.checkArgoPapersInMetadata,         // Argo papers referenced
+  19: tests.checkDOIinReadme,                 // Software DOI
+  21: tests.checkArgoDataDOI,                 // Argo Data DOI
+  22: tests.checkDataAccessibility,           // Data accessible online
+  51: tests.checkPersistentIdentifiers,       // All identifiers listed
+  52: tests.checkPackageRegistry,             // Registered in registry
+  53: tests.checkArgoRegistry,                // Registered in Argo registry
 
-  // --- Hébergement / version control ---
-  8: tests.checkArgoHosting,
-  29: async () => ({ status: "met" }), // Git détecté (toujours met si sur GitHub)
-  31: tests.checkArgoHosting,
+  // ==================== LANGUAGE & LICENSE ====================
+  4: tests.checkOpenSourceLanguage,           // Open-source language
+  5: tests.checkLanguageAdoptedByArgo,        // Argo-adopted language
+  10: tests.checkHasLicense,                  // Has license
+  33: tests.checkLicenseFile,                 // LICENSE file exists
+  54: tests.checkArgoLicenseCompliance,       // Preserves CC BY 4.0
 
-  // --- Documentation ---
-  9: tests.checkDependenciesFile,
-  11: tests.checkReadme,
-  13: tests.checkDocsHosted,
-  32: tests.checkReadme,
-  47: tests.checkSupportedOS,
+  // ==================== HOSTING & VERSION CONTROL ====================
+  8: tests.checkArgoHosting,                  // Hosted on platform
+  29: tests.checkGitUsed,                     // Uses Git
+  31: tests.checkArgoOrgHosting,              // Hosted in Argo org
 
-  // --- CI / CD / tests ---
-  15: tests.checkCI,
-  16: tests.checkUnitTests,
-  17: tests.checkCD,
+  // ==================== DOCUMENTATION ====================
+  3: tests.checkUsageGuidelines,              // Usage examples
+  9: tests.checkDependenciesFile,             // Dependencies listed
+  11: tests.checkReadmeExists,                // README exists
+  12: tests.checkAPIReference,                // API reference
+  13: tests.checkDocsHosted,                  // Docs hosted online
+  14: tests.checkInstallationInstructions,    // Installation guide
+  26: tests.checkEnglishLanguage,             // English documentation
+  32: tests.checkReadmeQuality,               // README quality
+  47: tests.checkSupportedOS,                 // OS support listed
+  48: tests.checkExecutionEnvironment,        // Execution env documented
 
-  // --- Distribution / enregistrement ---
-  18: tests.checkDistribution,
-  19: tests.checkReadmeHasIdentifiersOrCitations,
-  51: tests.checkReadmeHasIdentifiersOrCitations,
-  52: tests.checkDistribution,
-  53: tests.checkDistribution,
+  // ==================== CODE QUALITY ====================
+  6: tests.checkDocstrings,                   // Has docstrings
+  7: tests.checkCodeFormatting,               // Code formatted
+  56: tests.checkModularDesign,               // Modular components
+  57: tests.checkConsistentStyle,             // Consistent style
+  58: tests.checkModuleDocumentation,         // Modules documented
 
-  // --- Collaborations / gestion du projet ---
-  34: tests.checkContributorsExternal,
-  35: tests.checkContributorsArgo,
-  36: tests.checkIdentifiedContributors,
-  37: tests.checkContributingFile,
-  38: tests.checkIssuesEnabled,
-  39: tests.checkIssueLabels,
-  41: tests.checkPRsExist,
-  42: tests.checkPRsReviewed,
+  // ==================== CI/CD & TESTING ====================
+  15: tests.checkCI,                          // Has CI
+  16: tests.checkMultiPlatformTests,          // Multi-platform tests
+  17: tests.checkCD,                          // Has CD
 
-  // --- Documentation et releases ---
-  49: tests.checkChangeLog,
-  50: tests.checkReleases,
-  55: tests.checkCITATIONcff,
-  59: tests.checkCodeOfConduct,
+  // ==================== DISTRIBUTION ====================
+  18: tests.checkPackageRegistry,             // Distributed via pip/conda
+
+  // ==================== ARGO COMPLIANCE ====================
+  23: tests.checkArgoFileFormats,             // Argo NetCDF formats
+  24: tests.checkArgoMetadataConventions,     // Argo metadata conventions
+  25: tests.checkNVSVocabulary,               // Uses NVS vocabulary
+  30: tests.checkGDACAccess,                  // Data from GDAC
+  60: tests.checkGDACStructure,               // GDAC folder structure
+  61: tests.checkArgoMetadataSources,         // Argo metadata sources
+
+  // ==================== COLLABORATION ====================
+  34: tests.checkContributorsExternal,        // External contributors
+  35: tests.checkContributorsArgo,            // Argo contributors
+  36: tests.checkIdentifiedContributors,      // Identified contributors
+  37: tests.checkContributingFile,            // CONTRIBUTING file
+  46: tests.checkContributingFile,            // CONTRIBUTING file (duplicate)
+
+  // ==================== ISSUE MANAGEMENT ====================
+  38: tests.checkIssuesEnabled,               // Issues enabled
+  39: tests.checkIssueLabels,                 // Issues have labels
+  40: tests.checkArgoMissionLabels,           // Argo mission labels
+  62: tests.checkIssueTemplates,              // Issue templates
+
+  // ==================== PULL REQUESTS ====================
+  41: tests.checkPRsExist,                    // PRs exist
+  42: tests.checkPRsReviewed,                 // PRs reviewed
+
+  // ==================== RELEASES & CITATIONS ====================
+  49: tests.checkChangeLog,                   // CHANGELOG
+  50: tests.checkReleases,                    // GitHub releases
+  55: tests.checkCITATIONcff,                 // CITATION.cff
+  
+  // ==================== COMMUNITY ====================
+  20: tests.checkPublishedPaper,              // Published paper
+  59: tests.checkCodeOfConduct,               // CODE_OF_CONDUCT
 };
 
 /**
- * Run all mapped automatic tests and return an object of results.
- * Each property key is the numeric criterion id (as string) and the value is { status: 'met'|'unmet' }.
- * Tests are run in PARALLEL for maximum performance.
+ * Run all mapped automatic tests in PARALLEL
  */
 export async function checkRepoFeatures(owner, repo, onProgress = null) {
   const octokit = tests.getGitHubClient ? tests.getGitHubClient() : null;
@@ -72,7 +99,6 @@ export async function checkRepoFeatures(owner, repo, onProgress = null) {
       console.log(`✅ Repository ${owner}/${repo} found`);
     } catch (error) {
       console.error(`❌ Repository ${owner}/${repo} not found or inaccessible`);
-      // Return all tests as unmet
       return Object.fromEntries(
         Object.keys(githubCriterionMap).map(id => [id, { status: "unmet", error: "Repository not found" }])
       );
@@ -89,14 +115,14 @@ export async function checkRepoFeatures(owner, repo, onProgress = null) {
       const result = await testFn(owner, repo);
       completed++;
       if (onProgress) {
-        onProgress(completed, totalTests);
+        onProgress(completed, totalTests, `Testing criterion #${id}...`);
       }
       return [id, result];
     } catch (error) {
       console.error(`❌ Test ${id} failed:`, error.message);
       completed++;
       if (onProgress) {
-        onProgress(completed, totalTests);
+        onProgress(completed, totalTests, `Test #${id} failed`);
       }
       return [id, { status: "unmet", error: error.message }];
     }

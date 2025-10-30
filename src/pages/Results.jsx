@@ -1,11 +1,15 @@
 // src/pages/Results.jsx
 import { useState } from "react";
+import PropTypes from "prop-types";
+import logo_1 from "../img/logo_euroargo_square.png"; 
+import logo_2 from "../img/EAONE_2.png"; 
 import "./Results.css";
 
 function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
   const [showDetails, setShowDetails] = useState(false);
 
-  if (!evaluationResult) {
+  // ✅ VÉRIFICATION ROBUSTE
+  if (!evaluationResult || !repository) {
     return (
       <div className="results-container">
         <h2>No evaluation data available</h2>
@@ -16,12 +20,16 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     );
   }
 
-  const { validatedLevel, globalScore, details, feedback, stats } = evaluationResult;
+  // ✅ EXTRACTION SÉCURISÉE AVEC VALEURS PAR DÉFAUT
+  const {
+    validatedLevel = "Novice",
+    globalScore = 0,
+    details = {},
+    feedback = [],
+    stats = { metCriteria: 0, unmetCriteria: 0, totalCriteria: 0 }
+  } = evaluationResult;
 
-  /**
-   * Get badge styling and information
-   */
-  const getBadgeDetails = (level, score) => {
+  const getBadgeDetails = (level) => {
     const badges = {
       Expert: {
         emoji: "🏆",
@@ -63,11 +71,8 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     return badges[level] || badges.Novice;
   };
 
-  const badge = getBadgeDetails(validatedLevel, globalScore);
+  const badge = getBadgeDetails(validatedLevel);
 
-  /**
-   * Generate downloadable evaluation file
-   */
   const handleDownload = () => {
     const evaluationFile = {
       metadata: {
@@ -106,207 +111,196 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     console.log("✅ Evaluation file downloaded");
   };
 
-  /**
-   * Group criteria by category for display
-   */
+  // ✅ VÉRIFICATION AVANT OBJECT.ENTRIES
   const criteriaByCategory = {};
-  Object.entries(details).forEach(([id, criterion]) => {
-    const category = criterion.category || "General";
-    if (!criteriaByCategory[category]) {
-      criteriaByCategory[category] = [];
-    }
-    criteriaByCategory[category].push({ id, ...criterion });
-  });
+  if (details && typeof details === 'object') {
+    Object.entries(details).forEach(([id, criterion]) => {
+      if (!criterion) return;
+      
+      const category = criterion.category || "General";
+      if (!criteriaByCategory[category]) {
+        criteriaByCategory[category] = [];
+      }
+      criteriaByCategory[category].push({ id, ...criterion });
+    });
+  }
 
   return (
-    <div className="results-container max-w-5xl mx-auto p-6">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
-          Evaluation Results
-        </h1>
-        <p className="text-gray-600">
+    <div className="results-page">
+      {/* ⭐ HEADER AVEC LOGO */}
+      <header className="results-header">
+        <img src={logo_1} alt="Euro-Argo Logo" className="header-logo" />
+        <h1>Evaluation Results</h1>
+        <p className="repo-name">
           {repository.owner}/{repository.repo}
         </p>
-      </div>
+      </header>
 
-      {/* Badge Section */}
-      <div
-        className="badge-card p-8 rounded-2xl shadow-lg mb-8 text-center"
-        style={{
-          backgroundColor: badge.bgColor,
-          borderLeft: `6px solid ${badge.color}`
-        }}
-      >
-        <div className="text-6xl mb-4">{badge.emoji}</div>
-        <h2 className="text-3xl font-bold mb-2" style={{ color: badge.color }}>
-          {validatedLevel} Level
-        </h2>
-        <div className="text-5xl font-bold mb-2 text-gray-800">
-          {(globalScore * 100).toFixed(1)}%
+      {/* CONTENU PRINCIPAL */}
+      <main className="results-container max-w-5xl mx-auto p-6">
+        {/* BADGE */}
+        <div
+          className="badge-card p-8 rounded-2xl shadow-lg mb-8 text-center"
+          style={{
+            backgroundColor: badge.bgColor,
+            borderLeft: `6px solid ${badge.color}`
+          }}
+        >
+          <div className="text-6xl mb-4">{badge.emoji}</div>
+          <h2 className="text-3xl font-bold mb-2" style={{ color: badge.color }}>
+            {validatedLevel} Level
+          </h2>
+          <div className="text-5xl font-bold mb-2 text-gray-800">
+            {(globalScore * 100).toFixed(1)}%
+          </div>
+          <p className="text-xl text-gray-700 mb-2">{badge.message}</p>
+          <p className="text-gray-600 italic">{badge.description}</p>
         </div>
-        <p className="text-xl text-gray-700 mb-2">{badge.message}</p>
-        <p className="text-gray-600 italic">{badge.description}</p>
-      </div>
 
-      {/* Statistics */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="stat-card bg-green-50 p-4 rounded-lg text-center border border-green-200">
-          <div className="text-3xl font-bold text-green-600">
-            {stats?.metCriteria || 0}
+        {/* STATISTIQUES */}
+        <div className="grid grid-cols-3 gap-4 mb-8">
+          <div className="stat-card bg-green-50 p-4 rounded-lg text-center border border-green-200">
+            <div className="text-3xl font-bold text-green-600">
+              {stats.metCriteria}
+            </div>
+            <div className="text-gray-600">Criteria Met</div>
           </div>
-          <div className="text-gray-600">Criteria Met</div>
-        </div>
-        <div className="stat-card bg-red-50 p-4 rounded-lg text-center border border-red-200">
-          <div className="text-3xl font-bold text-red-600">
-            {stats?.unmetCriteria || 0}
+          <div className="stat-card bg-red-50 p-4 rounded-lg text-center border border-red-200">
+            <div className="text-3xl font-bold text-red-600">
+              {stats.unmetCriteria}
+            </div>
+            <div className="text-gray-600">To Improve</div>
           </div>
-          <div className="text-gray-600">To Improve</div>
-        </div>
-        <div className="stat-card bg-blue-50 p-4 rounded-lg text-center border border-blue-200">
-          <div className="text-3xl font-bold text-blue-600">
-            {stats?.totalCriteria || 0}
+          <div className="stat-card bg-blue-50 p-4 rounded-lg text-center border border-blue-200">
+            <div className="text-3xl font-bold text-blue-600">
+              {stats.totalCriteria}
+            </div>
+            <div className="text-gray-600">Total Criteria</div>
           </div>
-          <div className="text-gray-600">Total Criteria</div>
         </div>
-      </div>
 
-      {/* Feedback Section */}
-      {feedback && feedback.length > 0 && (
-        <section className="feedback-section mb-8">
-          <h3 className="text-2xl font-bold mb-4 flex items-center">
-            <span className="mr-2">💡</span>
-            Improvement Roadmap
-          </h3>
-          {feedback.map((f, i) => (
-            <div
-              key={i}
-              className={`feedback-card p-4 mb-4 rounded-lg border-l-4 ${
-                f.priority === "high"
-                  ? "bg-red-50 border-red-400"
-                  : f.priority === "info"
-                  ? "bg-blue-50 border-blue-400"
-                  : "bg-yellow-50 border-yellow-400"
-              }`}
-            >
-              <div className="flex items-start justify-between mb-2">
-                <p className="font-bold text-lg">{f.message}</p>
-                {f.priority === "high" && (
-                  <span className="bg-red-500 text-white px-2 py-1 rounded text-xs font-bold">
-                    PRIORITY
-                  </span>
+        {/* RECOMMANDATIONS */}
+        {feedback && feedback.length > 0 && (
+          <section className="feedback-section mb-8">
+            <h3 className="text-2xl font-bold mb-4">📋 Recommendations</h3>
+            {feedback.map((item, idx) => (
+              <div
+                key={idx}
+                className={`feedback-card p-4 mb-4 rounded-lg border-l-4 ${
+                  item.priority === "high"
+                    ? "bg-red-50 border-red-500"
+                    : item.priority === "info"
+                    ? "bg-blue-50 border-blue-500"
+                    : "bg-gray-50 border-gray-300"
+                }`}
+              >
+                <h4 className="font-bold text-lg mb-2">{item.message}</h4>
+                {item.missing && item.missing.length > 0 && (
+                  <ul className="list-disc list-inside space-y-1">
+                    {item.missing.map((m) => (
+                      <li
+                        key={m.id}
+                        className={`text-sm ${
+                          m.isBlocker
+                            ? "font-semibold text-red-700 border-l-2 pl-2 border-red-400"
+                            : "opacity-75"
+                        }`}
+                      >
+                        <span className={`font-semibold ${m.isBlocker ? "text-red-600" : "text-gray-600"}`}>
+                          [{m.level}]
+                        </span>{" "}
+                        {m.title}
+                        {m.isBlocker && (
+                          <span className="ml-2 text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
+                            Critical for next level
+                          </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
-              
-              {f.missing && f.missing.length > 0 && (
-                <ul className="list-none ml-0 space-y-2">
-                  {f.missing.map((m, j) => (
-                    <li
-                      key={j}
-                      className={`pl-4 py-2 rounded ${
-                        m.isBlocker ? "bg-white border-l-2 border-red-400" : "opacity-75"
-                      }`}
-                    >
-                      <span className={`font-semibold ${m.isBlocker ? "text-red-600" : "text-gray-600"}`}>
-                        [{m.level}]
-                      </span>{" "}
-                      {m.title}
-                      {m.isBlocker && (
-                        <span className="ml-2 text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
-                          Critical for next level
-                        </span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ))}
-        </section>
-      )}
-
-      {/* Detailed Results (Collapsible) */}
-      <section className="details-section mb-8">
-        <button
-          onClick={() => setShowDetails(!showDetails)}
-          className="w-full bg-gray-100 hover:bg-gray-200 p-4 rounded-lg font-semibold text-left flex justify-between items-center transition"
-        >
-          <span>📊 Detailed Criteria Results</span>
-          <span>{showDetails ? "▲" : "▼"}</span>
-        </button>
-
-        {showDetails && (
-          <div className="mt-4 space-y-6">
-            {Object.entries(criteriaByCategory).map(([category, criteria]) => (
-              <div key={category} className="category-group">
-                <h4 className="text-xl font-bold mb-3 text-gray-700 border-b-2 pb-2">
-                  {category}
-                </h4>
-                <div className="space-y-2">
-                  {criteria.map((crit) => (
-                    <div
-                      key={crit.id}
-                      className={`criterion-item p-3 rounded-lg border ${
-                        crit.status === "met"
-                          ? "bg-green-50 border-green-200"
-                          : "bg-red-50 border-red-200"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <span
-                            className={`inline-block w-3 h-3 rounded-full mr-2 ${
-                              crit.status === "met" ? "bg-green-500" : "bg-red-500"
-                            }`}
-                          ></span>
-                          <span className="font-medium">{crit.title}</span>
-                          <span className="ml-2 text-xs bg-gray-200 px-2 py-1 rounded">
-                            {crit.level}
-                          </span>
-                        </div>
-                        <span
-                          className={`font-bold ${
-                            crit.status === "met" ? "text-green-600" : "text-red-600"
-                          }`}
-                        >
-                          {crit.status === "met" ? "✓ Met" : "✗ Unmet"}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
             ))}
-          </div>
+          </section>
         )}
-      </section>
 
-      {/* Action Buttons */}
-      <div className="flex justify-center gap-4">
-        <button
-          onClick={handleDownload}
-          className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold flex items-center gap-2"
-        >
-          <span>💾</span>
-          Download Evaluation File
-        </button>
-        <button
-          onClick={onGoBack}
-          className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 transition font-semibold"
-        >
-          ← Back to Home
-        </button>
-      </div>
+        {/* BOUTONS D'ACTION */}
+        <div className="flex justify-center gap-4">
+          <button
+            onClick={handleDownload}
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold flex items-center gap-2"
+          >
+            <span>💾</span>
+            Download Evaluation File
+          </button>
+          <button
+            onClick={onGoBack}
+            className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 transition font-semibold"
+          >
+            ← Back to Home
+          </button>
+        </div>
 
-      {/* File Upload Instructions */}
-      <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-        <p className="text-sm text-gray-700">
-          <strong>💡 Pro Tip:</strong> Save this evaluation file! You can upload it on your next visit 
-          to skip answering manual questions again. We'll only re-run the automatic tests.
-        </p>
-      </div>
+        {/* PRO TIP */}
+        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm text-gray-700">
+            <strong>💡 Pro Tip:</strong> Save this evaluation file! You can upload it on your next visit 
+            to skip answering manual questions again. We'll only re-run the automatic tests.
+          </p>
+        </div>
+      </main>
+
+      {/* ⭐ FOOTER AVEC LOGO */}
+      <footer className="results-footer">
+        <div className="footer-funding">
+          <p className="footer-project">
+            This repository is developed within the framework of the Euro-Argo ONE project.
+          </p>
+          <p className="footer-grant">
+            This project has received funding from the European Union's Horizon 2020 research and innovation programme under project no <strong>101188133</strong>.
+          </p>
+          <p className="footer-call">
+            Call <em>HORIZON-INFRA-2024-DEV-03</em>: Developing, consolidating and optimising the European research infrastructures landscape, maintaining global leadership.
+          </p>
+        </div>
+
+        <img src={logo_2} alt="Euro-Argo Logo" className="footer-logo" />
+        
+        <div className="footer-links">
+          <a href="https://www.euro-argo.eu" target="_blank" rel="noopener noreferrer">
+            Euro-Argo Website
+          </a>
+          <span>|</span>
+          <a href="https://github.com/euroargodev" target="_blank" rel="noopener noreferrer">
+            GitHub
+          </a>
+        </div>
+      </footer>
+
     </div>
   );
 }
+
+Results.propTypes = {
+  repository: PropTypes.shape({
+    owner: PropTypes.string.isRequired,
+    repo: PropTypes.string.isRequired,
+    url: PropTypes.string,
+  }).isRequired,
+  evaluationResult: PropTypes.shape({
+    validatedLevel: PropTypes.string,
+    globalScore: PropTypes.number,
+    details: PropTypes.object,
+    feedback: PropTypes.array,
+    stats: PropTypes.object,
+  }),
+  userAnswers: PropTypes.object,
+  onGoBack: PropTypes.func.isRequired,
+};
+
+Results.defaultProps = {
+  evaluationResult: null,
+  userAnswers: {},
+};
 
 export default Results;

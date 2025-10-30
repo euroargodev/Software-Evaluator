@@ -10,28 +10,60 @@ const inputPath = path.resolve(__dirname, "../guidelines.json");
 const outputPath = path.resolve(__dirname, "../guidelines_v2.json");
 const overridesPath = path.resolve(__dirname, "../metadataOverrides.json");
 
-// Critères automatiquement détectables
+/**
+ * COMPLETE LIST OF AUTO-CHECKABLE CRITERIA (45 total)
+ * Updated to match githubCriterionMap
+ */
 const autoIds = [
-  4, 5,        // langage utilisé (open-source / adopté Argo)
-  8,           // hébergé sur GitHub/GitLab
-  9,           // dépendances (requirements.txt, setup.py, etc.)
-  10, 33,      // LICENSE
-  11, 32,      // README
-  13,          // doc hébergée (doc site détectable ? optionnel)
-  15, 16, 17,  // CI, tests, CD
-  18, 52, 53,  // distribution / registre public ou Argo
-  19, 51, 55,  // DOI / identifiants / CITATION
-  29, 31,      // version control / hébergement Argo
-  34, 35, 36, 37, 38, 39, 41, 42, // collaboration et gestion issues/PRs
-  47, 49, 50, 59, // doc OS support / changelog / releases / code of conduct
-  54, // respect licence Argo (à estimer heuristiquement via LICENSE)
+  // Data & Identifiers (8)
+  0, 1, 19, 21, 22, 51, 52, 53,
+  
+  // Language & License (5)
+  4, 5, 10, 33, 54,
+  
+  // Hosting & Version Control (3)
+  8, 29, 31,
+  
+  // Documentation (10)
+  3, 9, 11, 12, 13, 14, 26, 32, 47, 48,
+  
+  // Code Quality (5)
+  6, 7, 56, 57, 58,
+  
+  // CI/CD & Testing (3)
+  15, 16, 17,
+  
+  // Distribution (1)
+  18,
+  
+  // Argo Compliance (6)
+  23, 24, 25, 30, 60, 61,
+  
+  // Collaboration (5)
+  34, 35, 36, 37, 46,
+  
+  // Issue Management (4)
+  38, 39, 40, 62,
+  
+  // Pull Requests (2)
+  41, 42,
+  
+  // Releases & Citations (3)
+  49, 50, 55,
+  
+  // Community (2)
+  20, 59
 ];
 
+console.log(`📊 Total auto-checkable criteria: ${autoIds.length}`);
 
-//Classification par mots-clés
+/**
+ * Classify criterion by keywords
+ */
 function classifyCriterion(title) {
   if (!title) return "General";
   const t = title.toLowerCase();
+  
   if (t.includes("readme") || t.includes("documentation")) return "Documentation";
   if (t.includes("license") || t.includes("licence")) return "Licensing";
   if (t.includes("doi") || t.includes("identifier") || t.includes("citation")) return "FAIR Data";
@@ -39,34 +71,41 @@ function classifyCriterion(title) {
   if (t.includes("version") || t.includes("release")) return "Versioning";
   if (t.includes("test") || t.includes("ci") || t.includes("workflow")) return "Continuous Integration";
   if (t.includes("guideline") || t.includes("contribution")) return "Governance";
+  if (t.includes("argo") || t.includes("data")) return "Argo Compliance";
+  
   return "General";
 }
 
-// Regroupement par thème logique
+/**
+ * Get criterion group (logical theme)
+ */
 function getCriterionGroup(id) {
   if ([0, 1, 19, 21, 51, 52, 53].includes(id)) return "Metadata & Identification";
   if ([3, 11, 12, 13, 14, 47, 48, 50].includes(id)) return "Documentation";
   if ([4, 5, 6, 7, 56, 57, 58].includes(id)) return "Code Quality & Standards";
   if ([15, 16, 17].includes(id)) return "Testing & Integration";
-  if ([10, 33, 55, 59].includes(id)) return "Licensing & Citation";
+  if ([10, 33, 54, 55, 59].includes(id)) return "Licensing & Citation";
   if ([27, 28, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 62].includes(id))
     return "Community & Collaboration";
-  if ([8, 9, 29, 30, 31, 32, 49].includes(id)) return "Version Control & Hosting";
-  if ([20, 22, 23, 24, 25, 54, 60, 61].includes(id)) return "Data & FAIR Compliance";
+  if ([8, 9, 29, 31, 32, 49].includes(id)) return "Version Control & Hosting";
+  if ([20, 22, 23, 24, 25, 30, 60, 61].includes(id)) return "Data & FAIR Compliance";
   if ([26].includes(id)) return "Language & Accessibility";
+  if ([18, 52].includes(id)) return "Distribution & Registry";
   return "Other";
 }
 
-//Génère une question à poser à l’utilisateur à partir du titre
+/**
+ * Generate question from criterion title
+ */
 function generateQuestion(title) {
   if (!title) return "Is this criterion met by your project?";
   const formatted = title.trim();
-  return formatted.endsWith("?")
-    ? formatted
-    : `${formatted}`;
+  return formatted.endsWith("?") ? formatted : `${formatted}`;
 }
 
-//Génération du fichier enrichi
+/**
+ * Main generation function
+ */
 function generateNewGuidelines() {
   if (!fs.existsSync(inputPath)) {
     console.error("❌ guidelines.json not found at:", inputPath);
@@ -80,7 +119,7 @@ function generateNewGuidelines() {
     : {};
 
   const nodes = guidelines.data?.node?.items?.nodes || [];
-  console.log(`Found ${nodes.length} criteria in source file.`);
+  console.log(`📋 Found ${nodes.length} criteria in source file.`);
 
   const simplified = nodes.map((item, i) => {
     const fields = Object.fromEntries(
@@ -121,20 +160,35 @@ function generateNewGuidelines() {
         generatedAt: new Date().toISOString(),
         sourceFile: "guidelines.json",
         version: "2.0",
+        autoCheckable: type === "auto"
       },
     };
 
-    // Fusion avec metadataOverrides.json s’il existe
+    // Merge with metadataOverrides.json if exists
     return {
       ...baseCriterion,
       ...(overrides[id] || {}),
     };
   });
 
+  // Statistics
+  const autoCount = simplified.filter(c => c.type === "auto").length;
+  const manualCount = simplified.filter(c => c.type === "manual").length;
+  const groups = [...new Set(simplified.map(c => c.group))];
+
   fs.writeFileSync(outputPath, JSON.stringify(simplified, null, 2), "utf-8");
-  console.log(`guidelines_v2.json generated successfully!`);
-  console.log(`Total: ${simplified.length} enriched criteria`);
-  console.log(`Groups detected: ${[...new Set(simplified.map(c => c.group))].join(", ")}`);
+  
+  console.log("\n✅ guidelines_v2.json generated successfully!");
+  console.log(`📊 Statistics:`);
+  console.log(`   • Total criteria: ${simplified.length}`);
+  console.log(`   • Auto-checkable: ${autoCount} (${Math.round(autoCount/simplified.length*100)}%)`);
+  console.log(`   • Manual: ${manualCount} (${Math.round(manualCount/simplified.length*100)}%)`);
+  console.log(`   • Groups: ${groups.length}`);
+  console.log(`\n📁 Groups detected:`);
+  groups.forEach(g => {
+    const count = simplified.filter(c => c.group === g).length;
+    console.log(`   • ${g}: ${count} criteria`);
+  });
 }
 
 generateNewGuidelines();

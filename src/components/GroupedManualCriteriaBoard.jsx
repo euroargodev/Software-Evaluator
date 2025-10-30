@@ -1,18 +1,16 @@
+// src/components/GroupedManualCriteriaBoard.jsx
 import React from "react";
+import PropTypes from "prop-types";
 import ManualCriterion from "./ManualCriterion";
 import "./GroupedManualCriteriaBoard.css";
 
-/**
- * Affiche les critères manuels sous forme de cartes regroupées par thème,
- * disposées en grille 3x3 (layout responsive).
- */
 export default function GroupedManualCriteriaBoard({ guidelines = [], userAnswers = {}, setUserAnswers }) {
   const manualCriteria = guidelines.filter((c) => c.type === "manual");
 
   const grouped = manualCriteria.reduce((acc, crit) => {
-    const category = crit.category || "General";
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(crit);
+    const group = crit.group || "Other";
+    if (!acc[group]) acc[group] = [];
+    acc[group].push(crit);
     return acc;
   }, {});
 
@@ -26,24 +24,33 @@ export default function GroupedManualCriteriaBoard({ guidelines = [], userAnswer
     }));
   };
 
-  return (
-    <div className="criteria-grid-container">
-      {Object.entries(grouped).map(([category, criteria]) => (
-        <div className="criteria-card" key={category}>
-          <div className="criteria-header">
-            <h3>{category}</h3>
-            <span className="criteria-count">{criteria.length}</span>
-          </div>
+  // ✅ Statistiques
+  const answeredCount = Object.keys(userAnswers).length;
+  const totalCount = manualCriteria.length;
 
-          <div className="criteria-content">
+  return (
+    <div className="grouped-manual-board">
+      <div className="manual-header">
+        <h2>Manual Criteria</h2>
+        <span className="progress-badge">
+          {answeredCount} / {totalCount} answered
+        </span>
+      </div>
+      <p className="instructions">
+        Please answer the following questions about your project. 
+        Evidence is required for "Yes" answers.
+      </p>
+
+      {Object.entries(grouped).map(([group, criteria]) => (
+        <div key={group} className="category-group">
+          <h3>{group}</h3>
+          <div className="criteria-grid">
             {criteria.map((crit) => (
               <ManualCriterion
                 key={crit.id}
-                id={crit.id}
-                title={crit.question || crit.title}
-                info={crit.info || ""}
-                value={userAnswers[crit.id]}
-                onChange={handleChange}
+                criterion={crit}
+                answer={userAnswers[crit.id] || {}}
+                onChange={(answerObj) => handleChange(crit.id, answerObj)}
               />
             ))}
           </div>
@@ -52,3 +59,16 @@ export default function GroupedManualCriteriaBoard({ guidelines = [], userAnswer
     </div>
   );
 }
+
+GroupedManualCriteriaBoard.propTypes = {
+  guidelines: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
+      group: PropTypes.string,
+    })
+  ).isRequired,
+  userAnswers: PropTypes.object.isRequired,
+  setUserAnswers: PropTypes.func.isRequired,
+};

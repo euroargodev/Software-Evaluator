@@ -93,43 +93,55 @@ Then make sure the same secret exists in your GitHub repository settings under
 
 ```
 software-evaluator/
-│
-├── public/                  # Static assets (favicon, logos, etc.)
-│
-├── src/
-│   ├── components/          # Reusable React components
-│   │   ├── Form.jsx            # Evaluation form
-│   │   ├── TargetLevelSelect.jsx
-│   │   └── Form.css
-│   │
-│   ├── pages/               # Main views
-│   │   ├── Home.jsx         # Landing page
-│   │   └── Results.jsx      # Results display
-│   │
-│   ├── logic/               # Business logic (no React)
-│   │   ├── github.js        # GitHub API interaction
-│   │   └── evaluation.js    # Scoring logic
-│   │
-│   ├── data/                # Static data & JSON files
-│   │   └── guidelines.json  # Evaluation criteria (levels, FAIR principles, etc.)
-│   │
-│   ├── styles/              # Global and thematic styles
-│   │   ├── variables.css
-│   │   ├── global.css
-│   │   └── theme.css
-│   │
-│   ├── App.jsx              # Main app logic and routing
-│   ├── main.jsx             # React entry point
-│   └── App.css              # App-specific styling
-│
-├── .github/workflows/       # GitHub Actions for CI/CD
-│   └── deploy.yml
-│
-├── .env                     # Local environment variables (ignored by git)
+├── eslint.config.js
+├── index.html
 ├── package.json
-├── vite.config.js
+├── package-lock.json
+├── public
+│   └── vite.svg
 ├── README.md
-└── LICENSE
+├── src
+│   ├── App.css
+│   ├── App.jsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── critères_software_guidelines
+│   │   ├── Form.css
+│   │   ├── Form.jsx
+│   │   ├── GroupedManualCriteriaBoard.css
+│   │   ├── GroupedManualCriteriaBoard.jsx
+│   │   ├── ManualCriterion.css
+│   │   ├── ManualCriterion.jsx
+│   │   └── TargetLevelSelect.jsx
+│   ├── data
+│   │   ├── guidelines.json
+│   │   ├── guidelines_v2.json
+│   │   ├── miniGuidelines.json
+│   │   └── scripts
+│   │       └── generateNewGuidelines.js
+│   ├── img
+│   │   ├── EAONE_2.png
+│   │   ├── EAONE.png
+│   │   └── scientists.png
+│   ├── index.css
+│   ├── logic
+│   │   ├── evaluation.js
+│   │   ├── githubClient.js
+│   │   ├── github.js
+│   │   └── githubTests.js
+│   ├── main.jsx
+│   ├── pages
+│   │   ├── Home.css
+│   │   ├── Home.jsx
+│   │   ├── Results.css
+│   │   └── Results.jsx
+│   └── styles
+│       ├── global.css
+│       ├── theme.css
+│       └── variables.css
+├── structure.txt
+└── vite.config.js
 ```
 
 ---

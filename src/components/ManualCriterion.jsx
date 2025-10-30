@@ -1,65 +1,52 @@
 // src/components/ManualCriterion.jsx
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import "./ManualCriterion.css";
 
-export default function ManualCriterion({ id, title, info, value = {}, onChange }) {
-  const [status, setStatus] = useState(value.status || null);
-  const [evidence, setEvidence] = useState(value.evidence || "");
+export default function ManualCriterion({ criterion, answer, onChange }) {
+  const [isMet, setIsMet] = useState(answer?.status === "met");
+  const [evidence, setEvidence] = useState(answer?.evidence || "");
 
-  // Met à jour le parent uniquement quand il y a un changement
   useEffect(() => {
-    if (status) {
-      onChange?.(id, { status, evidence });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, evidence]);
+    setIsMet(answer?.status === "met");
+    setEvidence(answer?.evidence || "");
+  }, [answer]);
 
-  const handleSetStatus = (newStatus) => {
-    setStatus(newStatus);
-    // Réinitialiser l’évidence si on passe à Unmet
-    if (newStatus === "unmet") {
-      setEvidence("");
-    }
+  const handleStatusChange = (e) => {
+    const newStatus = e.target.value === "yes";
+    setIsMet(newStatus);
+    onChange({
+      status: newStatus ? "met" : "unmet",
+      evidence: newStatus ? evidence : "",
+    });
   };
 
   const handleEvidenceChange = (e) => {
-    setEvidence(e.target.value);
+    const newEvidence = e.target.value;
+    setEvidence(newEvidence);
+    onChange({
+      status: "met",
+      evidence: newEvidence,
+    });
   };
 
-  const isMet = status === "met";
-  const isUnmet = status === "unmet";
-
   return (
-    <div className="manual-criterion">
+    <div className="manual-criterion-card">
       <div className="mc-header">
-        <div className="mc-title">{title}</div>
-        {info && <div className="mc-info">{info}</div>}
+        <h4>{criterion.title}</h4>
+        <span className={`level-badge ${criterion.level.toLowerCase()}`}>
+          {criterion.level}
+        </span>
       </div>
 
-      <div className="mc-controls">
-        <button
-          type="button"
-          className={`mc-btn mc-met ${isMet ? "active" : ""}`}
-          onClick={(e) => {
-            e.preventDefault();
-            handleSetStatus("met");
-          }}
-        >
-          <span className="mc-icon met" aria-hidden="true"></span>
-          Met
-        </button>
-
-        <button
-          type="button"
-          className={`mc-btn mc-unmet ${isUnmet ? "active" : ""}`}
-          onClick={(e) => {
-            e.preventDefault();
-            handleSetStatus("unmet");
-          }}
-        >
-          <span className="mc-icon unmet" aria-hidden="true"></span>
-          Unmet
-        </button>
+      <div className="mc-body">
+        <label>
+          Does your project meet this criterion?
+          <select value={isMet ? "yes" : "no"} onChange={handleStatusChange}>
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+        </label>
       </div>
 
       {isMet && (
@@ -79,3 +66,21 @@ export default function ManualCriterion({ id, title, info, value = {}, onChange 
     </div>
   );
 }
+
+ManualCriterion.propTypes = {
+  criterion: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    level: PropTypes.string.isRequired,
+    category: PropTypes.string,
+  }).isRequired,
+  answer: PropTypes.shape({
+    status: PropTypes.string,
+    evidence: PropTypes.string,
+  }),
+  onChange: PropTypes.func.isRequired,
+};
+
+ManualCriterion.defaultProps = {
+  answer: {},
+};

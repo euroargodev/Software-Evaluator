@@ -1,6 +1,16 @@
 // src/logic/evaluation.js
+import { checkRepoFeatures } from "./github";
 
+/**
+ * Main evaluation function
+ * Combines auto tests + manual answers to compute final score
+ */
 export async function evaluateProject(guidelines, owner, repo, userAnswers = {}, onProgress = null) {
+  console.log("\n🚀 ========== EVALUATION START ==========");
+  console.log(`📦 Repository: ${owner}/${repo}`);
+  console.log(`📊 Total guidelines: ${guidelines.length}`);
+  console.log(`📝 User answers provided: ${Object.keys(userAnswers).length}`);
+
   const levelWeights = {
     Novice: 1,
     Beginner: 1.2,
@@ -9,48 +19,86 @@ export async function evaluateProject(guidelines, owner, repo, userAnswers = {},
     Expert: 2.5,
   };
 
+  // ========== ÉTAPE 1 : SÉPARER AUTO ET MANUAL ==========
+  const autoCriteria = guidelines.filter(c => c.type === "auto");
+  const manualCriteria = guidelines.filter(c => c.type === "manual");
+
+  console.log(`\n📋 Criteria breakdown:
+    • Auto: ${autoCriteria.length}
+    • Manual: ${manualCriteria.length}`);
+
   const results = {};
   let totalWeight = 0;
   let weightedScore = 0;
 
-  for (const c of guidelines) {
-    let result;
-
-    try {
-      if (c.type === "auto" && typeof c.function === "function") {
-        // critère automatique
-        result = await c.function(owner, repo);
-      } else if (c.type === "manual") {
-        // critère manuel
-        result = c.function
-          ? c.function(c, userAnswers)
-          : { status: userAnswers[c.id]?.status || "unmet" };
-      } else {
-        result = { status: "unmet" };
-      }
-    } catch (err) {
-      console.error(`Error evaluating criterion ${c.id}:`, err);
-      result = { status: "unmet", error: err.message };
+  // ========== ÉTAPE 2 : TRAITER LES CRITÈRES MANUELS ==========
+  console.log("\n📝 Processing manual criteria...");
+  for (const criterion of manualCriteria) {
+    const answer = userAnswers[criterion.id];
+    
+    let status = "unmet";
+    if (answer && answer.status === "met") {
+      status = "met";
     }
 
-    const levelWeight = levelWeights[c.level] || 1;
+    const levelWeight = levelWeights[criterion.level] || 1;
     totalWeight += levelWeight;
-    if (result.status === "met") weightedScore += levelWeight;
+    if (status === "met") weightedScore += levelWeight;
 
-    results[c.id] = {
-      title: c.title,
-      level: c.level,
-      category: c.category,
-      status: result.status,
+    results[criterion.id] = {
+      title: criterion.title,
+      level: criterion.level,
+      category: criterion.category,
+      status: status,
       weight: levelWeight,
-      ...(result.error && { error: result.error })
+      type: "manual",
+      evidence: answer?.evidence || null
     };
 
-    console.log(
-      `Criterion ${c.id} [${c.title}] (${c.type}) => ${result.status} (weight ${levelWeight})`
-    );
+    console.log(`  ✅ Manual #${criterion.id} [${criterion.title}]: ${status} (weight: ${levelWeight})`);
   }
 
+  // ========== ÉTAPE 3 : LANCER LES TESTS AUTOMATIQUES ==========
+  console.log(`\n🤖 Running ${autoCriteria.length} automatic tests...`);
+  
+  if (onProgress) {
+    onProgress(0, autoCriteria.length, "Starting automatic tests...");
+  }
+
+  const autoResults = await checkRepoFeatures(owner, repo, onProgress);
+
+  console.log(`\n✅ Automatic tests completed. Results:`, autoResults);
+
+  // ========== ÉTAPE 4 : INTÉGRER LES RÉSULTATS AUTO ==========
+  for (const criterion of autoCriteria) {
+    const autoResult = autoResults[criterion.id];
+    
+    let status = "unmet";
+    let error = null;
+
+    if (autoResult) {
+      status = autoResult.status || "unmet";
+      error = autoResult.error || null;
+    }
+
+    const levelWeight = levelWeights[criterion.level] || 1;
+    totalWeight += levelWeight;
+    if (status === "met") weightedScore += levelWeight;
+
+    results[criterion.id] = {
+      title: criterion.title,
+      level: criterion.level,
+      category: criterion.category,
+      status: status,
+      weight: levelWeight,
+      type: "auto",
+      ...(error && { error })
+    };
+
+    console.log(`  🤖 Auto #${criterion.id} [${criterion.title}]: ${status} (weight: ${levelWeight})`);
+  }
+
+  // ========== ÉTAPE 5 : CALCULER LE SCORE FINAL ==========
   const globalScore = totalWeight > 0 ? weightedScore / totalWeight : 0;
 
   let validatedLevel;
@@ -60,15 +108,19 @@ export async function evaluateProject(guidelines, owner, repo, userAnswers = {},
   else if (globalScore > 0.4) validatedLevel = "Beginner";
   else validatedLevel = "Novice";
 
-  console.log(`✅ Weighted score: ${weightedScore} / total: ${totalWeight}`);
-  console.log(`🎯 Global Score: ${(globalScore * 100).toFixed(1)}% → ${validatedLevel}`);
+  console.log(`\n📊 ========== FINAL SCORE ==========`);
+  console.log(`  • Weighted score: ${weightedScore.toFixed(2)}`);
+  console.log(`  • Total weight: ${totalWeight.toFixed(2)}`);
+  console.log(`  • Global score: ${(globalScore * 100).toFixed(1)}%`);
+  console.log(`  • Validated level: ${validatedLevel}`);
+  console.log(`=====================================\n`);
 
-  // Generate intelligent feedback
+  // ========== ÉTAPE 6 : GÉNÉRER LE FEEDBACK ==========
   const feedback = generateFeedback(results, guidelines, validatedLevel);
 
-  return { 
-    validatedLevel, 
-    globalScore, 
+  return {
+    validatedLevel,
+    globalScore,
     details: results,
     feedback,
     stats: {
@@ -76,7 +128,9 @@ export async function evaluateProject(guidelines, owner, repo, userAnswers = {},
       metCriteria: Object.values(results).filter(r => r.status === "met").length,
       unmetCriteria: Object.values(results).filter(r => r.status === "unmet").length,
       weightedScore,
-      totalWeight
+      totalWeight,
+      autoCriteria: autoCriteria.length,
+      manualCriteria: manualCriteria.length
     }
   };
 }
@@ -88,54 +142,51 @@ function generateFeedback(results, guidelines, currentLevel) {
   const feedback = [];
   const levelOrder = ["Novice", "Beginner", "Intermediate", "Advanced", "Expert"];
   const currentLevelIndex = levelOrder.indexOf(currentLevel);
-  
-  // Group unmet criteria by category
+
   const unmetByCategory = {};
-  
+
   for (const [id, result] of Object.entries(results)) {
     if (result.status === "unmet") {
       const criterion = guidelines.find(g => g.id === parseInt(id));
       if (!criterion) continue;
-      
+
       const cat = criterion.category || "General";
       if (!unmetByCategory[cat]) {
         unmetByCategory[cat] = [];
       }
-      
+
       const levelIndex = levelOrder.indexOf(criterion.level);
       unmetByCategory[cat].push({
         id: criterion.id,
         title: criterion.title,
         level: criterion.level,
         priority: levelIndex,
-        isBlocker: levelIndex <= currentLevelIndex + 1 // Criteria for current or next level
+        isBlocker: levelIndex <= currentLevelIndex + 1
       });
     }
   }
-  
-  // Sort categories by number of blockers
+
   const sortedCategories = Object.entries(unmetByCategory).sort((a, b) => {
     const blockersA = a[1].filter(item => item.isBlocker).length;
     const blockersB = b[1].filter(item => item.isBlocker).length;
     return blockersB - blockersA;
   });
-  
-  // Generate feedback for each category
+
   for (const [category, items] of sortedCategories) {
     const blockers = items.filter(item => item.isBlocker);
     const future = items.filter(item => !item.isBlocker);
-    
+
     if (blockers.length === 0 && future.length === 0) continue;
-    
+
     const sortedItems = [...blockers, ...future].sort((a, b) => a.priority - b.priority);
-    
+
     let message;
     if (blockers.length > 0) {
       message = `🚨 Critical: Improve your ${category} practices to reach the next level`;
     } else {
       message = `💡 Future improvement: Enhance your ${category} for higher levels`;
     }
-    
+
     feedback.push({
       category,
       priority: blockers.length > 0 ? "high" : "low",
@@ -148,8 +199,7 @@ function generateFeedback(results, guidelines, currentLevel) {
       }))
     });
   }
-  
-  // Add positive feedback if score is high
+
   if (currentLevel === "Expert" || currentLevel === "Advanced") {
     feedback.unshift({
       category: "Overall",
@@ -158,27 +208,6 @@ function generateFeedback(results, guidelines, currentLevel) {
       missing: []
     });
   }
-  
-  return feedback;
-}
 
-/**
- * Check manual criterion based on user answers
- */
-export function checkManualCriterion(criterion, userAnswers) {
-  const answer = userAnswers[criterion.id];
-  
-  if (!answer) {
-    return { status: "unmet" };
-  }
-  
-  // If met, evidence is required
-  if (answer.status === "met" && !answer.evidence) {
-    return { status: "unmet", error: "Evidence required" };
-  }
-  
-  return {
-    status: answer.status,
-    evidence: answer.evidence
-  };
+  return feedback;
 }

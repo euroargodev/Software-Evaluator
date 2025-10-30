@@ -1,19 +1,311 @@
 /* === Home.css === */
 
 .home-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+}
+
+/* ========================================
+   HEADER AVEC LOGO
+======================================== */
+
+.home-header {
   text-align: center;
-  margin-top: 3rem;
-  padding: 1rem;
+  padding: 3rem 2rem 2rem;
+  background: linear-gradient(135deg, #0077be 0%, #003d5c 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.home-page h1 {
-  font-size: 2.2rem;
-  color: #242424;
+.header-logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+  cursor: pointer;
 }
 
-.home-page p {
-  color: #555;
+.header-logo:hover {
+  transform: scale(1.08);
+}
+
+.home-header h1 {
+  font-size: 2.8rem;
+  margin: 1rem 0 0.5rem;
+  font-weight: 700;
+  color : white;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+  letter-spacing: -0.5px;
+}
+
+.home-header p {
+  font-size: 1.2rem;
+  opacity: 0.95;
+  margin: 0.5rem auto 0;
+  max-width: 650px;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+/* ========================================
+   CONTENT AREA
+======================================== */
+
+.home-content {
+  flex: 1;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
   width: 100%;
-  margin: 0.5rem auto 2rem auto;
-  font-size: 1.1rem;
+}
+
+/* ========================================
+   FOOTER AVEC LOGO
+======================================== */
+
+.home-footer {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  background: #f8f9fa;
+  border-top: 2px solid #dee2e6;
+  margin-top: auto;
+}
+
+.footer-logo {
+  width: 90px;
+  height: auto;
+  margin-bottom: 1.2rem;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.footer-logo:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+.home-footer p {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+
+.footer-links {
+  margin-top: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  position: relative;
+}
+
+.footer-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: #475dc2;
+  transition: width 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #003d7a;
+  background-color: rgba(102, 126, 234, 0.1);
+}
+
+.footer-links a:hover::after {
+  width: 80%;
+}
+
+.footer-links span {
+  color: #dee2e6;
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
+/* ========================================
+   FOOTER - FUNDING INFO
+======================================== */
+
+.footer-funding {
+  max-width: 800px;
+  margin: 1.5rem auto;
+  line-height: 1.7;
+}
+
+.footer-project,
+.footer-grant,
+.footer-call {
+  color: #495057;
+  font-size: 0.9rem;
+  margin: 0.75rem 0;
+  text-align: center;
+}
+
+.footer-project {
+  font-size: 1rem;
+  color: #343a40;
+  font-weight: 500;
+}
+
+.footer-project strong {
+  color: #0066cc;
+  font-weight: 600;
+}
+
+.footer-grant {
+  font-size: 0.88rem;
+}
+
+.footer-grant strong {
+  font-weight: 600;
+  color: #495057;
+  background: rgba(102, 126, 234, 0.1);
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
+
+.footer-call {
+  font-size: 0.85rem;
+  color: #6c757d;
+  font-style: italic;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-call em {
+  font-weight: 600;
+  font-style: normal;
+  color: #495057;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .footer-funding {
+    padding: 0 1rem;
+  }
+
+  .footer-project,
+  .footer-grant {
+    font-size: 0.85rem;
+  }
+
+  .footer-call {
+    font-size: 0.8rem;
+  }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 768px) {
+  .home-header {
+    padding: 2rem 1.5rem 1.5rem;
+  }
+
+  .home-header h1 {
+    font-size: 2rem;
+  }
+
+  .home-header p {
+    font-size: 1rem;
+    max-width: 90%;
+  }
+
+  .header-logo {
+    width: 90px;
+  }
+
+  .footer-logo {
+    width: 70px;
+  }
+
+  .home-content {
+    padding: 2rem 1rem;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .footer-links span {
+    display: none;
+  }
+
+  .home-footer {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .home-header p {
+    font-size: 0.9rem;
+  }
+
+  .header-logo {
+    width: 75px;
+  }
+
+  .footer-logo {
+    width: 60px;
+  }
+}
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-header,
+.home-content,
+.home-footer {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.home-header {
+  animation-delay: 0s;
+}
+
+.home-content {
+  animation-delay: 0.1s;
+}
+
+.home-footer {
+  animation-delay: 0.2s;
 }
