@@ -5,7 +5,15 @@ import ManualCriterion from "./ManualCriterion";
 import "./GroupedManualCriteriaBoard.css";
 
 export default function GroupedManualCriteriaBoard({ guidelines = [], userAnswers = {}, setUserAnswers }) {
+  // ✅ DEBUG
+  console.log("📦 GroupedManualCriteriaBoard received:", guidelines.length, "guidelines");
+  console.log("🎯 Levels received:", [...new Set(guidelines.map(g => g.level))]);
+  console.log("📝 Types received:", [...new Set(guidelines.map(g => g.type))]);
+  
   const manualCriteria = guidelines.filter((c) => c.type === "manual");
+  
+  console.log("✅ After manual filter:", manualCriteria.length);
+  console.log("🎯 Manual levels:", [...new Set(manualCriteria.map(c => c.level))]);
 
   const grouped = manualCriteria.reduce((acc, crit) => {
     const group = crit.group || "Other";

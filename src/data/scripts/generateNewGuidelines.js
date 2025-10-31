@@ -11,48 +11,30 @@ const outputPath = path.resolve(__dirname, "../guidelines_v2.json");
 const overridesPath = path.resolve(__dirname, "../metadataOverrides.json");
 
 /**
- * COMPLETE LIST OF AUTO-CHECKABLE CRITERIA (45 total)
- * Updated to match githubCriterionMap
+ * AUTO-CHECKABLE CRITERIA (20 total) - Technical verification only
+ * Removed semi-auto criteria (now classified as manual)
  */
 const autoIds = [
-  // Data & Identifiers (8)
-  0, 1, 19, 21, 22, 51, 52, 53,
-  
-  // Language & License (5)
-  4, 5, 10, 33, 54,
-  
-  // Hosting & Version Control (3)
-  8, 29, 31,
-  
-  // Documentation (10)
-  3, 9, 11, 12, 13, 14, 26, 32, 47, 48,
-  
-  // Code Quality (5)
-  6, 7, 56, 57, 58,
-  
-  // CI/CD & Testing (3)
-  15, 16, 17,
-  
-  // Distribution (1)
-  18,
-  
-  // Argo Compliance (6)
-  23, 24, 25, 30, 60, 61,
-  
-  // Collaboration (5)
-  34, 35, 36, 37, 46,
-  
-  // Issue Management (4)
-  38, 39, 40, 62,
-  
-  // Pull Requests (2)
-  41, 42,
-  
-  // Releases & Citations (3)
-  49, 50, 55,
-  
-  // Community (2)
-  20, 59
+  4,  // Uses open-source language
+  5,  // Uses Argo-adopted language
+  7,  // Code formatting standards
+  8,  // Version control system
+  9,  // Dependencies clearly described
+  10, // Has LICENSE file
+  11, // Has README
+  26, // English language
+  29, // Has GitHub topics
+  30, // Uses GDAC servers
+  31, // Has .gitignore
+  32, // Protected main branch
+  33, // Has GitHub description
+  37, // Repo URL in code
+  38, // Has CITATION file
+  41, // Has CONTRIBUTING file
+  46, // Has tests
+  49, // Has releases/tags
+  60, // Assumes GDAC folder structure
+  61, // Uses official Argo sources
 ];
 
 console.log(`📊 Total auto-checkable criteria: ${autoIds.length}`);
@@ -63,7 +45,7 @@ console.log(`📊 Total auto-checkable criteria: ${autoIds.length}`);
 function classifyCriterion(title) {
   if (!title) return "General";
   const t = title.toLowerCase();
-  
+
   if (t.includes("readme") || t.includes("documentation")) return "Documentation";
   if (t.includes("license") || t.includes("licence")) return "Licensing";
   if (t.includes("doi") || t.includes("identifier") || t.includes("citation")) return "FAIR Data";
@@ -72,7 +54,7 @@ function classifyCriterion(title) {
   if (t.includes("test") || t.includes("ci") || t.includes("workflow")) return "Continuous Integration";
   if (t.includes("guideline") || t.includes("contribution")) return "Governance";
   if (t.includes("argo") || t.includes("data")) return "Argo Compliance";
-  
+
   return "General";
 }
 
@@ -177,13 +159,12 @@ function generateNewGuidelines() {
   const groups = [...new Set(simplified.map(c => c.group))];
 
   fs.writeFileSync(outputPath, JSON.stringify(simplified, null, 2), "utf-8");
-  
+
   console.log("\n✅ guidelines_v2.json generated successfully!");
   console.log(`📊 Statistics:`);
   console.log(`   • Total criteria: ${simplified.length}`);
   console.log(`   • Auto-checkable: ${autoCount} (${Math.round(autoCount/simplified.length*100)}%)`);
   console.log(`   • Manual: ${manualCount} (${Math.round(manualCount/simplified.length*100)}%)`);
-  console.log(`   • Groups: ${groups.length}`);
   console.log(`\n📁 Groups detected:`);
   groups.forEach(g => {
     const count = simplified.filter(c => c.group === g).length;

@@ -1,14 +1,19 @@
 // src/components/Form.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import TargetLevelSelect from "./TargetLevelSelect";
 import GroupedManualCriteriaBoard from "./GroupedManualCriteriaBoard";
 import guidelinesRaw from "../data/guidelines_v2.json";
 import { evaluateProject } from "../logic/evaluation";
 import { checkRateLimit } from "../logic/githubClient";
 import "./Form.css";
 
+// ✅ Ordre hiérarchique des niveaux
+const LEVEL_ORDER = ["Novice", "Beginner", "Intermediate", "Advanced", "Expert"];
+
 function Form({ onEvaluate }) {
   const [repoUrl, setRepoUrl] = useState("");
+  const [targetLevel, setTargetLevel] = useState("Novice"); // ✅ Niveau par défaut
   const [userAnswers, setUserAnswers] = useState({});
   const [loading, setLoading] = useState(false);
   const [isFirstEvaluation, setIsFirstEvaluation] = useState(null);
@@ -17,14 +22,30 @@ function Form({ onEvaluate }) {
 
   const guidelines = Array.isArray(guidelinesRaw) ? guidelinesRaw : [];
 
-  // ✅ FILTRE: Uniquement les critères manuels
-  const manualCriteria = guidelines.filter(c => c.type === "manual");
-  const autoCriteria = guidelines.filter(c => c.type === "auto");
+  // ✅ Filtrer les critères par niveau choisi
+  const getFilteredCriteria = () => {
+    const targetIndex = LEVEL_ORDER.indexOf(targetLevel);
+    
+    return guidelines.filter(criterion => {
+      const criterionIndex = LEVEL_ORDER.indexOf(criterion.level);
+      return criterionIndex <= targetIndex;
+    });
+  };
 
-  console.log(`📊 Criteria breakdown:
+  const filteredCriteria = getFilteredCriteria();
+  const manualCriteria = filteredCriteria.filter(c => c.type === "manual");
+  const autoCriteria = filteredCriteria.filter(c => c.type === "auto");
+
+  console.log(`📊 Criteria breakdown (Level: ${targetLevel}):
     • Manual: ${manualCriteria.length}
     • Auto: ${autoCriteria.length}
-    • Total: ${guidelines.length}`);
+    • Total: ${filteredCriteria.length}`);
+
+  // ✅ Réinitialiser les réponses si on change de niveau
+  useEffect(() => {
+    console.log(`🔄 Target level changed to: ${targetLevel}`);
+    setUserAnswers({});
+  }, [targetLevel]);
 
   const parseGitHubUrl = (url) => {
     const match = url.match(/github\.com\/([^\/]+)\/([^\/]+)/);
@@ -47,7 +68,12 @@ function Form({ onEvaluate }) {
 
         setUploadedFile(json);
 
-        // ✅ Charger uniquement les réponses manuelles
+        // ✅ Charger le niveau sauvegardé
+        if (json.targetLevel) {
+          setTargetLevel(json.targetLevel);
+        }
+
+        // ✅ Charger uniquement les réponses manuelles correspondant au niveau
         const manualAnswers = {};
         manualCriteria.forEach(criterion => {
           if (json.userAnswers[criterion.id]) {
@@ -60,6 +86,7 @@ function Form({ onEvaluate }) {
 
         console.log("✅ Evaluation file loaded successfully");
         console.log("📝 Manual answers loaded:", Object.keys(manualAnswers).length);
+        console.log("🎯 Target level:", json.targetLevel || "Not specified");
       } catch (error) {
         console.error("Error parsing file:", error);
         alert("❌ Invalid file format. Please upload a valid evaluation JSON file.");
@@ -68,89 +95,68 @@ function Form({ onEvaluate }) {
     reader.readAsText(file);
   };
 
-  const onTestProgress = (current, total, message = "") => {
-    setProgress({ current, total, message });
-    console.log(`📊 Progress: ${current}/${total} - ${message}`);
-  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setProgress({ current: 0, total: 0, message: "Starting evaluation..." });
 
-  // src/components/Form.jsx
+    try {
+      const { owner, repo } = parseGitHubUrl(repoUrl);
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setProgress({ current: 0, total: 0, message: "Starting evaluation..." });
-
-  try {
-    const { owner, repo } = parseGitHubUrl(repoUrl);
-
-    // Vérifier que toutes les questions manuelles sont répondues
-    const missingAnswers = manualCriteria.filter(
-      (c) => !userAnswers[c.id] || !userAnswers[c.id].status
-    );
-
-    console.log(`📋 Manual criteria check:
-      • Total manual: ${manualCriteria.length}
-      • Answered: ${Object.keys(userAnswers).length}
-      • Missing: ${missingAnswers.length}`);
-
-    if (missingAnswers.length > 0) {
-      alert(
-        `⚠️ Please answer all manual criteria before submitting.\n\n` +
-          `Missing ${missingAnswers.length} answers:\n` +
-          missingAnswers.map((c) => `• ${c.title}`).join("\n")
+      // Vérifier que toutes les questions manuelles sont répondues
+      const missingAnswers = manualCriteria.filter(
+        (c) => !userAnswers[c.id] || !userAnswers[c.id].status
       );
+
+      if (missingAnswers.length > 0) {
+        alert(
+          `⚠️ Please answer all manual criteria before submitting.\n\n` +
+            `Missing ${missingAnswers.length} answers:\n` +
+            missingAnswers.map((c) => `• ${c.title}`).join("\n")
+        );
+        setLoading(false);
+        return;
+      }
+
+      const rateLimit = await checkRateLimit();
+      if (rateLimit.remaining < 100) {
+        alert(
+          `⚠️ Low GitHub API rate limit: ${rateLimit.remaining} requests remaining.\n` +
+            `The evaluation may fail. Consider waiting until ${rateLimit.reset}.`
+        );
+      }
+
+      const progressCallback = (current, total, message) => {
+        console.log(`📊 Progress: ${current}/${total} - ${message}`);
+        setProgress({ current, total, message });
+      };
+
+      const evaluationResult = await evaluateProject(
+        filteredCriteria,  
+        owner,
+        repo,
+        userAnswers,
+        progressCallback
+      );
+
+      console.log("✅ Evaluation completed:", evaluationResult);
+
+      setProgress({ current: 100, total: 100, message: "Complete!" });
+
+      // ✅ ENVOI AVEC NIVEAU CIBLE
+      onEvaluate(
+        { owner, repo, url: repoUrl, targetLevel }, // ✅ Inclure le niveau
+        evaluationResult,
+        userAnswers
+      );
+
+    } catch (err) {
+      console.error("❌ Error evaluating repo:", err);
+      alert(`❌ Error: ${err.message}`);
+    } finally {
       setLoading(false);
-      return;
     }
-
-    const rateLimit = await checkRateLimit();
-    console.log(
-      `🔢 GitHub API: ${rateLimit.remaining} requests remaining (resets at ${rateLimit.reset})`
-    );
-
-    if (rateLimit.remaining < 100) {
-      alert(
-        `⚠️ Low GitHub API rate limit: ${rateLimit.remaining} requests remaining.\n` +
-          `The evaluation may fail. Consider waiting until ${rateLimit.reset}.`
-      );
-    }
-
-    console.log(`🔍 Evaluating ${owner}/${repo}...`);
-
-    const progressCallback = (current, total, message) => {
-      console.log(`📊 Progress: ${current}/${total} - ${message}`);
-      setProgress({ current, total, message });
-    };
-
-    console.log("🧮 Calling evaluateProject()...");
-
-    // ✅ APPEL CORRIGÉ AVEC TOUS LES PARAMÈTRES
-    const evaluationResult = await evaluateProject(
-      guidelines,        // ✅ TOUS les guidelines (auto + manual)
-      owner,
-      repo,
-      userAnswers,       // ✅ Réponses manuelles
-      progressCallback   // ✅ Callback pour la progression
-    );
-
-    console.log("✅ Evaluation completed:", evaluationResult);
-
-    setProgress({ current: 100, total: 100, message: "Complete!" });
-
-    // ✅ ENVOI CORRECT DES 3 PARAMÈTRES À Results
-    onEvaluate(
-      { owner, repo, url: repoUrl },  // Repository info
-      evaluationResult,                // Evaluation results
-      userAnswers                      // User answers
-    );
-
-  } catch (err) {
-    console.error("❌ Error evaluating repo:", err);
-    alert(`❌ Error: ${err.message}`);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   // ========== ÉCRAN DE SÉLECTION ==========
   if (isFirstEvaluation === null) {
@@ -158,7 +164,7 @@ const handleSubmit = async (e) => {
       <div className="evaluation-start">
         <h2>Is this your first evaluation?</h2>
         <p className="subtitle">
-          First-time users will answer <strong>{manualCriteria.length} manual questions</strong>.
+          First-time users will answer manual questions based on their target level.
           <br />
           Returning users can upload their previous evaluation file.
         </p>
@@ -186,9 +192,9 @@ const handleSubmit = async (e) => {
       <div className="file-upload-section">
         <h2>Upload Your Previous Evaluation</h2>
         <p className="subtitle">
-          We'll re-run <strong>{autoCriteria.length} automatic tests</strong> only.
+          We'll re-run automatic tests only.
           <br />
-          Your <strong>{manualCriteria.length} manual answers</strong> will be preserved.
+          Your manual answers will be preserved.
         </p>
         <input
           type="file"
@@ -202,6 +208,8 @@ const handleSubmit = async (e) => {
               ✅ File loaded: {uploadedFile.repository.owner}/{uploadedFile.repository.repo}
             </p>
             <p className="text-sm text-gray-600 mt-2">
+              🎯 Target level: {uploadedFile.targetLevel || "Not specified"}
+              <br />
               📝 {Object.keys(userAnswers).length} manual answers restored
             </p>
             <button
@@ -221,6 +229,13 @@ const handleSubmit = async (e) => {
       </div>
     );
   }
+  console.log("=== FORM.JSX DEBUG ===");
+console.log("🎯 Target Level:", targetLevel);
+console.log("📊 All guidelines:", guidelines.length);
+console.log("🔽 Filtered criteria:", filteredCriteria.length);
+console.log("📝 Manual criteria to pass:", manualCriteria.length);
+console.log("🎯 Filtered levels:", [...new Set(filteredCriteria.map(c => c.level))]);
+console.log("📋 Manual levels:", [...new Set(manualCriteria.map(c => c.level))]);
 
   // ========== FORMULAIRE PRINCIPAL ==========
   return (
@@ -228,9 +243,24 @@ const handleSubmit = async (e) => {
       <div className="form-header">
         <h1>📋 Argo Software Assessment</h1>
         <p className="subtitle">
-          Answer <strong>{manualCriteria.length} manual criteria</strong> about your project.
+          Select your target level and answer the corresponding manual criteria.
           <br />
-          <strong>{autoCriteria.length} automatic checks</strong> will run when you submit.
+          Automatic checks will run when you submit.
+        </p>
+      </div>
+
+      {/* ✅ SÉLECTEUR DE NIVEAU */}
+      <div className="form-group">
+        <label htmlFor="target-level">
+          Target Level <span className="required">*</span>
+        </label>
+        <TargetLevelSelect 
+          value={targetLevel} 
+          onChange={setTargetLevel}
+          disabled={loading}
+        />
+        <p className="helper-text">
+          Selecting a level will show criteria up to and including that level.
         </p>
       </div>
 
@@ -249,18 +279,30 @@ const handleSubmit = async (e) => {
         />
       </div>
 
-      {/* ✅ AFFICHER UNIQUEMENT LES CRITÈRES MANUELS */}
+      {/* ✅ STATISTIQUES PAR NIVEAU */}
+      <div className="evaluation-stats">
+        <div className="stat-card">
+          <span className="stat-label">Target Level</span>
+          <span className="stat-value">{targetLevel}</span>
+        </div>
+        <div className="stat-card">
+          <span className="stat-label">Manual Criteria</span>
+          <span className="stat-value">
+            {Object.keys(userAnswers).length} / {manualCriteria.length}
+          </span>
+        </div>
+        <div className="stat-card">
+          <span className="stat-label">Auto Checks</span>
+          <span className="stat-value">{autoCriteria.length}</span>
+        </div>
+      </div>
+
+      {/* ✅ AFFICHER UNIQUEMENT LES CRITÈRES MANUELS FILTRÉS */}
       <GroupedManualCriteriaBoard
         guidelines={manualCriteria}
         userAnswers={userAnswers}
         setUserAnswers={setUserAnswers}
       />
-
-      <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-        <p className="text-sm text-gray-700">
-          <strong>📊 Progress:</strong> {Object.keys(userAnswers).length} / {manualCriteria.length} manual criteria answered
-        </p>
-      </div>
 
       {loading && progress.total > 0 && (
         <div className="progress-container">

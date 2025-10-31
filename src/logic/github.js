@@ -1,138 +1,179 @@
 // src/logic/github.js
 import * as tests from "./githubTests.js";
 
+/**
+ * MAP: Criterion ID → Test Function
+ * Contains ALL auto-checkable criteria
+ */
 export const githubCriterionMap = {
-  // ==================== DATA & IDENTIFIERS ====================
-  0: tests.checkDataDOIinReadme,              // Data with DOI
-  1: tests.checkArgoPapersInMetadata,         // Argo papers referenced
-  19: tests.checkDOIinReadme,                 // Software DOI
-  21: tests.checkArgoDataDOI,                 // Argo Data DOI
-  22: tests.checkDataAccessibility,           // Data accessible online
-  51: tests.checkPersistentIdentifiers,       // All identifiers listed
-  52: tests.checkPackageRegistry,             // Registered in registry
-  53: tests.checkArgoRegistry,                // Registered in Argo registry
-
   // ==================== LANGUAGE & LICENSE ====================
-  4: tests.checkOpenSourceLanguage,           // Open-source language
-  5: tests.checkLanguageAdoptedByArgo,        // Argo-adopted language
-  10: tests.checkHasLicense,                  // Has license
-  33: tests.checkLicenseFile,                 // LICENSE file exists
-  54: tests.checkArgoLicenseCompliance,       // Preserves CC BY 4.0
+  4: tests.checkOpenSourceLanguage,
+  5: tests.checkLanguageAdoptedByArgo,
+  10: tests.checkHasLicense,
 
-  // ==================== HOSTING & VERSION CONTROL ====================
-  8: tests.checkArgoHosting,                  // Hosted on platform
-  29: tests.checkGitUsed,                     // Uses Git
-  31: tests.checkArgoOrgHosting,              // Hosted in Argo org
+  // ==================== VERSION CONTROL ====================
+  8: tests.checkVersionControl,
+  31: tests.checkHasGitignore,
 
-  // ==================== DOCUMENTATION ====================
-  3: tests.checkUsageGuidelines,              // Usage examples
-  9: tests.checkDependenciesFile,             // Dependencies listed
-  11: tests.checkReadmeExists,                // README exists
-  12: tests.checkAPIReference,                // API reference
-  13: tests.checkDocsHosted,                  // Docs hosted online
-  14: tests.checkInstallationInstructions,    // Installation guide
-  26: tests.checkEnglishLanguage,             // English documentation
-  32: tests.checkReadmeQuality,               // README quality
-  47: tests.checkSupportedOS,                 // OS support listed
-  48: tests.checkExecutionEnvironment,        // Execution env documented
+  // ==================== DOCUMENTATION FILES ====================
+  9: tests.checkDependenciesFile,
+  11: tests.checkReadmeExists,
+  26: tests.checkEnglishLanguage,
+  33: tests.checkGitHubDescription,
+  37: tests.checkRepoURLInCode,
+  38: tests.checkCitationFile,
+  41: tests.checkContributingFile,
 
   // ==================== CODE QUALITY ====================
-  6: tests.checkDocstrings,                   // Has docstrings
-  7: tests.checkCodeFormatting,               // Code formatted
-  56: tests.checkModularDesign,               // Modular components
-  57: tests.checkConsistentStyle,             // Consistent style
-  58: tests.checkModuleDocumentation,         // Modules documented
+  7: tests.checkCodeFormatting,
 
-  // ==================== CI/CD & TESTING ====================
-  15: tests.checkCI,                          // Has CI
-  16: tests.checkMultiPlatformTests,          // Multi-platform tests
-  17: tests.checkCD,                          // Has CD
+  // ==================== TESTING ====================
+  46: tests.checkHasTests,
 
-  // ==================== DISTRIBUTION ====================
-  18: tests.checkPackageRegistry,             // Distributed via pip/conda
+  // ==================== REPOSITORY SETTINGS ====================
+  29: tests.checkGitHubTopics,
+  32: tests.checkProtectedBranch,
+
+  // ==================== RELEASES ====================
+  49: tests.checkHasReleases,
 
   // ==================== ARGO COMPLIANCE ====================
-  23: tests.checkArgoFileFormats,             // Argo NetCDF formats
-  24: tests.checkArgoMetadataConventions,     // Argo metadata conventions
-  25: tests.checkNVSVocabulary,               // Uses NVS vocabulary
-  30: tests.checkGDACAccess,                  // Data from GDAC
-  60: tests.checkGDACStructure,               // GDAC folder structure
-  61: tests.checkArgoMetadataSources,         // Argo metadata sources
-
-  // ==================== COLLABORATION ====================
-  34: tests.checkContributorsExternal,        // External contributors
-  35: tests.checkContributorsArgo,            // Argo contributors
-  36: tests.checkIdentifiedContributors,      // Identified contributors
-  37: tests.checkContributingFile,            // CONTRIBUTING file
-  46: tests.checkContributingFile,            // CONTRIBUTING file (duplicate)
-
-  // ==================== ISSUE MANAGEMENT ====================
-  38: tests.checkIssuesEnabled,               // Issues enabled
-  39: tests.checkIssueLabels,                 // Issues have labels
-  40: tests.checkArgoMissionLabels,           // Argo mission labels
-  62: tests.checkIssueTemplates,              // Issue templates
-
-  // ==================== PULL REQUESTS ====================
-  41: tests.checkPRsExist,                    // PRs exist
-  42: tests.checkPRsReviewed,                 // PRs reviewed
-
-  // ==================== RELEASES & CITATIONS ====================
-  49: tests.checkChangeLog,                   // CHANGELOG
-  50: tests.checkReleases,                    // GitHub releases
-  55: tests.checkCITATIONcff,                 // CITATION.cff
-  
-  // ==================== COMMUNITY ====================
-  20: tests.checkPublishedPaper,              // Published paper
-  59: tests.checkCodeOfConduct,               // CODE_OF_CONDUCT
+  30: tests.checkUsesGDACServers,
+  60: tests.checkGDACFolderStructure,
+  61: tests.checkOfficialArgoSources,
 };
 
 /**
- * Run all mapped automatic tests in PARALLEL
+ * Run ONLY the specified automatic tests in PARALLEL
+ * @param {string} owner - Repository owner
+ * @param {string} repo - Repository name
+ * @param {Array} autoCriteria - Auto criteria to test (filtered by level)
+ * @param {Function} onProgress - Optional progress callback (completed, total, message)
+ * @returns {Object} Results keyed by criterion ID
  */
-export async function checkRepoFeatures(owner, repo, onProgress = null) {
+export async function checkRepoFeatures(owner, repo, autoCriteria = [], onProgress = null) {
+  console.log(`\n🤖 ========== AUTO TESTS START ==========`);
+  console.log(`📦 Repository: ${owner}/${repo}`);
+  console.log(`🧪 Auto criteria to test: ${autoCriteria.length}`);
+
+  const results = {};
+
+  // ✅ Si aucun critère auto, retourner immédiatement
+  if (autoCriteria.length === 0) {
+    console.log(`⚠️ No auto criteria to test for this level`);
+    return results;
+  }
+
   const octokit = tests.getGitHubClient ? tests.getGitHubClient() : null;
 
-  // Quick check if repo exists
+  // ✅ Vérifier que le repo existe
   if (octokit) {
     try {
       await octokit.rest.repos.get({ owner, repo });
-      console.log(`✅ Repository ${owner}/${repo} found`);
+      console.log(`✅ Repository ${owner}/${repo} accessible`);
     } catch (error) {
-      console.error(`❌ Repository ${owner}/${repo} not found or inaccessible`);
+      console.error(`❌ Repository ${owner}/${repo} not found:`, error.message);
+      
+      // Retourner "unmet" pour tous les critères demandés
       return Object.fromEntries(
-        Object.keys(githubCriterionMap).map(id => [id, { status: "unmet", error: "Repository not found" }])
+        autoCriteria.map(criterion => [
+          criterion.id,
+          { 
+            status: "unmet", 
+            error: "Repository not found or inaccessible" 
+          }
+        ])
       );
     }
   }
 
-  // Run all tests in parallel
-  const entries = Object.entries(githubCriterionMap);
-  const totalTests = entries.length;
+  // ✅ Filtrer uniquement les critères qui ont une fonction de test
+  const testsToRun = autoCriteria.filter(criterion => {
+    const hasTest = criterion.id in githubCriterionMap;
+    
+    if (!hasTest) {
+      console.warn(`⚠️ No test function for criterion #${criterion.id}: ${criterion.title}`);
+      results[criterion.id] = {
+        status: "unmet",
+        error: "Test function not implemented"
+      };
+    }
+    
+    return hasTest;
+  });
+
+  const totalTests = testsToRun.length;
   let completed = 0;
 
-  const promises = entries.map(async ([id, testFn]) => {
+  console.log(`🚀 Running ${totalTests} automatic checks in parallel...`);
+
+  // ✅ Exécuter les tests en parallèle
+  const promises = testsToRun.map(async (criterion) => {
+    const id = criterion.id;
+    const testFn = githubCriterionMap[id];
+
     try {
+      console.log(`  🔍 Testing #${id}: ${criterion.title} (${criterion.level})`);
+      
       const result = await testFn(owner, repo);
       completed++;
+
       if (onProgress) {
-        onProgress(completed, totalTests, `Testing criterion #${id}...`);
+        onProgress(completed, totalTests, `${criterion.title}`);
       }
+
+      console.log(`  ✅ #${id}: ${result.status}`);
       return [id, result];
+
     } catch (error) {
-      console.error(`❌ Test ${id} failed:`, error.message);
       completed++;
+      console.error(`  ❌ #${id} failed:`, error.message);
+
       if (onProgress) {
-        onProgress(completed, totalTests, `Test #${id} failed`);
+        onProgress(completed, totalTests, `${criterion.title} (error)`);
       }
-      return [id, { status: "unmet", error: error.message }];
+
+      return [id, { 
+        status: "unmet", 
+        error: error.message 
+      }];
     }
   });
 
-  const results = await Promise.allSettled(promises);
+  // ✅ Attendre tous les résultats
+  const settledResults = await Promise.allSettled(promises);
 
-  return Object.fromEntries(
-    results
+  // ✅ Construire l'objet de résultats
+  const testResults = Object.fromEntries(
+    settledResults
       .filter(r => r.status === "fulfilled")
       .map(r => r.value)
   );
+
+  // ✅ Fusionner avec les résultats des critères sans test
+  Object.assign(results, testResults);
+
+  // ✅ Statistiques finales
+  const metCount = Object.values(results).filter(r => r.status === "met").length;
+  const unmetCount = Object.values(results).filter(r => r.status === "unmet").length;
+
+  console.log(`\n✅ ========== AUTO TESTS COMPLETE ==========`);
+  console.log(`📊 Results: ${metCount}/${totalTests} met, ${unmetCount}/${totalTests} unmet`);
+  console.log(`📈 Success rate: ${Math.round(metCount/totalTests*100)}%\n`);
+
+  return results;
+}
+
+/**
+ * Get list of ALL auto-checkable criterion IDs
+ */
+export function getAutoCheckableCriteria() {
+  return Object.keys(githubCriterionMap).map(Number);
+}
+
+/**
+ * Check if a criterion is auto-checkable
+ */
+export function isAutoCheckable(criterionId) {
+  return criterionId in githubCriterionMap;
 }

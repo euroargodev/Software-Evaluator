@@ -6,7 +6,7 @@
     "category": "FAIR Data",
     "group": "Metadata & Identification",
     "level": "Beginner",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.2,
     "FAIR4RS": "Interoperable",
     "Software Development Model (SDM)": "",
@@ -14,15 +14,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.455Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -32,7 +32,7 @@
     "category": "FAIR Data",
     "group": "Metadata & Identification",
     "level": "Beginner",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.2,
     "FAIR4RS": "Findable",
     "Software Development Model (SDM)": "",
@@ -40,15 +40,15 @@
     "Argo FAIR tools": "Findable",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -71,7 +71,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -84,7 +84,7 @@
     "category": "Documentation",
     "group": "Documentation",
     "level": "Beginner",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.2,
     "FAIR4RS": "Reusable",
     "Software Development Model (SDM)": "",
@@ -92,15 +92,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -123,7 +123,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -149,7 +149,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -162,7 +162,7 @@
     "category": "General",
     "group": "Code Quality & Standards",
     "level": "Beginner",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.2,
     "FAIR4RS": "Accessible",
     "Software Development Model (SDM)": "",
@@ -170,15 +170,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -201,7 +201,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -227,7 +227,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -253,7 +253,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -279,7 +279,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -305,7 +305,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -318,7 +318,7 @@
     "category": "Documentation",
     "group": "Documentation",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Interoperable",
     "Software Development Model (SDM)": "",
@@ -326,15 +326,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -344,7 +344,7 @@
     "category": "Documentation",
     "group": "Documentation",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Findable",
     "Software Development Model (SDM)": "",
@@ -352,15 +352,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -370,7 +370,7 @@
     "category": "Documentation",
     "group": "Documentation",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Reusable",
     "Software Development Model (SDM)": "",
@@ -378,15 +378,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -396,7 +396,7 @@
     "category": "Continuous Integration",
     "group": "Testing & Integration",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Reusable",
     "Software Development Model (SDM)": "",
@@ -404,15 +404,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -422,7 +422,7 @@
     "category": "Continuous Integration",
     "group": "Testing & Integration",
     "level": "Advanced",
-    "type": "auto",
+    "type": "manual",
     "weight": 2,
     "FAIR4RS": "Reusable",
     "Software Development Model (SDM)": "",
@@ -430,15 +430,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -448,7 +448,7 @@
     "category": "General",
     "group": "Testing & Integration",
     "level": "Advanced",
-    "type": "auto",
+    "type": "manual",
     "weight": 2,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -456,15 +456,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -474,7 +474,7 @@
     "category": "General",
     "group": "Distribution & Registry",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -482,15 +482,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -500,7 +500,7 @@
     "category": "FAIR Data",
     "group": "Metadata & Identification",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Findable",
     "Software Development Model (SDM)": "",
@@ -508,15 +508,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -526,7 +526,7 @@
     "category": "Continuous Integration",
     "group": "Data & FAIR Compliance",
     "level": "Expert",
-    "type": "auto",
+    "type": "manual",
     "weight": 2.5,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -534,15 +534,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -552,7 +552,7 @@
     "category": "FAIR Data",
     "group": "Metadata & Identification",
     "level": "Beginner",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.2,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -560,15 +560,15 @@
     "Argo FAIR tools": "Findable",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -578,7 +578,7 @@
     "category": "Argo Compliance",
     "group": "Data & FAIR Compliance",
     "level": "Novice",
-    "type": "auto",
+    "type": "manual",
     "weight": 1,
     "FAIR4RS": "Interoperable",
     "Software Development Model (SDM)": "",
@@ -586,15 +586,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -604,7 +604,7 @@
     "category": "Argo Compliance",
     "group": "Data & FAIR Compliance",
     "level": "Beginner",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.2,
     "FAIR4RS": "Interoperable",
     "Software Development Model (SDM)": "",
@@ -612,15 +612,15 @@
     "Argo FAIR tools": "Findable",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -630,7 +630,7 @@
     "category": "Argo Compliance",
     "group": "Data & FAIR Compliance",
     "level": "Beginner",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.2,
     "FAIR4RS": "Interoperable",
     "Software Development Model (SDM)": "",
@@ -638,15 +638,15 @@
     "Argo FAIR tools": "Interoperable",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -656,7 +656,7 @@
     "category": "Argo Compliance",
     "group": "Data & FAIR Compliance",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -664,15 +664,15 @@
     "Argo FAIR tools": "Interoperable",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -695,7 +695,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -721,7 +721,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -747,7 +747,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -773,7 +773,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -799,7 +799,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -825,7 +825,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -851,7 +851,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -877,7 +877,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -890,7 +890,7 @@
     "category": "Community",
     "group": "Community & Collaboration",
     "level": "Advanced",
-    "type": "auto",
+    "type": "manual",
     "weight": 2,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -898,15 +898,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -916,7 +916,7 @@
     "category": "Community",
     "group": "Community & Collaboration",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -924,15 +924,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -942,7 +942,7 @@
     "category": "General",
     "group": "Community & Collaboration",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -950,15 +950,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -981,7 +981,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.973Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1007,7 +1007,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1020,7 +1020,7 @@
     "category": "Continuous Integration",
     "group": "Community & Collaboration",
     "level": "Advanced",
-    "type": "auto",
+    "type": "manual",
     "weight": 2,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -1028,15 +1028,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1046,7 +1046,7 @@
     "category": "Continuous Integration",
     "group": "Community & Collaboration",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -1054,15 +1054,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1085,7 +1085,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1098,7 +1098,7 @@
     "category": "General",
     "group": "Community & Collaboration",
     "level": "Advanced",
-    "type": "auto",
+    "type": "manual",
     "weight": 2,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -1106,15 +1106,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1137,7 +1137,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1163,7 +1163,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1189,7 +1189,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1215,7 +1215,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1228,7 +1228,7 @@
     "category": "Documentation",
     "group": "Documentation",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Reusable",
     "Software Development Model (SDM)": "",
@@ -1236,15 +1236,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1254,7 +1254,7 @@
     "category": "Documentation",
     "group": "Documentation",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Reusable",
     "Software Development Model (SDM)": "",
@@ -1262,15 +1262,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1293,7 +1293,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1306,7 +1306,7 @@
     "category": "Documentation",
     "group": "Documentation",
     "level": "Advanced",
-    "type": "auto",
+    "type": "manual",
     "weight": 2,
     "FAIR4RS": "Reusable",
     "Software Development Model (SDM)": "",
@@ -1314,15 +1314,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1332,7 +1332,7 @@
     "category": "Documentation",
     "group": "Metadata & Identification",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Findable",
     "Software Development Model (SDM)": "",
@@ -1340,15 +1340,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1358,7 +1358,7 @@
     "category": "General",
     "group": "Metadata & Identification",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Findable",
     "Software Development Model (SDM)": "",
@@ -1366,15 +1366,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1384,7 +1384,7 @@
     "category": "Argo Compliance",
     "group": "Metadata & Identification",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Findable",
     "Software Development Model (SDM)": "",
@@ -1392,15 +1392,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1410,7 +1410,7 @@
     "category": "Licensing",
     "group": "Licensing & Citation",
     "level": "Advanced",
-    "type": "auto",
+    "type": "manual",
     "weight": 2,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -1418,15 +1418,15 @@
     "Argo FAIR tools": "Reusable",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1436,7 +1436,7 @@
     "category": "FAIR Data",
     "group": "Licensing & Citation",
     "level": "Advanced",
-    "type": "auto",
+    "type": "manual",
     "weight": 2,
     "FAIR4RS": "Reusable",
     "Software Development Model (SDM)": "",
@@ -1444,15 +1444,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1462,7 +1462,7 @@
     "category": "Continuous Integration",
     "group": "Code Quality & Standards",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "Reusable",
     "Software Development Model (SDM)": "",
@@ -1470,15 +1470,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1488,7 +1488,7 @@
     "category": "General",
     "group": "Code Quality & Standards",
     "level": "Beginner",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.2,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -1496,15 +1496,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1514,7 +1514,7 @@
     "category": "General",
     "group": "Code Quality & Standards",
     "level": "Novice",
-    "type": "auto",
+    "type": "manual",
     "weight": 1,
     "FAIR4RS": "Reusable",
     "Software Development Model (SDM)": "",
@@ -1522,15 +1522,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1540,7 +1540,7 @@
     "category": "General",
     "group": "Licensing & Citation",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -1548,15 +1548,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   },
   {
@@ -1579,7 +1579,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1605,7 +1605,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1618,7 +1618,7 @@
     "category": "General",
     "group": "Community & Collaboration",
     "level": "Intermediate",
-    "type": "auto",
+    "type": "manual",
     "weight": 1.5,
     "FAIR4RS": "",
     "Software Development Model (SDM)": "",
@@ -1626,15 +1626,15 @@
     "Argo FAIR tools": "",
     "Project Aspects": "",
     "ui": {
-      "inputType": "auto",
-      "editable": false,
+      "inputType": "boolean",
+      "editable": true,
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T13:37:36.456Z",
+      "generatedAt": "2025-10-31T15:16:13.974Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
-      "autoCheckable": true
+      "autoCheckable": false
     }
   }
 ]

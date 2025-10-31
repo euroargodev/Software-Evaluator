@@ -1,5 +1,7 @@
 // src/logic/evaluation.js
-import { checkRepoFeatures } from "./github";
+
+// ✅ Importer checkRepoFeatures depuis github.js
+import { checkRepoFeatures } from "./github.js";
 
 /**
  * Main evaluation function
@@ -35,7 +37,7 @@ export async function evaluateProject(guidelines, owner, repo, userAnswers = {},
   console.log("\n📝 Processing manual criteria...");
   for (const criterion of manualCriteria) {
     const answer = userAnswers[criterion.id];
-    
+
     let status = "unmet";
     if (answer && answer.status === "met") {
       status = "met";
@@ -60,19 +62,20 @@ export async function evaluateProject(guidelines, owner, repo, userAnswers = {},
 
   // ========== ÉTAPE 3 : LANCER LES TESTS AUTOMATIQUES ==========
   console.log(`\n🤖 Running ${autoCriteria.length} automatic tests...`);
-  
+
   if (onProgress) {
     onProgress(0, autoCriteria.length, "Starting automatic tests...");
   }
 
-  const autoResults = await checkRepoFeatures(owner, repo, onProgress);
+  // ✅ Appeler checkRepoFeatures avec les critères filtrés
+  const autoResults = await checkRepoFeatures(owner, repo, autoCriteria, onProgress);
 
   console.log(`\n✅ Automatic tests completed. Results:`, autoResults);
 
   // ========== ÉTAPE 4 : INTÉGRER LES RÉSULTATS AUTO ==========
   for (const criterion of autoCriteria) {
     const autoResult = autoResults[criterion.id];
-    
+
     let status = "unmet";
     let error = null;
 
@@ -92,13 +95,14 @@ export async function evaluateProject(guidelines, owner, repo, userAnswers = {},
       status: status,
       weight: levelWeight,
       type: "auto",
+      evidence: autoResult?.evidence || null,
       ...(error && { error })
     };
 
     console.log(`  🤖 Auto #${criterion.id} [${criterion.title}]: ${status} (weight: ${levelWeight})`);
   }
 
-  // ========== ÉTAPE 5 : CALCULER LE SCORE FINAL ==========
+  // ========== CALCULER LE SCORE FINAL ==========
   const globalScore = totalWeight > 0 ? weightedScore / totalWeight : 0;
 
   let validatedLevel;
@@ -115,7 +119,6 @@ export async function evaluateProject(guidelines, owner, repo, userAnswers = {},
   console.log(`  • Validated level: ${validatedLevel}`);
   console.log(`=====================================\n`);
 
-  // ========== ÉTAPE 6 : GÉNÉRER LE FEEDBACK ==========
   const feedback = generateFeedback(results, guidelines, validatedLevel);
 
   return {
