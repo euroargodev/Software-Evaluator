@@ -179,72 +179,73 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
           </div>
         </div>
 
-        {/* RECOMMANDATIONS */}
-        {feedback && feedback.length > 0 && (
-          <section className="feedback-section mb-8">
-            <h3 className="text-2xl font-bold mb-4">📋 Recommendations</h3>
+      {/* RECOMMANDATIONS */}
+      {feedback && feedback.length > 0 && (
+        <section className="recommendations-section">
+          <h2 className="section-title">Recommendations for Improvement</h2>
+          
+          <div className="recommendations-container">
             {feedback.map((item, idx) => (
               <div
                 key={idx}
-                className={`feedback-card p-4 mb-4 rounded-lg border-l-4 ${
+                className={`recommendation-block ${
                   item.priority === "high"
-                    ? "bg-red-50 border-red-500"
+                    ? "priority-high"
                     : item.priority === "info"
-                    ? "bg-blue-50 border-blue-500"
-                    : "bg-gray-50 border-gray-300"
+                    ? "priority-info"
+                    : "priority-normal"
                 }`}
               >
-                <h4 className="font-bold text-lg mb-2">{item.message}</h4>
+                <h3 className="recommendation-header">{item.message}</h3>
+                
                 {item.missing && item.missing.length > 0 && (
-                  <ul className="list-disc list-inside space-y-1">
-                    {item.missing.map((m) => (
-                      <li
-                        key={m.id}
-                        className={`text-sm ${
-                          m.isBlocker
-                            ? "font-semibold text-red-700 border-l-2 pl-2 border-red-400"
-                            : "opacity-75"
-                        }`}
-                      >
-                        <span className={`font-semibold ${m.isBlocker ? "text-red-600" : "text-gray-600"}`}>
-                          [{m.level}]
-                        </span>{" "}
-                        {m.title}
-                        {m.isBlocker && (
-                          <span className="ml-2 text-xs bg-red-100 text-red-600 px-2 py-1 rounded">
-                            Critical for next level
-                          </span>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
+                  <table className="criteria-table">
+                    <thead>
+                      <tr>
+                        <th>Status</th>
+                        <th>Criterion</th>
+                        <th>Priority</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {item.missing.map((m) => (
+                        <tr key={m.id} className={m.isBlocker ? "blocker-row" : ""}>
+                          <td className="status-cell">
+                            <span className={`status-indicator ${m.checked ? "validated" : "missing"}`}>
+                              {m.checked ? "Validated" : "Missing"}
+                            </span>
+                          </td>
+                          <td className="criterion-title">{m.title}</td>
+                          <td className="priority-cell">
+                            {m.isBlocker && !m.checked && (
+                              <span className="badge-required">Required</span>
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 )}
               </div>
             ))}
-          </section>
-        )}
+          </div>
+        </section>
+      )}
 
-        {/* BOUTONS D'ACTION */}
-        <div className="flex justify-center gap-4">
-          <button
-            onClick={handleDownload}
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition font-semibold flex items-center gap-2"
-          >
-            <span>💾</span>
-            Download Evaluation File
-          </button>
-          <button
-            onClick={onGoBack}
-            className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-300 transition font-semibold"
-          >
-            ← Back to Home
-          </button>
-        </div>
+      {/* BOUTONS D'ACTION */}
+      <div className="action-buttons">
+        <button onClick={handleDownload} className="btn-primary">
+          Download Evaluation Report
+        </button>
+        <button onClick={onGoBack} className="btn-secondary">
+          Return to Form
+        </button>
+      </div>
 
         {/* PRO TIP */}
         <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
           <p className="text-sm text-gray-700">
-            <strong>💡 Pro Tip:</strong> Save this evaluation file! You can upload it on your next visit 
+            <strong>Pro Tip:</strong> Save this evaluation file! You can upload it on your next visit 
             to skip answering manual questions again. We'll only re-run the automatic tests.
           </p>
         </div>

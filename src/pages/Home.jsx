@@ -11,7 +11,7 @@ function Home({ onEvaluate }) {
       {/* ⭐ HEADER AVEC LOGO */}
       <header className="home-header">
         <img src={logo_1} alt="Euro-Argo Logo" className="header-logo" />
-        <h1>🌊 Software Evaluator</h1>
+        <h1>Software Evaluator</h1>
         <p>Evaluate your software against EuroArgo development guidelines</p>
       </header>
 

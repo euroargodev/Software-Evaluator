@@ -182,9 +182,9 @@ function generateFeedback(results, guidelines, currentLevel) {
 
     let message;
     if (blockers.length > 0) {
-      message = `🚨 Critical: Improve your ${category} practices to reach the next level`;
+      message = `Critical: Improve your ${category} practices to reach the next level`;
     } else {
-      message = `💡 Future improvement: Enhance your ${category} for higher levels`;
+      message = `Future improvement: Enhance your ${category} for higher levels`;
     }
 
     feedback.push({
