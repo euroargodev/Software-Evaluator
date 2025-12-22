@@ -30,7 +30,7 @@ export function getGitHubClient() {
     if (!token) {
       console.warn(
         "⚠️ No GitHub token found. API requests will be limited to 60/hour.\n" +
-        "Set VITE_GITHUB_TOKEN in your .env file for 5000 requests/hour."
+        "Set VITE_GH_DEPLOY_TOKEN in your .env file for 5000 requests/hour."
       );
     } else {
       console.log("✅ GitHub client initialized with token");

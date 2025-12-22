@@ -23,10 +23,11 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
   // ✅ EXTRACTION SÉCURISÉE AVEC VALEURS PAR DÉFAUT
   const {
     validatedLevel = "Novice",
+    achievedLevel = "Novice",
     globalScore = 0,
     details = {},
     feedback = [],
-    stats = { metCriteria: 0, unmetCriteria: 0, totalCriteria: 0 }
+    stats = { metCriteria: 0, unmetCriteria: 0, totalCriteria: 0, targetLevel: null }
   } = evaluationResult;
 
   const getBadgeDetails = (level) => {
@@ -72,6 +73,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
   };
 
   const badge = getBadgeDetails(validatedLevel);
+  const targetLevel = repository?.targetLevel || stats?.targetLevel;
 
   const handleDownload = () => {
     const evaluationFile = {
@@ -87,6 +89,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
       },
       evaluation: {
         level: validatedLevel,
+        achievedLevel,
         score: globalScore,
         stats: stats,
         evaluatedAt: new Date().toISOString()
@@ -155,6 +158,16 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
           </div>
           <p className="text-xl text-gray-700 mb-2">{badge.message}</p>
           <p className="text-gray-600 italic">{badge.description}</p>
+          <div className="mt-3 flex justify-center gap-3 flex-wrap text-sm">
+            {targetLevel && (
+              <span className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100">
+                🎯 Target: {targetLevel}
+              </span>
+            )}
+            <span className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
+              📈 Achieved (raw): {achievedLevel}
+            </span>
+          </div>
         </div>
 
         {/* STATISTIQUES */}

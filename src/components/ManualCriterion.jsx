@@ -1,20 +1,17 @@
 // src/components/ManualCriterion.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import "./ManualCriterion.css";
 
 export default function ManualCriterion({ criterion, answer, onChange }) {
-  const [isMet, setIsMet] = useState(answer?.status === "met");
   const [evidence, setEvidence] = useState(answer?.evidence || "");
+  const isMet = useMemo(() => answer?.status === "met", [answer]);
 
   useEffect(() => {
-    setIsMet(answer?.status === "met");
     setEvidence(answer?.evidence || "");
   }, [answer]);
 
-  const handleStatusChange = (e) => {
-    const newStatus = e.target.value === "yes";
-    setIsMet(newStatus);
+  const handleStatusChange = (newStatus) => {
     onChange({
       status: newStatus ? "met" : "unmet",
       evidence: newStatus ? evidence : "",
@@ -31,22 +28,34 @@ export default function ManualCriterion({ criterion, answer, onChange }) {
   };
 
   return (
-    <div className="manual-criterion-card">
+    <div className="manual-criterion">
       <div className="mc-header">
-        <h4>{criterion.title}</h4>
+        <div>
+          <h4 className="mc-title">{criterion.title}</h4>
+          {criterion.description && <p className="mc-info">{criterion.description}</p>}
+        </div>
         <span className={`level-badge ${criterion.level.toLowerCase()}`}>
           {criterion.level}
         </span>
       </div>
 
-      <div className="mc-body">
-        <label>
-          Does your project meet this criterion?
-          <select value={isMet ? "yes" : "no"} onChange={handleStatusChange}>
-            <option value="no">No</option>
-            <option value="yes">Yes</option>
-          </select>
-        </label>
+      <div className="mc-controls">
+        <button
+          type="button"
+          className={`mc-btn mc-unmet ${!isMet ? "active" : ""}`}
+          onClick={() => handleStatusChange(false)}
+        >
+          <span className="mc-icon unmet" />
+          No
+        </button>
+        <button
+          type="button"
+          className={`mc-btn mc-met ${isMet ? "active" : ""}`}
+          onClick={() => handleStatusChange(true)}
+        >
+          <span className="mc-icon met" />
+          Yes
+        </button>
       </div>
 
       {isMet && (

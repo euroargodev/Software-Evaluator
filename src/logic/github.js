@@ -1,5 +1,6 @@
 // src/logic/github.js
 import * as tests from "./githubTests.js";
+import { getGitHubClient } from "./githubClient.js";
 
 /**
  * MAP: Criterion ID → Test Function
@@ -64,7 +65,7 @@ export async function checkRepoFeatures(owner, repo, autoCriteria = [], onProgre
     return results;
   }
 
-  const octokit = tests.getGitHubClient ? tests.getGitHubClient() : null;
+  const octokit = getGitHubClient();
 
   // ✅ Vérifier que le repo existe
   if (octokit) {

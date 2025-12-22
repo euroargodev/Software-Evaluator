@@ -7,7 +7,14 @@ import { checkRepoFeatures } from "./github.js";
  * Main evaluation function
  * Combines auto tests + manual answers to compute final score
  */
-export async function evaluateProject(guidelines, owner, repo, userAnswers = {}, onProgress = null) {
+export async function evaluateProject(
+  guidelines,
+  owner,
+  repo,
+  userAnswers = {},
+  onProgress = null,
+  targetLevel = null
+) {
   console.log("\n🚀 ========== EVALUATION START ==========");
   console.log(`📦 Repository: ${owner}/${repo}`);
   console.log(`📊 Total guidelines: ${guidelines.length}`);
@@ -20,6 +27,9 @@ export async function evaluateProject(guidelines, owner, repo, userAnswers = {},
     Advanced: 2,
     Expert: 2.5,
   };
+  const levelOrder = ["Novice", "Beginner", "Intermediate", "Advanced", "Expert"];
+  const effectiveTarget =
+    targetLevel && levelOrder.includes(targetLevel) ? targetLevel : null;
 
   // ========== ÉTAPE 1 : SÉPARER AUTO ET MANUAL ==========
   const autoCriteria = guidelines.filter(c => c.type === "auto");
@@ -105,24 +115,39 @@ export async function evaluateProject(guidelines, owner, repo, userAnswers = {},
   // ========== CALCULER LE SCORE FINAL ==========
   const globalScore = totalWeight > 0 ? weightedScore / totalWeight : 0;
 
-  let validatedLevel;
-  if (globalScore > 0.9) validatedLevel = "Expert";
-  else if (globalScore > 0.75) validatedLevel = "Advanced";
-  else if (globalScore > 0.6) validatedLevel = "Intermediate";
-  else if (globalScore > 0.4) validatedLevel = "Beginner";
-  else validatedLevel = "Novice";
+  // Niveau brut atteint sur la base du score seul
+  const scoreLevel = (() => {
+    if (globalScore > 0.9) return "Expert";
+    if (globalScore > 0.75) return "Advanced";
+    if (globalScore > 0.6) return "Intermediate";
+    if (globalScore > 0.4) return "Beginner";
+    return "Novice";
+  })();
+
+  // Si un niveau cible est fourni, on borne l'affichage à ce niveau
+  let validatedLevel = scoreLevel;
+  if (effectiveTarget) {
+    const scoreIdx = levelOrder.indexOf(scoreLevel);
+    const targetIdx = levelOrder.indexOf(effectiveTarget);
+    validatedLevel = levelOrder[Math.min(scoreIdx, targetIdx)];
+  }
 
   console.log(`\n📊 ========== FINAL SCORE ==========`);
   console.log(`  • Weighted score: ${weightedScore.toFixed(2)}`);
   console.log(`  • Total weight: ${totalWeight.toFixed(2)}`);
   console.log(`  • Global score: ${(globalScore * 100).toFixed(1)}%`);
-  console.log(`  • Validated level: ${validatedLevel}`);
+  console.log(`  • Score level: ${scoreLevel}`);
+  if (effectiveTarget) {
+    console.log(`  • Target level: ${effectiveTarget}`);
+  }
+  console.log(`  • Validated level (capped by target): ${validatedLevel}`);
   console.log(`=====================================\n`);
 
   const feedback = generateFeedback(results, guidelines, validatedLevel);
 
   return {
     validatedLevel,
+    achievedLevel: scoreLevel,
     globalScore,
     details: results,
     feedback,
@@ -133,7 +158,8 @@ export async function evaluateProject(guidelines, owner, repo, userAnswers = {},
       weightedScore,
       totalWeight,
       autoCriteria: autoCriteria.length,
-      manualCriteria: manualCriteria.length
+      manualCriteria: manualCriteria.length,
+      targetLevel: effectiveTarget
     }
   };
 }

@@ -1,6 +1,21 @@
 // src/logic/githubTests.js
 import { getGitHubClient, getCachedData, setCachedData } from "./githubClient.js";
 
+// Simple base64 decoder that works both in browser (atob) and Node (Buffer)
+function decodeBase64(content) {
+  if (typeof atob === "function") {
+    try {
+      return decodeURIComponent(escape(atob(content)));
+    } catch {
+      return atob(content);
+    }
+  }
+  if (typeof Buffer !== "undefined") {
+    return Buffer.from(content, "base64").toString("utf8");
+  }
+  throw new Error("No base64 decoder available");
+}
+
 // ==================== HELPER FUNCTIONS ====================
 
 /**
@@ -39,7 +54,7 @@ async function getReadmeContent(owner, repo) {
 
   try {
     const res = await octokit.rest.repos.getReadme({ owner, repo });
-    const content = Buffer.from(res.data.content, "base64").toString("utf8");
+    const content = decodeBase64(res.data.content);
     setCachedData(cacheKey, content);
     return content;
   } catch {
@@ -103,7 +118,7 @@ async function getFileContent(owner, repo, path) {
   try {
     const { data } = await octokit.rest.repos.getContent({ owner, repo, path });
     if (data.content) {
-      const content = Buffer.from(data.content, 'base64').toString('utf-8');
+      const content = decodeBase64(data.content);
       setCachedData(cacheKey, content);
       return content;
     }
@@ -409,13 +424,31 @@ export async function checkReadmeExists(owner, repo) {
   if (cached) return cached;
 
   try {
+    const readmeContent = await getReadmeContent(owner, repo);
+    if (readmeContent) {
+      const result = {
+        status: "met",
+        details: "README found via API endpoint",
+        evidence: ["README detected via API"],
+      };
+      setCachedData(cacheKey, result);
+      return result;
+    }
+
     const files = await getRepoFiles(owner, repo);
-    const hasReadme = files.some(f => f.toUpperCase().startsWith('README'));
+    const hasReadmeByList = files.some((f) => f.toUpperCase().startsWith("README"));
+
+    // Support common README variants
+    const variants = ["README", "README.MD", "README.RST", "README.TXT"];
+    const hasVariant = files.some((f) => variants.includes(f.toUpperCase()));
+    const hasReadme = hasReadmeByList || hasVariant;
     
     const result = {
       status: hasReadme ? "met" : "unmet",
       details: hasReadme ? "README file found" : "No README file",
-      evidence: files.filter(f => f.toUpperCase().startsWith('README'))
+      evidence: hasReadme
+        ? files.filter((f) => f.toUpperCase().startsWith("README"))
+        : []
     };
     
     setCachedData(cacheKey, result);

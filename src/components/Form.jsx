@@ -35,17 +35,23 @@ function Form({ onEvaluate }) {
   const filteredCriteria = getFilteredCriteria();
   const manualCriteria = filteredCriteria.filter(c => c.type === "manual");
   const autoCriteria = filteredCriteria.filter(c => c.type === "auto");
+  const manualCriteriaKey = manualCriteria.map(c => c.id).join(",");
 
   console.log(`📊 Criteria breakdown (Level: ${targetLevel}):
     • Manual: ${manualCriteria.length}
     • Auto: ${autoCriteria.length}
     • Total: ${filteredCriteria.length}`);
 
-  // ✅ Réinitialiser les réponses si on change de niveau
+  // ✅ Pré-remplir toutes les réponses manuelles à "No" (unmet) quand le niveau change
   useEffect(() => {
-    console.log(`🔄 Target level changed to: ${targetLevel}`);
-    setUserAnswers({});
-  }, [targetLevel]);
+    setUserAnswers((prev) => {
+      const next = {};
+      manualCriteria.forEach((criterion) => {
+        next[criterion.id] = prev[criterion.id] || { status: "unmet", evidence: "" };
+      });
+      return next;
+    });
+  }, [targetLevel, manualCriteriaKey]);
 
   const parseGitHubUrl = (url) => {
     const match = url.match(/github\.com\/([^\/]+)\/([^\/]+)/);
@@ -136,7 +142,8 @@ function Form({ onEvaluate }) {
         owner,
         repo,
         userAnswers,
-        progressCallback
+        progressCallback,
+        targetLevel
       );
 
       console.log("✅ Evaluation completed:", evaluationResult);
