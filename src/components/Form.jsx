@@ -169,13 +169,13 @@ function Form({ onEvaluate }) {
             onClick={() => setIsFirstEvaluation(true)}
             className="btn-primary"
           >
-            ✨ Yes, first time
+            Yes, first time
           </button>
           <button 
             onClick={() => setIsFirstEvaluation(false)}
             className="btn-secondary"
           >
-            🔄 No, I have a file
+            No, I have a file
           </button>
         </div>
       </div>
@@ -229,7 +229,7 @@ function Form({ onEvaluate }) {
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <div className="form-header">
-        <h1>📋 Argo Software Assessment</h1>
+        <h1>Argo Software Assessment</h1>
         <p className="subtitle">
           Select your target level and answer the corresponding manual criteria.
           <br />
@@ -268,7 +268,7 @@ function Form({ onEvaluate }) {
         />
       </div>
 
-      {/* ✅ STATISTIQUES PAR NIVEAU */}
+      {/* Stats per level*/}
       <div className="evaluation-stats">
         <div className="stat-card">
           <span className="stat-label">Target Level</span>
@@ -309,7 +309,7 @@ function Form({ onEvaluate }) {
 
       <div className="form-actions">
         <button type="submit" disabled={loading} className="evaluate-btn">
-          {loading ? "⏳ Evaluating..." : "🚀 Evaluate Repository"}
+          {loading ? "⏳ Evaluating..." : "Evaluate Repository"}
         </button>
 
         <button
