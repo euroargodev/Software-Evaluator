@@ -16,6 +16,7 @@ export const githubCriterionMap = {
   // ==================== VERSION CONTROL ====================
   8: tests.checkVersionControl,       // hosted on a web-based platform
   29: tests.checkVersionControl,      // version control tool used (Git)
+  31: tests.checkHostedOnArgoOrg,     // hosted under an Argo organization/user
 
   // ==================== DOCUMENTATION FILES ====================
   9: tests.checkDependenciesFile,
@@ -24,19 +25,14 @@ export const githubCriterionMap = {
   32: tests.checkReadmeExists,        // duplicate guideline for README
   37: tests.checkContributingFile,    // contribution guidelines document
   46: tests.checkContributingFile,    // duplicate guideline for CONTRIBUTING file
-  38: tests.checkGitHubDescription,   // approximation for issue tracking on platform
+  38: tests.checkIssuesManagedOnPlatform, // issues enabled/templates on platform
 
   // ==================== CODE QUALITY ====================
   7: tests.checkCodeFormatting,
 
-  // ==================== TESTING ====================
-  // no direct testing criterion present in guidelines_v2 auto set
-
-  // ==================== REPOSITORY SETTINGS ====================
-  // 31 (Argo org hosting) currently has no auto test implemented
-
-  // ==================== RELEASES ====================
-  // 49 (change log) currently has no auto test implemented
+  // ==================== CHANGE MANAGEMENT / RELEASES ====================
+  41: tests.checkChangesViaPullRequests, // evidence of PR workflow
+  49: tests.checkHasChangelog,
 
   // ==================== ARGO COMPLIANCE ====================
   30: tests.checkUsesGDACServers,

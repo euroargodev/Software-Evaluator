@@ -103,27 +103,6 @@ async function getRepoLanguages(owner, repo) {
 }
 
 /**
- * Check if branch is protected
- */
-async function isBranchProtected(owner, repo, branch) {
-  const cacheKey = `branch_protected_${owner}_${repo}_${branch}`;
-  const cached = getCachedData(cacheKey);
-  if (cached !== undefined) return cached;
-
-  const octokit = getGitHubClient();
-  if (!octokit) return false;
-
-  try {
-    await octokit.rest.repos.getBranchProtection({ owner, repo, branch });
-    setCachedData(cacheKey, true);
-    return true;
-  } catch {
-    setCachedData(cacheKey, false);
-    return false;
-  }
-}
-
-/**
  * Search in code (uses GitHub Code Search API - has rate limits)
  */
 async function searchInCode(owner, repo, patterns) {
@@ -157,89 +136,50 @@ async function searchInCode(owner, repo, patterns) {
   }
 }
 
-// ==================== LEGACY CRITERION 0 (now manual) ====================
-export async function checkDataDOIinReadme(owner, repo) {
-  const cacheKey = `data_doi_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
 
-  const content = await getReadmeContent(owner, repo);
-  if (!content) return { status: "unmet" };
+// Helper to DRY language-based criteria (open-source vs Argo-adopted)
+function buildLanguageResult(owner, repo, id, allowList) {
+  return async () => {
+    const cacheKey = `criterion_${id}_${owner}_${repo}`;
+    const cached = getCachedData(cacheKey);
+    if (cached) return cached;
 
-  const hasDataDOI = /data.*doi.*10\.\d{4,9}/i.test(content) ||
-                    /doi.*data.*10\.\d{4,9}/i.test(content);
+    try {
+      const languages = await getRepoLanguages(owner, repo);
+      const matched = languages.filter((lang) => allowList.includes(lang));
 
-  const result = { status: hasDataDOI ? "met" : "unmet" };
-  setCachedData(cacheKey, result);
-  return result;
+      const result = {
+        status: matched.length > 0 ? "met" : "unmet",
+        details: `Languages: ${languages.join(", ")}`,
+        evidence: matched,
+      };
+
+      setCachedData(cacheKey, result);
+      return result;
+    } catch (error) {
+      const result = { status: "unmet", error: error.message };
+      setCachedData(cacheKey, result);
+      return result;
+    }
+  };
 }
 
-// ==================== AUTO CRITERIA (20 functions) ====================
+// ==================== AUTO CRITERIA ====================
 
 /**
  * CRITERION 4: Open-Source Language
  */
-export async function checkOpenSourceLanguage(owner, repo) {
-  const cacheKey = `criterion_4_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const languages = await getRepoLanguages(owner, repo);
-    const openSourceLanguages = [
-      'Python', 'R', 'JavaScript', 'TypeScript', 'Java', 'C++', 'C', 'Julia',
-      'Go', 'Rust', 'Ruby', 'PHP', 'Shell', 'HTML', 'CSS', 'MATLAB'
-    ];
-    
-    const hasOpenSource = languages.some(lang => 
-      openSourceLanguages.includes(lang)
-    );
-    
-    const result = {
-      status: hasOpenSource ? "met" : "unmet",
-      details: `Languages: ${languages.join(', ')}`,
-      evidence: languages.filter(lang => openSourceLanguages.includes(lang))
-    };
-    
-    setCachedData(cacheKey, result);
-    return result;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
+export const checkOpenSourceLanguage = (owner, repo) =>
+  buildLanguageResult(owner, repo, 4, [
+    "Python", "R", "JavaScript", "TypeScript", "Java", "C++", "C", "Julia",
+    "Go", "Rust", "Ruby", "PHP", "Shell", "HTML", "CSS", "MATLAB"
+  ])();
 
 /**
  * CRITERION 5: Argo-Adopted Language
  */
-export async function checkLanguageAdoptedByArgo(owner, repo) {
-  const cacheKey = `criterion_5_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const languages = await getRepoLanguages(owner, repo);
-    const argoLanguages = ['Python', 'R', 'MATLAB', 'Julia'];
-    
-    const hasArgoLang = languages.some(lang => 
-      argoLanguages.includes(lang)
-    );
-    
-    const result = {
-      status: hasArgoLang ? "met" : "unmet",
-      details: `Languages: ${languages.join(', ')}`,
-      evidence: languages.filter(lang => argoLanguages.includes(lang))
-    };
-    
-    setCachedData(cacheKey, result);
-    return result;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
+export const checkLanguageAdoptedByArgo = (owner, repo) =>
+  buildLanguageResult(owner, repo, 5, ["Python", "R", "MATLAB", "Julia"])();
 
 /**
  * CRITERION 7: Code Formatting Standards
@@ -517,52 +457,24 @@ export async function checkUsesGDACServers(owner, repo) {
 }
 
 /**
- * CRITERION 31: .gitignore File
+ * CRITERION 31: Hosted on Argo developer platform (approx: owner contains "argo")
  */
-export async function checkHasGitignore(owner, repo) {
+export async function checkHostedOnArgoOrg(owner, repo) {
   const cacheKey = `criterion_31_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const files = await getRepoFiles(owner, repo);
-    const hasGitignore = files.includes('.gitignore');
-    
-    const result = {
-      status: hasGitignore ? "met" : "unmet",
-      details: hasGitignore ? ".gitignore found" : "No .gitignore",
-      evidence: hasGitignore ? ['.gitignore'] : []
-    };
-    
-    setCachedData(cacheKey, result);
-    return result;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
-/**
- * CRITERION 32: Protected Main Branch
- */
-export async function checkProtectedBranch(owner, repo) {
-  const cacheKey = `criterion_32_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
     const info = await getRepoInfo(owner, repo);
-    const defaultBranch = info.default_branch || 'main';
-    
-    const isProtected = await isBranchProtected(owner, repo, defaultBranch);
-    
+    const ownerLogin = info?.owner?.login || "";
+    const isArgo = /argo/i.test(ownerLogin);
+
     const result = {
-      status: isProtected ? "met" : "unmet",
-      details: isProtected ? `${defaultBranch} branch protected` : "Branch not protected",
-      evidence: isProtected ? [defaultBranch] : []
+      status: isArgo ? "met" : "unmet",
+      details: isArgo ? `Hosted under ${ownerLogin}` : "Owner does not match an Argo org/user",
+      evidence: isArgo ? [ownerLogin] : []
     };
-    
+
     setCachedData(cacheKey, result);
     return result;
   } catch (error) {
@@ -600,65 +512,10 @@ export async function checkGitHubDescription(owner, repo) {
 }
 
 /**
- * CRITERION 37: Repo URL in Code
- */
-export async function checkRepoURLInCode(owner, repo) {
-  const cacheKey = `criterion_37_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const repoURL = `github.com/${owner}/${repo}`;
-    const result = await searchInCode(owner, repo, [repoURL]);
-    
-    const finalResult = {
-      status: result.found ? "met" : "unmet",
-      details: result.found ? "Repository URL found in code" : "URL not found",
-      evidence: result.found ? [repoURL] : []
-    };
-    
-    setCachedData(cacheKey, finalResult);
-    return finalResult;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
-/**
- * CRITERION 38: CITATION File
- */
-export async function checkCitationFile(owner, repo) {
-  const cacheKey = `criterion_38_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const files = await getRepoFiles(owner, repo);
-    const citationFiles = ['CITATION.cff', 'CITATION.md', 'CITATION.txt', 'CITATION'];
-    const hasCitation = citationFiles.some(f => files.includes(f));
-    
-    const result = {
-      status: hasCitation ? "met" : "unmet",
-      details: hasCitation ? "CITATION file found" : "No CITATION file",
-      evidence: files.filter(f => citationFiles.includes(f))
-    };
-    
-    setCachedData(cacheKey, result);
-    return result;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
-/**
- * CRITERION 41: CONTRIBUTING File
+ * CRITERION 37/46: CONTRIBUTING File
  */
 export async function checkContributingFile(owner, repo) {
-  const cacheKey = `criterion_41_${owner}_${repo}`;
+  const cacheKey = `criterion_contrib_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
@@ -683,7 +540,84 @@ export async function checkContributingFile(owner, repo) {
 }
 
 /**
- * CRITERION 46: Has Tests
+ * CRITERION 38: Issues managed on platform (issues enabled and/or template present)
+ */
+export async function checkIssuesManagedOnPlatform(owner, repo) {
+  const cacheKey = `criterion_38_${owner}_${repo}`;
+  const cached = getCachedData(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const info = await getRepoInfo(owner, repo);
+    const issuesEnabled = info?.has_issues === true;
+    let hasTemplate = false;
+
+    try {
+      const ghFiles = await getRepoFiles(owner, repo, ".github");
+      hasTemplate = ghFiles.some((f) =>
+        f.toLowerCase().startsWith("issue_template") || f.toLowerCase() === "issue_template"
+      );
+    } catch {
+      hasTemplate = false;
+    }
+
+    const met = issuesEnabled || hasTemplate;
+    const evidence = [];
+    if (issuesEnabled) evidence.push("issues_enabled");
+    if (hasTemplate) evidence.push(".github/ISSUE_TEMPLATE");
+
+    const result = {
+      status: met ? "met" : "unmet",
+      details: met ? "Issues enabled or template present" : "Issues appear disabled",
+      evidence
+    };
+    
+    setCachedData(cacheKey, result);
+    return result;
+  } catch (error) {
+    const result = { status: "unmet", error: error.message };
+    setCachedData(cacheKey, result);
+    return result;
+  }
+}
+
+/**
+ * CRITERION 41: CONTRIBUTING File
+ */
+export async function checkChangesViaPullRequests(owner, repo) {
+  const cacheKey = `criterion_41_${owner}_${repo}`;
+  const cached = getCachedData(cacheKey);
+  if (cached) return cached;
+
+  const octokit = getGitHubClient();
+  if (!octokit) return { status: "unmet", error: "No GitHub client" };
+
+  try {
+    const { data } = await octokit.rest.pulls.list({
+      owner,
+      repo,
+      state: "closed",
+      per_page: 1,
+    });
+
+    const hasClosedPR = Array.isArray(data) && data.length > 0;
+    const result = {
+      status: hasClosedPR ? "met" : "unmet",
+      details: hasClosedPR ? "Closed pull request found" : "No pull requests found",
+      evidence: hasClosedPR ? [`PR #${data[0].number}`] : []
+    };
+
+    setCachedData(cacheKey, result);
+    return result;
+  } catch (error) {
+    const result = { status: "unmet", error: error.message };
+    setCachedData(cacheKey, result);
+    return result;
+  }
+}
+
+/**
+ * CRITERION 46: Has Tests (unused)
  */
 export async function checkHasTests(owner, repo) {
   const cacheKey = `criterion_46_${owner}_${repo}`;
@@ -726,39 +660,31 @@ export async function checkHasTests(owner, repo) {
 }
 
 /**
- * CRITERION 49: Has Releases
+ * CRITERION 49: Has changelog
  */
-export async function checkHasReleases(owner, repo) {
+export async function checkHasChangelog(owner, repo) {
   const cacheKey = `criterion_49_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
-  const octokit = getGitHubClient();
-  if (!octokit) {
-    const result = { status: "unmet", error: "No GitHub client" };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-
   try {
-    const { data: releases } = await octokit.rest.repos.listReleases({
-      owner,
-      repo,
-      per_page: 1
-    });
-    
-    const { data: tags } = await octokit.rest.repos.listTags({
-      owner,
-      repo,
-      per_page: 1
-    });
-    
-    const hasReleases = releases.length > 0 || tags.length > 0;
-    
+    const files = await getRepoFiles(owner, repo);
+    const candidates = [
+      "CHANGELOG",
+      "CHANGELOG.md",
+      "CHANGES",
+      "CHANGES.md",
+      "HISTORY.md",
+      "RELEASE_NOTES.md",
+    ];
+    const upper = files.map((f) => f.toUpperCase());
+    const matches = candidates.filter((c) => upper.includes(c.toUpperCase()));
+    const hasChangelog = matches.length > 0;
+
     const result = {
-      status: hasReleases ? "met" : "unmet",
-      details: hasReleases ? `${releases.length} releases, ${tags.length} tags` : "No releases or tags",
-      evidence: releases.map(r => r.tag_name)
+      status: hasChangelog ? "met" : "unmet",
+      details: hasChangelog ? `Found: ${matches.join(", ")}` : "No changelog file found",
+      evidence: matches
     };
     
     setCachedData(cacheKey, result);
