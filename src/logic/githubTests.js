@@ -19,29 +19,6 @@ function decodeBase64(content) {
 // ==================== HELPER FUNCTIONS ====================
 
 /**
- * Check if a file/path exists in repository
- */
-async function checkContentPath(owner, repo, path) {
-  const cacheKey = `path_${owner}_${repo}_${path}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  const octokit = getGitHubClient();
-  if (!octokit) return { status: "unmet", error: "No GitHub client" };
-
-  try {
-    await octokit.rest.repos.getContent({ owner, repo, path });
-    const result = { status: "met", path };
-    setCachedData(cacheKey, result);
-    return result;
-  } catch {
-    const result = { status: "unmet" };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
-/**
  * Get README content
  */
 async function getReadmeContent(owner, repo) {
@@ -101,30 +78,6 @@ async function getRepoFiles(owner, repo, path = "") {
   } catch (error) {
     console.warn(`Could not fetch files at ${path}:`, error.message);
     throw new Error(`GitHub API error while listing ${path || "root"}: ${error.message}`);
-  }
-}
-
-/**
- * Get file content
- */
-async function getFileContent(owner, repo, path) {
-  const cacheKey = `file_content_${owner}_${repo}_${path}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  const octokit = getGitHubClient();
-  if (!octokit) return null;
-
-  try {
-    const { data } = await octokit.rest.repos.getContent({ owner, repo, path });
-    if (data.content) {
-      const content = decodeBase64(data.content);
-      setCachedData(cacheKey, content);
-      return content;
-    }
-    return null;
-  } catch {
-    return null;
   }
 }
 
