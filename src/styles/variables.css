@@ -1,0 +1,15 @@
+/* EuroArgo-inspired palette and reusable tokens */
+:root {
+  --ea-navy: #003d5c;
+  --ea-ocean: #0a6b83;
+  --ea-teal: #1c7d93;
+  --ea-foam: #e8f1f5;
+  --ea-ice: #f6f9fc;
+  --ea-sand: #c89f3d;
+  --ea-ink: #102233;
+  --ea-muted: #4b5563;
+  --ea-border: #d7e2ea;
+  --ea-hero-start: #0d8adf;
+  --ea-hero-mid: #0b6397;
+  --ea-hero-end: #064067;
+}

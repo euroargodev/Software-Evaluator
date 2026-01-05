@@ -1,4 +1,5 @@
 // src/components/Form.jsx
+// Collects repository info, lets the user answer manual criteria, and triggers auto checks.
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import TargetLevelSelect from "./TargetLevelSelect";
@@ -8,12 +9,12 @@ import { evaluateProject } from "../logic/evaluation";
 import { checkRateLimit } from "../logic/githubClient";
 import "./Form.css";
 
-// ✅ Ordre hiérarchique des niveaux
+// Fixed order to compare target level and criterion level
 const LEVEL_ORDER = ["Novice", "Beginner", "Intermediate", "Advanced", "Expert"];
 
 function Form({ onEvaluate }) {
   const [repoUrl, setRepoUrl] = useState("");
-  const [targetLevel, setTargetLevel] = useState("Novice"); // ✅ Niveau par défaut
+  const [targetLevel, setTargetLevel] = useState("Novice"); // Default level
   const [userAnswers, setUserAnswers] = useState({});
   const [loading, setLoading] = useState(false);
   const [isFirstEvaluation, setIsFirstEvaluation] = useState(null);
@@ -22,7 +23,7 @@ function Form({ onEvaluate }) {
 
   const guidelines = Array.isArray(guidelinesRaw) ? guidelinesRaw : [];
 
-  // ✅ Filtrer les critères par niveau choisi
+  // Filters criteria to those at or below the chosen level
   const getFilteredCriteria = () => {
     const targetIndex = LEVEL_ORDER.indexOf(targetLevel);
     
@@ -37,12 +38,7 @@ function Form({ onEvaluate }) {
   const autoCriteria = filteredCriteria.filter(c => c.type === "auto");
   const manualCriteriaKey = manualCriteria.map(c => c.id).join(",");
 
-  console.log(`📊 Criteria breakdown (Level: ${targetLevel}):
-    • Manual: ${manualCriteria.length}
-    • Auto: ${autoCriteria.length}
-    • Total: ${filteredCriteria.length}`);
-
-  // ✅ Pré-remplir toutes les réponses manuelles à "No" (unmet) quand le niveau change
+  // Pre-fill manual answers to unmet whenever the level or list changes
   useEffect(() => {
     setUserAnswers((prev) => {
       const next = {};
@@ -74,12 +70,12 @@ function Form({ onEvaluate }) {
 
         setUploadedFile(json);
 
-        // ✅ Charger le niveau sauvegardé
+        // Restore saved level if present
         if (json.targetLevel) {
           setTargetLevel(json.targetLevel);
         }
 
-        // ✅ Charger uniquement les réponses manuelles correspondant au niveau
+        // Load only manual answers relevant to the current level
         const manualAnswers = {};
         manualCriteria.forEach(criterion => {
           if (json.userAnswers[criterion.id]) {
@@ -89,10 +85,6 @@ function Form({ onEvaluate }) {
 
         setUserAnswers(manualAnswers);
         setRepoUrl(json.repository.url || `https://github.com/${json.repository.owner}/${json.repository.repo}`);
-
-        console.log("✅ Evaluation file loaded successfully");
-        console.log("📝 Manual answers loaded:", Object.keys(manualAnswers).length);
-        console.log("🎯 Target level:", json.targetLevel || "Not specified");
       } catch (error) {
         console.error("Error parsing file:", error);
         alert("❌ Invalid file format. Please upload a valid evaluation JSON file.");
@@ -109,7 +101,7 @@ function Form({ onEvaluate }) {
     try {
       const { owner, repo } = parseGitHubUrl(repoUrl);
 
-      // Vérifier que toutes les questions manuelles sont répondues
+      // Ensure every manual criterion is answered
       const missingAnswers = manualCriteria.filter(
         (c) => !userAnswers[c.id] || !userAnswers[c.id].status
       );
@@ -133,7 +125,6 @@ function Form({ onEvaluate }) {
       }
 
       const progressCallback = (current, total, message) => {
-        console.log(`📊 Progress: ${current}/${total} - ${message}`);
         setProgress({ current, total, message });
       };
 
@@ -146,13 +137,11 @@ function Form({ onEvaluate }) {
         targetLevel
       );
 
-      console.log("✅ Evaluation completed:", evaluationResult);
-
       setProgress({ current: 100, total: 100, message: "Complete!" });
 
-      // ✅ ENVOI AVEC NIVEAU CIBLE
+      // Pass evaluated data up with the selected target level
       onEvaluate(
-        { owner, repo, url: repoUrl, targetLevel }, // ✅ Inclure le niveau
+        { owner, repo, url: repoUrl, targetLevel },
         evaluationResult,
         userAnswers
       );
@@ -165,7 +154,7 @@ function Form({ onEvaluate }) {
     }
   };
 
-  // ========== ÉCRAN DE SÉLECTION ==========
+  // ========== SELECTION SCREEN ==========
   if (isFirstEvaluation === null) {
     return (
       <div className="evaluation-start">
@@ -193,7 +182,7 @@ function Form({ onEvaluate }) {
     );
   }
 
-  // ========== ÉCRAN D'UPLOAD ==========
+  // ========== UPLOAD SCREEN ==========
   if (!isFirstEvaluation) {
     return (
       <div className="file-upload-section">
@@ -236,14 +225,6 @@ function Form({ onEvaluate }) {
       </div>
     );
   }
-  console.log("=== FORM.JSX DEBUG ===");
-console.log("🎯 Target Level:", targetLevel);
-console.log("📊 All guidelines:", guidelines.length);
-console.log("🔽 Filtered criteria:", filteredCriteria.length);
-console.log("📝 Manual criteria to pass:", manualCriteria.length);
-console.log("🎯 Filtered levels:", [...new Set(filteredCriteria.map(c => c.level))]);
-console.log("📋 Manual levels:", [...new Set(manualCriteria.map(c => c.level))]);
-
   // ========== FORMULAIRE PRINCIPAL ==========
   return (
     <form onSubmit={handleSubmit} className="form-container">
@@ -256,13 +237,14 @@ console.log("📋 Manual levels:", [...new Set(manualCriteria.map(c => c.level))
         </p>
       </div>
 
-      {/* ✅ SÉLECTEUR DE NIVEAU */}
+      {/* Level selector */}
       <div className="form-group">
         <label htmlFor="target-level">
           Target Level <span className="required">*</span>
         </label>
         <TargetLevelSelect 
-          value={targetLevel} 
+          targetLevel={targetLevel}
+          maxLevel={LEVEL_ORDER.length}
           onChange={setTargetLevel}
           disabled={loading}
         />
@@ -304,7 +286,7 @@ console.log("📋 Manual levels:", [...new Set(manualCriteria.map(c => c.level))
         </div>
       </div>
 
-      {/* ✅ AFFICHER UNIQUEMENT LES CRITÈRES MANUELS FILTRÉS */}
+      {/* Manual criteria filtered by level */}
       <GroupedManualCriteriaBoard
         guidelines={manualCriteria}
         userAnswers={userAnswers}

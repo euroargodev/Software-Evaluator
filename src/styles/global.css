@@ -14,26 +14,26 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f5f6fa;
-  color: #333;
+  background-color: var(--ea-ice);
+  color: var(--ea-ink);
   line-height: 1.6;
 }
 
-/* --- Liens --- */
+/* --- Links --- */
 a {
-  color: #646cff;
+  color: var(--ea-ocean);
   text-decoration: none;
   transition: color 0.2s ease;
 }
 
 a:hover {
-  color: #4b50c4;
+  color: var(--ea-navy);
 }
 
-/* --- Titres --- */
+/* --- Headings --- */
 h1, h2, h3, h4, h5 {
   font-weight: 700;
-  color: #222;
+  color: var(--ea-ink);
 }
 
 /* --- Conteneur principal --- */
@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5 {
   min-height: 100vh;
 }
 
-/* --- Boutons génériques --- */
+/* --- Generic buttons --- */
 button {
   font-family: inherit;
   border: none;
@@ -52,7 +52,7 @@ button {
   border-radius: 0.5rem;
 }
 
-/* --- Section et conteneur centralisé --- */
+/* --- Section and centered container --- */
 .section {
   padding: 2rem 1rem;
 }
@@ -62,7 +62,7 @@ button {
   margin: 0 auto;
 }
 
-/* --- Animation légère d'apparition --- */
+/* --- Subtle fade-in --- */
 .fade-in {
   animation: fadeIn 0.4s ease-in-out;
 }
@@ -72,13 +72,13 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Footer simple --- */
+/* --- Simple footer --- */
 footer {
   margin-top: auto;
   text-align: center;
   padding: 1rem;
   background-color: #ffffff;
-  color: #666;
+  color: var(--ea-muted);
   font-size: 0.9rem;
-  border-top: 1px solid #e3e3e3;
+  border-top: 1px solid var(--ea-border);
 }

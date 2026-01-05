@@ -1,4 +1,4 @@
-// src/App.jsx
+// Root view switcher between the Home form and Results page.
 import { useState } from "react";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
@@ -10,7 +10,7 @@ function App() {
   const [userAnswers, setUserAnswers] = useState({});
   const [view, setView] = useState("home");
 
-  // ✅ CORRECTION : 3 paramètres séparés au lieu d'un objet
+  // Propagate evaluation data up from the form
   const handleEvaluate = (repo, evaluation, answers) => {
     console.log("📦 App.jsx received:", { repo, evaluation, answers });
     

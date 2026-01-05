@@ -2,174 +2,102 @@
 
 ## Overview
 
-**EuroArgoDev Software Evaluator** is a web-based tool designed to **evaluate software repositories** according to the **EuroArgoDev software_guidelines**.
-The application analyzes a public GitHub repository, assigns a **maturity badge**, and provides **suggestions for improvement** based on standardized criteria.
-
----
+EuroArgoDev Software Evaluator is a web-based tool that checks a public GitHub repository against the EuroArgo software guidelines. It combines manual answers with automated GitHub API checks to assign a maturity level and suggest improvements.
 
 ## Goals
 
-* Automatically check the compliance of a software repository with **EuroArgodev software guidelines**
-* Assign a **maturity badge** (e.g., *Beginner*, *Intermediate*, *Advanced*)
-* Suggest **improvements** to reach your desired level
-* Make the tool **easily accessible** via **GitHub Pages**
-
----
+- Check compliance with EuroArgoDev software guidelines
+- Assign a maturity badge (Novice, Beginner, Intermediate, Advanced, Expert)
+- Provide actionable feedback to reach a chosen target level
+- Keep the tool easy to run locally and hostable on GitHub Pages
 
 ## Key Features
 
-*  **Automated Evaluation**: Fetches repository data via the GitHub API (Octokit)
-*  **Scoring System**: Evaluates based on predefined criteria
-*  **Maturity Levels**: Displays a badge representing the repository’s current level
-*  **Target Level Selection**: Lets users choose the level they want to achieve
-*  **Actionable Feedback**: Highlights strengths and improvement areas
-
----
+- Manual and automatic criteria sourced from `src/data/guidelines_v2.json`
+- Target level selection filters criteria and caps the displayed maturity
+- Grouped manual questions with evidence fields
+- Automatic checks via GitHub REST API (Octokit)
+- Progress indicator during auto tests
+- Downloadable evaluation report (JSON) and re-upload flow that reuses manual answers
 
 ## Tech Stack
 
 | Layer                  | Technology                                                                |
 | ---------------------- | ------------------------------------------------------------------------- |
-| **Frontend Framework** | [React](https://react.dev)                                                |
-| **Build Tool**         | [Vite](https://vitejs.dev)                                                |
-| **API Integration**    | [Octokit](https://github.com/octokit/octokit.js) (GitHub REST API client) |
-| **Styling**            | Vanilla CSS (with modular component styles)                               |
-| **Hosting**            | [GitHub Pages](https://pages.github.com)                                  |
-| **Version Control**    | Git & GitHub                                                              |
-
----
+| Frontend Framework     | [React](https://react.dev)                                                |
+| Build Tool             | [Vite](https://vitejs.dev)                                                |
+| API Integration        | [Octokit](https://github.com/octokit/octokit.js) (GitHub REST API client) |
+| Styling                | Vanilla CSS (per-component styles + shared variables)                     |
+| Hosting                | GitHub Pages                                                              |
+| Version Control        | Git & GitHub                                                              |
 
 ## Getting Started
 
-###  Clone the repository
+Clone and install:
 
 ```bash
 git clone https://github.com/euroargodev/Software-Evaluator.git
 cd Software-Evaluator
-```
-
-###  Install dependencies
-
-```bash
 npm install
 ```
 
-###  Run the development server
+Run locally:
 
 ```bash
 npm run dev
 ```
 
-Then open your browser at **[http://localhost:5173/](http://localhost:5173/)**
-
-###  Build for production
+Build:
 
 ```bash
 npm run build
 ```
 
-###  Deploy to GitHub Pages
-
-Deployment is handled automatically through **GitHub Actions** (`.github/workflows/deploy.yml`).
-
----
-
 ## Environment Variables
 
-You’ll need a **GitHub Personal Access Token (PAT)** to authenticate API requests.
+Automatic checks call the GitHub API. Without a token you are limited to low rate limits; set a personal access token for smoother runs.
 
-Create a `.env` file in the project root:
+Create `.env` at the project root:
 
 ```
 VITE_GH_DEPLOY_TOKEN=your_personal_access_token_here
 ```
 
-Then make sure the same secret exists in your GitHub repository settings under
-`Settings → Secrets and variables → Actions → New repository secret`.
+Also add the same secret to GitHub Actions if you deploy from CI (`Settings → Secrets and variables → Actions`).
 
----
-
-## Project Structure
+## Project Structure (key files)
 
 ```
-software-evaluator/
-├── eslint.config.js
-├── index.html
-├── package.json
-├── package-lock.json
-├── public
-│   └── vite.svg
-├── README.md
-├── src
-│   ├── App.css
-│   ├── App.jsx
-│   ├── assets
-│   │   └── react.svg
-│   ├── components
-│   │   ├── critères_software_guidelines
-│   │   ├── Form.css
-│   │   ├── Form.jsx
-│   │   ├── GroupedManualCriteriaBoard.css
-│   │   ├── GroupedManualCriteriaBoard.jsx
-│   │   ├── ManualCriterion.css
-│   │   ├── ManualCriterion.jsx
-│   │   └── TargetLevelSelect.jsx
-│   ├── data
-│   │   ├── guidelines.json
-│   │   ├── guidelines_v2.json
-│   │   ├── miniGuidelines.json
-│   │   └── scripts
-│   │       └── generateNewGuidelines.js
-│   ├── img
-│   │   ├── EAONE_2.png
-│   │   ├── EAONE.png
-│   │   └── scientists.png
-│   ├── index.css
-│   ├── logic
-│   │   ├── evaluation.js
-│   │   ├── githubClient.js
-│   │   ├── github.js
-│   │   └── githubTests.js
-│   ├── main.jsx
-│   ├── pages
-│   │   ├── Home.css
-│   │   ├── Home.jsx
-│   │   ├── Results.css
-│   │   └── Results.jsx
-│   └── styles
-│       ├── global.css
-│       ├── theme.css
-│       └── variables.css
-├── structure.txt
-└── vite.config.js
+src/
+├── App.jsx                  # View switcher (Home / Results)
+├── App.css
+├── components/              # Form, grouped manual board, manual cards, target selector
+├── data/
+│   ├── guidelines_v2.json   # Source of criteria (manual + auto)
+│   └── scripts/generateNewGuidelines.js
+├── logic/                   # Evaluation, GitHub client, auto tests
+├── pages/                   # Home and Results pages
+├── styles/                  # Global styles and color variables
+└── main.jsx                 # Entry point
 ```
-
----
 
 ## How It Works
 
-1. **User inputs a GitHub repository URL**
-2. **Form component** calls the GitHub API via **Octokit**
-3. The app retrieves repository metadata (README, LICENSE, contributors, etc.)
-4. **Evaluation logic** (in `evaluation.js`) checks against the `guidelines.json` criteria
-5. A **score** and **maturity level** are generated
-6. Results are displayed on the **Results page**
-7. User can compare their current level to their **target level** (selected earlier)
-
----
+1. User selects a target level and pastes a GitHub repository URL.
+2. Manual criteria (filtered by level) are answered and evidence is captured.
+3. Automatic criteria run via Octokit against the repository.
+4. Scores are weighted by level and combined into a maturity badge.
+5. Results page shows badge, stats, grouped recommendations, and lets the user download the evaluation JSON.
+6. On the next visit the user can upload the JSON to restore manual answers; only automatic checks run again.
 
 ## Contributing
 
-Pull requests are welcome!
-For major changes, please open an issue first to discuss what you’d like to change.
-
----
+Pull requests are welcome. For major changes, open an issue to discuss what you plan to add or modify.
 
 ## License
 
-...
----
+MIT (see `LICENSE`).
 
 ## Live Demo
 
- [**Software Evaluator on GitHub Pages**](https://euroargodev.github.io/Software-Evaluator/)
+[Software Evaluator on GitHub Pages](https://euroargodev.github.io/Software-Evaluator/)

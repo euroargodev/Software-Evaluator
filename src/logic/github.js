@@ -59,7 +59,7 @@ export async function checkRepoFeatures(owner, repo, autoCriteria = [], onProgre
 
   const results = {};
 
-  // ✅ Si aucun critère auto, retourner immédiatement
+  // Short-circuit if nothing to test
   if (autoCriteria.length === 0) {
     console.log(`⚠️ No auto criteria to test for this level`);
     return results;
@@ -67,7 +67,7 @@ export async function checkRepoFeatures(owner, repo, autoCriteria = [], onProgre
 
   const octokit = getGitHubClient();
 
-  // ✅ Vérifier que le repo existe
+  // Validate repository exists when a token is available
   if (octokit) {
     try {
       await octokit.rest.repos.get({ owner, repo });
@@ -75,7 +75,7 @@ export async function checkRepoFeatures(owner, repo, autoCriteria = [], onProgre
     } catch (error) {
       console.error(`❌ Repository ${owner}/${repo} not found:`, error.message);
       
-      // Retourner "unmet" pour tous les critères demandés
+      // Mark all requested criteria as unmet if repo cannot be fetched
       return Object.fromEntries(
         autoCriteria.map(criterion => [
           criterion.id,
@@ -88,7 +88,7 @@ export async function checkRepoFeatures(owner, repo, autoCriteria = [], onProgre
     }
   }
 
-  // ✅ Filtrer uniquement les critères qui ont une fonction de test
+  // Keep only criteria backed by a test function
   const testsToRun = autoCriteria.filter(criterion => {
     const hasTest = criterion.id in githubCriterionMap;
     
@@ -108,7 +108,7 @@ export async function checkRepoFeatures(owner, repo, autoCriteria = [], onProgre
 
   console.log(`🚀 Running ${totalTests} automatic checks in parallel...`);
 
-  // ✅ Exécuter les tests en parallèle
+  // Execute tests in parallel
   const promises = testsToRun.map(async (criterion) => {
     const id = criterion.id;
     const testFn = githubCriterionMap[id];
@@ -141,20 +141,20 @@ export async function checkRepoFeatures(owner, repo, autoCriteria = [], onProgre
     }
   });
 
-  // ✅ Attendre tous les résultats
+  // Wait for all tests
   const settledResults = await Promise.allSettled(promises);
 
-  // ✅ Construire l'objet de résultats
+  // Build result object from fulfilled promises
   const testResults = Object.fromEntries(
     settledResults
       .filter(r => r.status === "fulfilled")
       .map(r => r.value)
   );
 
-  // ✅ Fusionner avec les résultats des critères sans test
+  // Merge with any placeholder results (criteria without tests)
   Object.assign(results, testResults);
 
-  // ✅ Statistiques finales
+  // Final stats
   const metCount = Object.values(results).filter(r => r.status === "met").length;
   const unmetCount = Object.values(results).filter(r => r.status === "unmet").length;
 

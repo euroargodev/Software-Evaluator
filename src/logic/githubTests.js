@@ -100,7 +100,7 @@ async function getRepoFiles(owner, repo, path = "") {
     return files;
   } catch (error) {
     console.warn(`Could not fetch files at ${path}:`, error.message);
-    return [];
+    throw new Error(`GitHub API error while listing ${path || "root"}: ${error.message}`);
   }
 }
 
@@ -436,11 +436,13 @@ export async function checkReadmeExists(owner, repo) {
     }
 
     const files = await getRepoFiles(owner, repo);
-    const hasReadmeByList = files.some((f) => f.toUpperCase().startsWith("README"));
+    const upper = files.map((f) => f.toUpperCase());
+    const hasReadmeByList = upper.some((f) => f.startsWith("README"));
 
     // Support common README variants
-    const variants = ["README", "README.MD", "README.RST", "README.TXT"];
-    const hasVariant = files.some((f) => variants.includes(f.toUpperCase()));
+    const variants = ["README", "README.MD", "README.RST", "README.TXT", "README.MARKDOWN", "README.ORG"];
+    const hasVariant = upper.some((f) => variants.includes(f));
+
     const hasReadme = hasReadmeByList || hasVariant;
     
     const result = {

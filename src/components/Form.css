@@ -7,7 +7,7 @@
   width: 100%;
   min-height: 100vh;
   padding: 2rem;
-  background: #f9f9fb;
+  background: var(--ea-ice);
   box-sizing: border-box;
 }
 
@@ -31,7 +31,7 @@
   flex: 1;
   min-width: 250px;
   padding: 0.6rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--ea-border);
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
@@ -39,8 +39,8 @@
 
 .form-header input[type="url"]:focus {
   outline: none;
-  border-color: #007acc;
-  box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+  border-color: var(--ea-ocean);
+  box-shadow: 0 0 0 3px rgba(10, 107, 131, 0.12);
 }
 
 /* ========================================
@@ -66,7 +66,7 @@
 .form-group input[type="file"] {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--ea-border);
   border-radius: 6px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
@@ -75,8 +75,8 @@
 
 .form-group input[type="url"]:focus {
   outline: none;
-  border-color: #007acc;
-  box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+  border-color: var(--ea-ocean);
+  box-shadow: 0 0 0 3px rgba(10, 107, 131, 0.12);
 }
 
 .form-group input[type="file"] {
@@ -138,7 +138,7 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #007acc 0%, #005fa3 100%);
+  background: linear-gradient(90deg, var(--ea-teal) 0%, var(--ea-navy) 100%);
   transition: width 0.4s ease;
   border-radius: 1rem;
 }
@@ -164,7 +164,7 @@
 
 .evaluate-btn,
 .btn-submit {
-  background: #007acc;
+  background: linear-gradient(120deg, var(--ea-hero-start) 0%, var(--ea-hero-mid) 55%, var(--ea-hero-end) 100%);
   color: #fff;
   padding: 0.75rem 1.5rem;
   border: none;
@@ -173,11 +173,12 @@
   font-weight: 600;
   font-size: 1rem;
   transition: background 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 12px rgba(6, 64, 103, 0.25);
 }
 
 .evaluate-btn:hover,
 .btn-submit:hover {
-  background: #005fa3;
+  background: linear-gradient(120deg, var(--ea-hero-start) 0%, var(--ea-hero-mid) 40%, var(--ea-hero-end) 100%);
   transform: translateY(-1px);
 }
 
@@ -209,7 +210,7 @@
 .btn-link {
   background: none;
   border: none;
-  color: #007acc;
+  color: var(--ea-ocean);
   text-decoration: underline;
   cursor: pointer;
   font-size: 1rem;
@@ -218,7 +219,7 @@
 }
 
 .btn-link:hover {
-  color: #005fa3;
+  color: var(--ea-navy);
 }
 
 /* ========================================
@@ -260,7 +261,7 @@
   font-size: 1.1rem;
   font-weight: 600;
   color: white;
-  background-color: #007acc;
+  background: linear-gradient(120deg, var(--ea-hero-start) 0%, var(--ea-hero-mid) 55%, var(--ea-hero-end) 100%);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -268,7 +269,7 @@
 }
 
 .btn-primary:hover {
-  background-color: #005fa3;
+  background: linear-gradient(120deg, var(--ea-hero-start) 0%, var(--ea-hero-mid) 40%, var(--ea-hero-end) 100%);
   transform: translateY(-2px);
 }
 
@@ -376,7 +377,7 @@
   gap: 1rem;
   margin: 1.5rem 0;
   padding: 1.5rem;
-  background: linear-gradient(135deg,  #0077be 0%, #003d5c 100%);
+  background: linear-gradient(120deg, var(--ea-hero-start) 0%, var(--ea-hero-mid) 55%, var(--ea-hero-end) 100%);
   border-radius: 12px;
 }
 
@@ -408,7 +409,7 @@
 .stat-value {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #364db8;
+  color: var(--ea-navy);
 }
 
 .helper-text {

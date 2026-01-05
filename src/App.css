@@ -1,99 +1,96 @@
-/* ======= Style global ======= */ 
-body { 
-font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif; 
-background-color: #f5f7fa; 
-color: #222; 
-margin: 0; 
-display: flex;
+/* ======= Style global ======= */
+body {
+  font-family: "Inter", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: var(--ea-ice);
+  color: var(--ea-ink);
+  margin: 0;
+  display: flex;
   justify-content: center;
-  align-items: flex-start; /* ou center pour le centrer verticalement */
-  padding-top: 60px 
-} 
+  align-items: flex-start;
+  padding-top: 60px;
+}
 
 /* ===== App.css ===== */
-
 .app-container {
   width: 100%;
   margin: 80px auto;
-  background: white;
+  background: #ffffff;
   padding: 40px;
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* ======= Titre ======= */ 
+/* ======= Title ======= */
+h1 {
+  text-align: center;
+  color: var(--ea-navy);
+  margin-bottom: 20px;
+}
 
-h1 { 
-text-align: center; 
-color: #004d80; 
-margin-bottom: 20px; 
-} 
+/* ======= Form ======= */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
 
-/* ======= Formulaire ======= */ 
+/* ======= Labels ======= */
+label {
+  font-weight: 600;
+  color: var(--ea-ocean);
+}
 
-form { 
-display: flex; 
-flex-direction: column; 
-gap: 1rem; } 
+/* ======= Inputs & Textareas ======= */
+input[type="url"],
+textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--ea-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.2s ease;
+}
 
-/* ======= Labels ======= */ 
+input[type="url"]:focus,
+textarea:focus {
+  border-color: var(--ea-ocean);
+  box-shadow: 0 0 0 3px rgba(10, 107, 131, 0.15);
+  outline: none;
+}
 
-label { 
-font-weight: 600; 
-color: #004d80; 
-} 
+/* ======= Buttons ======= */
+button {
+  background: linear-gradient(120deg, var(--ea-hero-start) 0%, var(--ea-hero-mid) 55%, var(--ea-hero-end) 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
 
-/* ======= Inputs & Textareas ======= */ 
+button:hover {
+  background: linear-gradient(135deg, var(--ea-teal), var(--ea-navy));
+  box-shadow: 0 8px 18px rgba(10, 107, 131, 0.25);
+  transform: translateY(-1px);
+}
 
-input[type="url"], textarea { 
-width: 100%; 
-padding: 10px 14px; 
-border: 1px solid #ccd; 
-border-radius: 8px; 
-font-size: 1rem; 
-transition: border-color 0.3s ease; 
-} 
+/* ======= Results ======= */
+#results {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: var(--ea-foam);
+  border: 1px solid var(--ea-border);
+  border-radius: 10px;
+}
 
-input[type="url"]:focus, 
+#badge {
+  font-weight: bold;
+  color: var(--ea-ocean);
+}
 
-textarea:focus { 
-border-color: #007acc; 
-outline: none; 
-} 
-
-/* ======= Bouton ======= */ 
-
-button { 
-background-color: #007acc; 
-color: white; 
-border: none; 
-border-radius: 8px; 
-padding: 10px 14px; 
-font-size: 1rem; 
-font-weight: 600; 
-cursor: pointer; 
-transition: background-color 0.3s ease; 
-} 
-
-button:hover { 
-background-color: #005fa3; 
-} 
-
-/* ======= Résultats ======= */ 
-
-#results { 
-margin-top: 2rem; 
-padding: 1rem; 
-background-color: #e8f4ff; 
-border: 1px solid #b3daff; 
-border-radius: 10px; 
-} 
-
-#badge { 
-font-weight: bold; 
-color: #007acc; 
-} 
-
-.hidden { 
-display: none; 
+.hidden {
+  display: none;
 }

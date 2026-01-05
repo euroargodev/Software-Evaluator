@@ -2,6 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+// Dropdown letting users cap the level they want to be evaluated against.
 function TargetLevelSelect({ targetLevel, maxLevel, onChange, disabled }) {
   const levels = ["Novice", "Beginner", "Intermediate", "Advanced", "Expert"];
 
@@ -31,13 +32,14 @@ function TargetLevelSelect({ targetLevel, maxLevel, onChange, disabled }) {
 
 TargetLevelSelect.propTypes = {
   targetLevel: PropTypes.string.isRequired,
-  maxLevel: PropTypes.number.isRequired,
+  maxLevel: PropTypes.number,
   onChange: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 };
 
 TargetLevelSelect.defaultProps = {
   disabled: false,
+  maxLevel: 5,
 };
 
 export default TargetLevelSelect;

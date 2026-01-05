@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "octokit": "^3.1.2",
     "@octokit/rest": "^20.0.2",
+    "octokit": "^3.1.2",
     "prop-types": "^15.8.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
@@ -21,6 +21,7 @@
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.4",
+    "baseline-browser-mapping": "^2.9.11",
     "eslint": "^9.36.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",

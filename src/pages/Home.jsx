@@ -1,4 +1,4 @@
-// src/pages/Home.jsx
+// Landing page that wraps the evaluation form with Euro-Argo branding.
 import PropTypes from "prop-types";
 import Form from "../components/Form";
 import logo_1 from "../img/logo_euroargo_square.png"; 
@@ -8,19 +8,19 @@ import "./Home.css";
 function Home({ onEvaluate }) {
   return (
     <div className="home-page">
-      {/* ⭐ HEADER AVEC LOGO */}
+      {/* Hero header with Euro-Argo logo */}
       <header className="home-header">
         <img src={logo_1} alt="Euro-Argo Logo" className="header-logo" />
         <h1>Software Evaluator</h1>
         <p>Evaluate your software against EuroArgo development guidelines</p>
       </header>
 
-      {/* FORMULAIRE */}
+      {/* Evaluation form */}
       <main className="home-content">
         <Form onEvaluate={onEvaluate} />
       </main>
 
-      {/* ⭐ FOOTER AVEC LOGO */}
+      {/* Footer with funding info and logo */}
       <footer className="results-footer">
         <div className="footer-funding">
           <p className="footer-project">

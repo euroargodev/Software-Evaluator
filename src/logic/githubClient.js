@@ -17,12 +17,12 @@ export function getGitHubClient() {
       userAgent: 'EuroArgo-Software-Evaluator/1.0',
       throttle: {
         onRateLimit: (retryAfter, options) => {
-          console.warn(`Rate limit hit. Retrying after ${retryAfter} seconds`);
-          return true;
+          console.warn(`Rate limit hit on ${options.method} ${options.url}. Not retrying.`);
+          return false;
         },
         onSecondaryRateLimit: (retryAfter, options) => {
-          console.warn(`Secondary rate limit hit. Retrying after ${retryAfter} seconds`);
-          return true;
+          console.warn(`Secondary rate limit hit on ${options.method} ${options.url}. Not retrying.`);
+          return false;
         }
       }
     });
@@ -33,7 +33,7 @@ export function getGitHubClient() {
         "Set VITE_GH_DEPLOY_TOKEN in your .env file for 5000 requests/hour."
       );
     } else {
-      console.log("✅ GitHub client initialized with token");
+      console.log("✅ GitHub client initialized with token (present: true)");
     }
   }
 

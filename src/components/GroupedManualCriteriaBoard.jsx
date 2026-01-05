@@ -1,4 +1,5 @@
 // src/components/GroupedManualCriteriaBoard.jsx
+// Accordion that groups manual criteria by category and lets users answer them.
 import React, { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import ManualCriterion from "./ManualCriterion";
@@ -23,7 +24,7 @@ export default function GroupedManualCriteriaBoard({ guidelines = [], userAnswer
 
   const [expandedGroups, setExpandedGroups] = useState({});
 
-  // ✅ Init/keep accordion state in sync with available groups
+  // Keep accordion state aligned to available groups
   useEffect(() => {
     setExpandedGroups((prev) => {
       const next = {};

@@ -1,4 +1,4 @@
-// src/components/ManualCriterion.jsx
+// Single manual criterion card with yes/no toggle and optional evidence input.
 import React, { useState, useEffect, useMemo } from "react";
 import PropTypes from "prop-types";
 import "./ManualCriterion.css";

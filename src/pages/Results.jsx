@@ -1,14 +1,11 @@
-// src/pages/Results.jsx
-import { useState } from "react";
+// Results screen that renders evaluation summary, stats, and recommendations.
 import PropTypes from "prop-types";
 import logo_1 from "../img/logo_euroargo_square.png"; 
 import logo_2 from "../img/EAONE_2.png"; 
 import "./Results.css";
 
 function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
-  const [showDetails, setShowDetails] = useState(false);
-
-  // ✅ VÉRIFICATION ROBUSTE
+  // Guard against direct navigation without data
   if (!evaluationResult || !repository) {
     return (
       <div className="results-container">
@@ -20,7 +17,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     );
   }
 
-  // ✅ EXTRACTION SÉCURISÉE AVEC VALEURS PAR DÉFAUT
+  // Safe destructuring with defaults
   const {
     validatedLevel = "Novice",
     achievedLevel = "Novice",
@@ -55,8 +52,8 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
       },
       Beginner: {
         emoji: "🥉",
-        color: "#4A90E2",
-        bgColor: "#E8F4FD",
+        color: "#0a6b83",
+        bgColor: "#e8f1f5",
         message: "On the right track",
         description: "Keep building on this foundation"
       },
@@ -114,7 +111,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     console.log("✅ Evaluation file downloaded");
   };
 
-  // ✅ VÉRIFICATION AVANT OBJECT.ENTRIES
+  // Group criteria safely by category
   const criteriaByCategory = {};
   if (details && typeof details === 'object') {
     Object.entries(details).forEach(([id, criterion]) => {
@@ -130,7 +127,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
 
   return (
     <div className="results-page">
-      {/* ⭐ HEADER AVEC LOGO */}
+      {/* Header with Euro-Argo branding */}
       <header className="results-header">
         <img src={logo_1} alt="Euro-Argo Logo" className="header-logo" />
         <h1>Evaluation Results</h1>
@@ -139,9 +136,9 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
         </p>
       </header>
 
-      {/* CONTENU PRINCIPAL */}
+      {/* Main content */}
       <main className="results-container max-w-5xl mx-auto p-6">
-        {/* BADGE */}
+        {/* Badge */}
         <div
           className="badge-card p-8 rounded-2xl shadow-lg mb-8 text-center"
           style={{
@@ -170,7 +167,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
           </div>
         </div>
 
-        {/* STATISTIQUES */}
+        {/* Stats */}
         <div className="grid grid-cols-3 gap-4 mb-8">
           <div className="stat-card bg-green-50 p-4 rounded-lg text-center border border-green-200">
             <div className="text-3xl font-bold text-green-600">
@@ -192,7 +189,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
           </div>
         </div>
 
-      {/* RECOMMANDATIONS */}
+      {/* Recommendations */}
       {feedback && feedback.length > 0 && (
         <section className="recommendations-section">
           <h2 className="section-title">Recommendations for Improvement</h2>

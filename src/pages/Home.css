@@ -14,7 +14,8 @@
 .home-header {
   text-align: center;
   padding: 3rem 2rem 2rem;
-  background: linear-gradient(135deg, #0077be 0%, #003d5c 100%);
+  /* EuroArgo hero gradient (brighter front, deep tail) */
+  background: linear-gradient(120deg, #0d8adf 0%, #0b6397 45%, #064067 100%);
   color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -105,7 +106,7 @@
 }
 
 .footer-links a {
-  color: #0066cc;
+  color: var(--ea-ocean);
   text-decoration: none;
   font-weight: 500;
   font-size: 0.95rem;
@@ -123,13 +124,13 @@
   transform: translateX(-50%);
   width: 0;
   height: 2px;
-  background: #475dc2;
+  background: var(--ea-navy);
   transition: width 0.3s ease;
 }
 
 .footer-links a:hover {
-  color: #003d7a;
-  background-color: rgba(102, 126, 234, 0.1);
+  color: var(--ea-navy);
+  background-color: rgba(12, 59, 92, 0.08);
 }
 
 .footer-links a:hover::after {
@@ -168,7 +169,7 @@
 }
 
 .footer-project strong {
-  color: #0066cc;
+  color: var(--ea-ocean);
   font-weight: 600;
 }
 

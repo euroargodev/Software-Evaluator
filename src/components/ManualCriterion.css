@@ -46,7 +46,7 @@
 }
 
 .level-badge.novice { background: #e5e7eb; }
-.level-badge.beginner { background: #dbeafe; color: #1d4ed8; }
+.level-badge.beginner { background: #e3edf3; color: var(--ea-ocean); }
 .level-badge.intermediate { background: #fef3c7; color: #b45309; }
 .level-badge.advanced { background: #ecfdf3; color: #15803d; }
 .level-badge.expert { background: #f3e8ff; color: #7c3aed; }
@@ -140,7 +140,7 @@
 }
 
 .mc-evidence input:focus {
-  border-color: #4b64f3;
+  border-color: var(--ea-ocean);
   outline: none;
 }
 
@@ -150,7 +150,7 @@
   font-weight: 700;
 }
 
-/* === Animation légère quand le champ apparaît === */
+/* === Fade-in when evidence appears === */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: translateY(0); }

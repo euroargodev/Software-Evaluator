@@ -2,6 +2,7 @@
 
 // ✅ Importer checkRepoFeatures depuis github.js
 import { checkRepoFeatures } from "./github.js";
+import { clearCache } from "./githubClient.js";
 
 /**
  * Main evaluation function
@@ -19,6 +20,8 @@ export async function evaluateProject(
   console.log(`📦 Repository: ${owner}/${repo}`);
   console.log(`📊 Total guidelines: ${guidelines.length}`);
   console.log(`📝 User answers provided: ${Object.keys(userAnswers).length}`);
+  // Always start with a fresh cache to avoid stale unmet results
+  clearCache();
 
   const levelWeights = {
     Novice: 1,
@@ -31,7 +34,7 @@ export async function evaluateProject(
   const effectiveTarget =
     targetLevel && levelOrder.includes(targetLevel) ? targetLevel : null;
 
-  // ========== ÉTAPE 1 : SÉPARER AUTO ET MANUAL ==========
+  // ========== STEP 1: SPLIT AUTO VS MANUAL ==========
   const autoCriteria = guidelines.filter(c => c.type === "auto");
   const manualCriteria = guidelines.filter(c => c.type === "manual");
 
@@ -43,7 +46,7 @@ export async function evaluateProject(
   let totalWeight = 0;
   let weightedScore = 0;
 
-  // ========== ÉTAPE 2 : TRAITER LES CRITÈRES MANUELS ==========
+  // ========== STEP 2: PROCESS MANUAL CRITERIA ==========
   console.log("\n📝 Processing manual criteria...");
   for (const criterion of manualCriteria) {
     const answer = userAnswers[criterion.id];
@@ -70,19 +73,19 @@ export async function evaluateProject(
     console.log(`  ✅ Manual #${criterion.id} [${criterion.title}]: ${status} (weight: ${levelWeight})`);
   }
 
-  // ========== ÉTAPE 3 : LANCER LES TESTS AUTOMATIQUES ==========
+  // ========== STEP 3: RUN AUTO TESTS ==========
   console.log(`\n🤖 Running ${autoCriteria.length} automatic tests...`);
 
   if (onProgress) {
     onProgress(0, autoCriteria.length, "Starting automatic tests...");
   }
 
-  // ✅ Appeler checkRepoFeatures avec les critères filtrés
+  // Call checkRepoFeatures with filtered auto criteria
   const autoResults = await checkRepoFeatures(owner, repo, autoCriteria, onProgress);
 
   console.log(`\n✅ Automatic tests completed. Results:`, autoResults);
 
-  // ========== ÉTAPE 4 : INTÉGRER LES RÉSULTATS AUTO ==========
+  // ========== STEP 4: MERGE AUTO RESULTS ==========
   for (const criterion of autoCriteria) {
     const autoResult = autoResults[criterion.id];
 
@@ -112,10 +115,10 @@ export async function evaluateProject(
     console.log(`  🤖 Auto #${criterion.id} [${criterion.title}]: ${status} (weight: ${levelWeight})`);
   }
 
-  // ========== CALCULER LE SCORE FINAL ==========
+  // ========== CALCULATE FINAL SCORE ==========
   const globalScore = totalWeight > 0 ? weightedScore / totalWeight : 0;
 
-  // Niveau brut atteint sur la base du score seul
+  // Raw level derived from score only
   const scoreLevel = (() => {
     if (globalScore > 0.9) return "Expert";
     if (globalScore > 0.75) return "Advanced";
@@ -124,7 +127,7 @@ export async function evaluateProject(
     return "Novice";
   })();
 
-  // Si un niveau cible est fourni, on borne l'affichage à ce niveau
+  // Cap the displayed level to the target if provided
   let validatedLevel = scoreLevel;
   if (effectiveTarget) {
     const scoreIdx = levelOrder.indexOf(scoreLevel);
