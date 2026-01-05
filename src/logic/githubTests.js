@@ -216,7 +216,7 @@ export async function checkCodeFormatting(owner, repo) {
 }
 
 /**
- * CRITERION 8: Version Control System
+ * CRITERION 8/29: Version Control System
  */
 export async function checkVersionControl(owner, repo) {
   const cacheKey = `criterion_8_${owner}_${repo}`;
@@ -276,7 +276,7 @@ export async function checkDependenciesFile(owner, repo) {
 }
 
 /**
- * CRITERION 10: LICENSE File
+ * CRITERION 10/33: LICENSE File
  */
 export async function checkHasLicense(owner, repo) {
   const cacheKey = `criterion_10_${owner}_${repo}`;
@@ -309,7 +309,7 @@ export async function checkHasLicense(owner, repo) {
 }
 
 /**
- * CRITERION 11: README File
+ * CRITERION 11/32: README File
  */
 export async function checkReadmeExists(owner, repo) {
   const cacheKey = `criterion_11_${owner}_${repo}`;
@@ -397,33 +397,6 @@ export async function checkEnglishLanguage(owner, repo) {
 }
 
 /**
- * CRITERION 29: GitHub Topics
- */
-export async function checkGitHubTopics(owner, repo) {
-  const cacheKey = `criterion_29_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const info = await getRepoInfo(owner, repo);
-    const hasTopics = info.topics && info.topics.length > 0;
-    
-    const result = {
-      status: hasTopics ? "met" : "unmet",
-      details: hasTopics ? `${info.topics.length} topics` : "No topics",
-      evidence: info.topics || []
-    };
-    
-    setCachedData(cacheKey, result);
-    return result;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
-/**
  * CRITERION 30: Uses GDAC Servers
  */
 export async function checkUsesGDACServers(owner, repo) {
@@ -475,33 +448,6 @@ export async function checkHostedOnArgoOrg(owner, repo) {
       evidence: isArgo ? [ownerLogin] : []
     };
 
-    setCachedData(cacheKey, result);
-    return result;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
-/**
- * CRITERION 33: GitHub Description
- */
-export async function checkGitHubDescription(owner, repo) {
-  const cacheKey = `criterion_33_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const info = await getRepoInfo(owner, repo);
-    const hasDescription = info.description && info.description.trim().length > 0;
-    
-    const result = {
-      status: hasDescription ? "met" : "unmet",
-      details: hasDescription ? info.description : "No description",
-      evidence: hasDescription ? [info.description] : []
-    };
-    
     setCachedData(cacheKey, result);
     return result;
   } catch (error) {
@@ -582,7 +528,7 @@ export async function checkIssuesManagedOnPlatform(owner, repo) {
 }
 
 /**
- * CRITERION 41: CONTRIBUTING File
+ * CRITERION 41: Every significant change within the code is managed through a pull (or merge) request
  */
 export async function checkChangesViaPullRequests(owner, repo) {
   const cacheKey = `criterion_41_${owner}_${repo}`;
@@ -607,49 +553,6 @@ export async function checkChangesViaPullRequests(owner, repo) {
       evidence: hasClosedPR ? [`PR #${data[0].number}`] : []
     };
 
-    setCachedData(cacheKey, result);
-    return result;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
-/**
- * CRITERION 46: Has Tests (unused)
- */
-export async function checkHasTests(owner, repo) {
-  const cacheKey = `criterion_46_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const files = await getRepoFiles(owner, repo);
-    
-    // Check for test directories or files
-    const testPatterns = ['test', 'tests', 'spec', '__tests__'];
-    const hasTestDir = files.some(f => 
-      testPatterns.some(pattern => f.toLowerCase().includes(pattern))
-    );
-    
-    // Check for test files in root
-    const hasTestFiles = files.some(f => 
-      f.toLowerCase().startsWith('test_') || 
-      f.toLowerCase().endsWith('_test.py') ||
-      f.toLowerCase().endsWith('.test.js')
-    );
-    
-    const hasTests = hasTestDir || hasTestFiles;
-    
-    const result = {
-      status: hasTests ? "met" : "unmet",
-      details: hasTests ? "Test files/directories found" : "No tests found",
-      evidence: files.filter(f => 
-        testPatterns.some(p => f.toLowerCase().includes(p))
-      )
-    };
-    
     setCachedData(cacheKey, result);
     return result;
   } catch (error) {
