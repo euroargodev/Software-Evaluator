@@ -19,21 +19,19 @@ function Form({ onEvaluate }) {
   const [loading, setLoading] = useState(false);
   const [isFirstEvaluation, setIsFirstEvaluation] = useState(null);
   const [uploadedFile, setUploadedFile] = useState(null);
+  const [uploadError, setUploadError] = useState("");
+  const [uploadInfo, setUploadInfo] = useState(null);
   const [progress, setProgress] = useState({ current: 0, total: 0, message: "" });
 
   const guidelines = Array.isArray(guidelinesRaw) ? guidelinesRaw : [];
 
-  // Filters criteria to those at or below the chosen level
-  const getFilteredCriteria = () => {
-    const targetIndex = LEVEL_ORDER.indexOf(targetLevel);
-    
-    return guidelines.filter(criterion => {
-      const criterionIndex = LEVEL_ORDER.indexOf(criterion.level);
-      return criterionIndex <= targetIndex;
-    });
+  // Filters criteria to those at or below a given level
+  const getFilteredCriteria = (level = targetLevel) => {
+    const targetIndex = LEVEL_ORDER.indexOf(level);
+    return guidelines.filter(criterion => LEVEL_ORDER.indexOf(criterion.level) <= targetIndex);
   };
 
-  const filteredCriteria = getFilteredCriteria();
+  const filteredCriteria = getFilteredCriteria(targetLevel);
   const manualCriteria = filteredCriteria.filter(c => c.type === "manual");
   const autoCriteria = filteredCriteria.filter(c => c.type === "auto");
   const manualCriteriaKey = manualCriteria.map(c => c.id).join(",");
@@ -55,6 +53,45 @@ function Form({ onEvaluate }) {
     return { owner: match[1], repo: match[2].replace(/\.git$/, "") };
   };
 
+  const normalizeAnswer = (answer) => {
+    if (!answer || typeof answer !== "object") return null;
+    const status = ["met", "unmet"].includes((answer.status || "").toLowerCase())
+      ? answer.status.toLowerCase()
+      : "unmet";
+    const evidence = typeof answer.evidence === "string" ? answer.evidence : "";
+    return { status, evidence };
+  };
+
+  const validateEvaluationFile = (json, manualList) => {
+    const errors = [];
+    if (!json.repository || !json.repository.owner || !json.repository.repo) {
+      errors.push("Missing repository owner or name.");
+    }
+    if (!json.userAnswers || typeof json.userAnswers !== "object") {
+      errors.push("Missing userAnswers object.");
+    }
+
+    const cleanedAnswers = {};
+    if (json.userAnswers && typeof json.userAnswers === "object") {
+      manualList.forEach((criterion) => {
+        const normalized = normalizeAnswer(json.userAnswers[criterion.id]);
+        cleanedAnswers[criterion.id] = normalized || { status: "unmet", evidence: "" };
+      });
+    }
+
+    const repoUrl =
+      json.repository?.url || (json.repository?.owner && json.repository?.repo
+        ? `https://github.com/${json.repository.owner}/${json.repository.repo}`
+        : "");
+
+    return {
+      valid: errors.length === 0,
+      errors,
+      cleanedAnswers,
+      repoUrl,
+    };
+  };
+
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -63,31 +100,40 @@ function Form({ onEvaluate }) {
     reader.onload = (e) => {
       try {
         const json = JSON.parse(e.target.result);
+        const nextTarget = json.targetLevel && LEVEL_ORDER.includes(json.targetLevel)
+          ? json.targetLevel
+          : targetLevel;
+        const manualForFile = getFilteredCriteria(nextTarget).filter(c => c.type === "manual");
 
-        if (!json.repository || !json.userAnswers) {
-          throw new Error("Invalid evaluation file format");
+        const { valid, errors, cleanedAnswers, repoUrl: repoFromFile } =
+          validateEvaluationFile(json, manualForFile);
+
+        if (!valid) {
+          setUploadError(errors.join(" "));
+          setUploadedFile(null);
+          setUploadInfo(null);
+          return;
         }
 
+        setUploadError("");
         setUploadedFile(json);
-
-        // Restore saved level if present
-        if (json.targetLevel) {
-          setTargetLevel(json.targetLevel);
-        }
-
-        // Load only manual answers relevant to the current level
-        const manualAnswers = {};
-        manualCriteria.forEach(criterion => {
-          if (json.userAnswers[criterion.id]) {
-            manualAnswers[criterion.id] = json.userAnswers[criterion.id];
-          }
+        setUploadInfo({
+          repo: `${json.repository.owner}/${json.repository.repo}`,
+          targetLevel: nextTarget,
+          manualCount: manualForFile.length,
+          restoredAnswers: Object.values(cleanedAnswers || {}).filter(a => a?.status).length
         });
 
-        setUserAnswers(manualAnswers);
-        setRepoUrl(json.repository.url || `https://github.com/${json.repository.owner}/${json.repository.repo}`);
+        setTargetLevel(nextTarget);
+        setUserAnswers(cleanedAnswers);
+        setRepoUrl(repoFromFile);
+        setIsFirstEvaluation(true); // jump straight to the form after a valid upload
       } catch (error) {
         console.error("Error parsing file:", error);
         alert("❌ Invalid file format. Please upload a valid evaluation JSON file.");
+        setUploadError("Invalid file format. Please upload a valid evaluation JSON file.");
+        setUploadedFile(null);
+        setUploadInfo(null);
       }
     };
     reader.readAsText(file);
@@ -198,22 +244,19 @@ function Form({ onEvaluate }) {
           onChange={handleFileUpload}
           className="file-input"
         />
-        {uploadedFile && (
+        {uploadError && (
+          <p className="error-message">{uploadError}</p>
+        )}
+        {uploadedFile && uploadInfo && (
           <div className="upload-success">
             <p className="success-message">
-              ✅ File loaded: {uploadedFile.repository.owner}/{uploadedFile.repository.repo}
+              File loaded: {uploadInfo.repo}
             </p>
             <p className="text-sm text-gray-600 mt-2">
-              🎯 Target level: {uploadedFile.targetLevel || "Not specified"}
+              Target level: {uploadInfo.targetLevel}
               <br />
-              📝 {Object.keys(userAnswers).length} manual answers restored
+              {uploadInfo.restoredAnswers} manual answers restored for {uploadInfo.manualCount} manual criteria
             </p>
-            <button
-              onClick={() => setIsFirstEvaluation(true)}
-              className="btn-primary mt-4"
-            >
-              Continue to Evaluation
-            </button>
           </div>
         )}
         <button
