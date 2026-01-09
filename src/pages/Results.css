@@ -13,17 +13,27 @@
 
 .results-header {
   text-align: center;
-  padding: 2.5rem 2rem 2rem;
+  padding: 1.1rem 2rem 0.95rem;
   background: linear-gradient(120deg, #0d8adf 0%, #0b6397 45%, #064067 100%);
   color: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--ea-shadow-card);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.results-header .header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
 }
 
 .header-logo {
-  width: 100px;
+  width: 70px;
   height: auto;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
   transition: transform 0.3s ease;
   cursor: pointer;
@@ -34,8 +44,8 @@
 }
 
 .results-header h1 {
-  font-size: 2.5rem;
-  margin: 0.5rem 0 1rem;
+  font-size: 2.2rem;
+  margin: 0;
   font-weight: 700;
   color : white;
   text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
@@ -43,13 +53,13 @@
 }
 
 .repo-name {
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   opacity: 0.95;
-  margin-top: 0.5rem;
+  margin-top: 0;
   font-family: 'Courier New', Consolas, Monaco, monospace;
   background: rgba(255, 255, 255, 0.2);
   padding: 0.6rem 1.2rem;
-  border-radius: 8px;
+  border-radius: calc(var(--ea-radius-card) - 4px);
   display: inline-block;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -64,9 +74,20 @@
 .results-container {
   flex: 1;
   max-width: 1200px;
-  margin: 2rem auto;
-  padding: 2rem;
+  margin: 1.5rem auto;
+  padding: 1.5rem;
   width: 100%;
+}
+
+/* Rate limit warning */
+.rate-limit-banner {
+  background: #fff7ed;
+  border: 1px solid #fdba74;
+  color: #9a3412;
+  padding: 0.75rem 1rem;
+  border-radius: calc(var(--ea-radius-card) - 4px);
+  margin-bottom: 1.5rem;
+  font-weight: 600;
 }
 
 /* Badge Card */
@@ -76,7 +97,7 @@
 
 .badge-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: var(--ea-shadow-card) !important;
 }
 
 /* Stats Cards */
@@ -86,7 +107,7 @@
 
 .stat-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--ea-shadow-soft);
 }
 
 /* Feedback Cards */
@@ -104,16 +125,16 @@
 
 .results-footer {
   text-align: center;
-  padding: 2.5rem 2rem;
+  padding: 0.6rem 2rem 0.8rem;
   background: #f8f9fa;
   border-top: 2px solid #dee2e6;
-  margin-top: 3rem;
+  margin-top: 1rem;
 }
 
 .footer-logo {
-  width: 90px;
+  width: 70px;
   height: auto;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.2rem;
   opacity: 0.85;
   transition: opacity 0.3s ease, transform 0.3s ease;
   cursor: pointer;
@@ -126,17 +147,18 @@
 
 .results-footer p {
   color: #6c757d;
-  font-size: 0.95rem;
-  margin: 0.5rem 0;
+  font-size: 0.82rem;
+  margin: 0.2rem 0;
   font-weight: 500;
+  line-height: 1.35;
 }
 
 .footer-links {
-  margin-top: 1.2rem;
+  margin-top: 0.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -144,9 +166,9 @@
   color: var(--ea-ocean);
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   transition: all 0.3s ease;
-  padding: 0.4rem 0.8rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 6px;
   position: relative;
 }
@@ -183,22 +205,22 @@
 ======================================== */
 
 .footer-funding {
-  max-width: 800px;
-  margin: 1.5rem auto;
-  line-height: 1.7;
+  max-width: 760px;
+  margin: 0.35rem auto;
+  line-height: 1.25;
 }
 
 .footer-project,
 .footer-grant,
 .footer-call {
   color: #495057;
-  font-size: 0.9rem;
-  margin: 0.75rem 0;
+  font-size: 0.66rem;
+  margin: 0.15rem 0;
   text-align: center;
 }
 
 .footer-project {
-  font-size: 1rem;
+  font-size: 0.72rem;
   color: #343a40;
   font-weight: 500;
 }
@@ -209,21 +231,21 @@
 }
 
 .footer-grant {
-  font-size: 0.88rem;
+  font-size: 0.72rem;
 }
 
 .footer-grant strong {
   font-weight: 600;
   color: #495057;
   background: rgba(102, 126, 234, 0.1);
-  padding: 0.15rem 0.4rem;
+  padding: 0.1rem 0.3rem;
   border-radius: 4px;
 }
 
 .footer-call {
-  font-size: 0.85rem;
+  font-size: 0.62rem;
   color: #6c757d;
-  font-style: italic;
+  font-style: normal;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
@@ -359,6 +381,108 @@
   letter-spacing: 0.025em;
 }
 
+/* Criteria accordion */
+.criteria-section {
+  margin: 3rem 0;
+}
+
+.criteria-section .category-group {
+  margin-bottom: 1.5rem;
+}
+
+.criteria-section .category-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f5f7fb;
+  border: 1px solid var(--ea-border);
+  border-radius: var(--ea-radius-card);
+  padding: 0.9rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.criteria-section .category-header:hover {
+  background: var(--ea-foam);
+  border-color: var(--ea-ocean);
+  box-shadow: var(--ea-shadow-soft);
+}
+
+.criteria-section .category-header.open {
+  background: #e3edf3;
+  border-color: var(--ea-ocean);
+}
+
+.criteria-section .category-title {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  text-align: left;
+}
+
+.criteria-section .category-title span:first-child {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ea-ink);
+}
+
+.criteria-section .category-count {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.criteria-section .toggle-icon {
+  font-size: 1.4rem;
+  color: #4b5563;
+}
+
+.criteria-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.criteria-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--ea-radius-card);
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.criteria-item.met {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.criteria-item.unmet {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.criteria-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.criteria-evidence {
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.criteria-meta {
+  font-size: 0.85rem;
+  color: #6b7280;
+  white-space: nowrap;
+}
+
 /* ACTION BUTTONS */
 .action-buttons {
   display: flex;
@@ -436,11 +560,11 @@
 
   .footer-project,
   .footer-grant {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   .footer-call {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 }
 

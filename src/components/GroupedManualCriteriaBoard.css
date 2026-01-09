@@ -42,6 +42,11 @@
   margin-bottom: 2.5rem;
 }
 
+.category-groups {
+  display: grid;
+  gap: 2rem;
+}
+
 .category-header {
   width: 100%;
   display: flex;
@@ -92,8 +97,23 @@
 
 .criteria-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .category-groups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  .category-group {
+    margin-bottom: 0;
+  }
+
+  .criteria-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 768px) {

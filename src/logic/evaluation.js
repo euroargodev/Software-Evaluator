@@ -1,6 +1,6 @@
 // src/logic/evaluation.js
 
-// ✅ Importer checkRepoFeatures depuis github.js
+// ✅ Import checkRepoFeatures from github.js
 import { checkRepoFeatures } from "./github.js";
 import { clearCache } from "./githubClient.js";
 

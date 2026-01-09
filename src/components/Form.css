@@ -1,12 +1,13 @@
 /* === Form.css === */
 
-.form-wrapper {
+.form-wrapper,
+.form-container {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.2rem;
   width: 100%;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 1.5rem;
   background: var(--ea-ice);
   box-sizing: border-box;
 }
@@ -21,9 +22,9 @@
   align-items: center;
   gap: 1rem;
   background: #fff;
-  padding: 1rem 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--ea-radius-card);
+  box-shadow: var(--ea-shadow-soft);
 }
 
 .form-header input[type="url"],
@@ -49,9 +50,9 @@
 
 .form-group {
   background: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  padding: 1.2rem;
+  border-radius: var(--ea-radius-card);
+  box-shadow: var(--ea-shadow-soft);
 }
 
 .form-group label {
@@ -97,8 +98,8 @@
 .manual-section {
   background: #fff;
   padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border-radius: var(--ea-radius-card);
+  box-shadow: var(--ea-shadow-soft);
 }
 
 .manual-section h3 {
@@ -106,6 +107,77 @@
   margin-bottom: 1rem;
   color: #333;
   font-weight: 700;
+}
+
+.auto-tests h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 700;
+}
+
+.form-top-row,
+.form-info-row {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.auto-tests-details {
+  background: #f8fafc;
+  border: 1px solid var(--ea-border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.auto-tests-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ea-ink);
+  font-size: 0.9rem;
+}
+
+.auto-tests-list {
+  list-style: none;
+  padding: 0.75rem 0 0;
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.auto-tests-list li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  color: #334155;
+}
+
+.auto-test-id {
+  font-weight: 700;
+  color: var(--ea-ocean);
+}
+
+.auto-test-title {
+  color: #475569;
+}
+
+@media (min-width: 1024px) {
+  .form-top-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .form-info-row {
+    grid-template-columns: minmax(360px, 1.2fr) minmax(280px, 0.8fr);
+    align-items: start;
+  }
+
+  .evaluation-stats {
+    margin: 0;
+  }
+
+  .auto-tests-details {
+    margin-top: 0.25rem;
+  }
 }
 
 .criteria-grid {
@@ -173,7 +245,7 @@
   font-weight: 600;
   font-size: 1rem;
   transition: background 0.2s ease, transform 0.1s ease;
-  box-shadow: 0 4px 12px rgba(6, 64, 103, 0.25);
+  box-shadow: var(--ea-shadow-soft);
 }
 
 .evaluate-btn:hover,
@@ -226,27 +298,87 @@
    EVALUATION START SCREEN
 ======================================== */
 
+.evaluation-start-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: clamp(360px, 55vh, 520px);
+  padding: 0.5rem 0;
+}
+
+.file-upload-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: clamp(320px, 50vh, 480px);
+  padding: 0.5rem 0;
+}
+
 .evaluation-start {
   text-align: center;
-  padding: 3rem 2rem;
+  padding: 2.4rem 2.8rem;
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  max-width: 600px;
-  margin: 3rem auto;
+  border-radius: var(--ea-radius-card);
+  box-shadow: var(--ea-shadow-card);
+  max-width: 960px;
+  margin: 0 auto;
 }
 
 .evaluation-start h2 {
   color: #333;
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
+  margin-bottom: 0.9rem;
+  font-size: 2rem;
   font-weight: 700;
 }
 
 .evaluation-start p {
   color: #666;
-  margin-bottom: 2rem;
-  line-height: 1.6;
+  margin-bottom: 1.6rem;
+  line-height: 1.55;
+  font-size: 1.1rem;
+}
+
+.file-upload-section {
+  width: min(920px, 100%);
+  padding: 2.2rem 2.5rem;
+  background: #fff;
+  border-radius: var(--ea-radius-card);
+  box-shadow: var(--ea-shadow-card);
+  text-align: center;
+}
+
+.file-upload-section h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.file-upload-section .subtitle {
+  color: #666;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
+.file-upload-actions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
+
+.file-input {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--ea-border);
+  border-radius: calc(var(--ea-radius-card) - 4px);
+  font-size: 0.95rem;
+  background: #fff;
+  color: #334155;
+}
+
+.upload-success {
+  margin-top: 1rem;
 }
 
 .button-group {
@@ -257,8 +389,8 @@
 }
 
 .btn-primary {
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  padding: 0.75rem 1.6rem;
+  font-size: 1rem;
   font-weight: 600;
   color: white;
   background: linear-gradient(120deg, var(--ea-hero-start) 0%, var(--ea-hero-mid) 55%, var(--ea-hero-end) 100%);
@@ -278,8 +410,8 @@
 }
 
 .btn-secondary {
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
+  padding: 0.75rem 1.6rem;
+  font-size: 1rem;
   font-weight: 600;
   color: white;
   background-color: #22c55e;
@@ -296,6 +428,16 @@
 
 .btn-secondary:active {
   transform: translateY(0);
+}
+
+@media (min-width: 900px) {
+  .evaluation-start {
+    text-align: center;
+  }
+
+  .button-group {
+    justify-content: center;
+  }
 }
 
 /* ========================================
@@ -330,7 +472,15 @@
   }
 
   .evaluation-start {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .file-upload-section {
+    padding: 1.6rem 1.2rem;
+  }
+
+  .file-upload-actions {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -375,20 +525,20 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1rem;
-  margin: 1.5rem 0;
-  padding: 1.5rem;
+  margin: 1rem 0;
+  padding: 1rem;
   background: linear-gradient(120deg, var(--ea-hero-start) 0%, var(--ea-hero-mid) 55%, var(--ea-hero-end) 100%);
-  border-radius: 12px;
+  border-radius: var(--ea-radius-card);
 }
 
 .stat-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 0.75rem;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: calc(var(--ea-radius-card) - 4px);
+  box-shadow: var(--ea-shadow-soft);
   transition: transform 0.2s;
 }
 
@@ -397,17 +547,17 @@
 }
 
 .stat-label {
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   font-weight: 600;
   color: #4a5568;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   text-align: center;
 }
 
 .stat-value {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: var(--ea-navy);
 }

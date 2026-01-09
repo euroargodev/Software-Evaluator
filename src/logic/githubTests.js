@@ -129,8 +129,13 @@ async function searchInCode(owner, repo, patterns) {
     setCachedData(cacheKey, result);
     return result;
   } catch (error) {
-    console.warn("Code search failed:", error.message);
-    const result = { found: false, error: error.message };
+    const message = error?.message || "Code search failed";
+    const isRateLimit = /rate limit/i.test(message);
+    const friendlyMessage = isRateLimit
+      ? "GitHub code search rate limit exceeded"
+      : message;
+    console.warn("Code search failed:", friendlyMessage);
+    const result = { found: false, error: friendlyMessage };
     setCachedData(cacheKey, result);
     return result;
   }
@@ -192,10 +197,13 @@ export async function checkCodeFormatting(owner, repo) {
   try {
     const files = await getRepoFiles(owner, repo);
     const formattingFiles = [
-      '.prettierrc', '.prettierrc.json', '.prettierrc.js',
-      '.eslintrc', '.eslintrc.json', '.eslintrc.js',
-      '.editorconfig', 'pyproject.toml', 'setup.cfg',
-      '.flake8', '.pylintrc', '.black', '.style.yapf'
+      '.prettierrc', '.prettierrc.json', '.prettierrc.js', '.prettierrc.cjs',
+      'prettier.config.js', 'prettier.config.cjs',
+      '.eslintrc', '.eslintrc.json', '.eslintrc.js', '.eslintrc.cjs',
+      'eslint.config.js', 'eslint.config.cjs',
+      '.editorconfig', 'pyproject.toml', 'setup.cfg', 'tox.ini',
+      '.flake8', '.pylintrc', '.black', '.style.yapf',
+      'ruff.toml', '.ruff.toml', 'biome.json', 'biome.jsonc'
     ];
     
     const hasFormatter = formattingFiles.some(f => files.includes(f));
@@ -413,12 +421,21 @@ export async function checkUsesGDACServers(owner, repo) {
     ];
     
     const result = await searchInCode(owner, repo, gdacPatterns);
-    
-    const finalResult = {
-      status: result.found ? "met" : "unmet",
-      details: result.found ? `Found: ${result.pattern}` : "No GDAC server references",
-      evidence: result.pattern ? [result.pattern] : []
-    };
+
+    const finalResult = result.error
+      ? {
+          status: "unmet",
+          details: /rate limit/i.test(result.error)
+            ? "Code search rate limit exceeded"
+            : "Code search unavailable",
+          evidence: [],
+          error: result.error
+        }
+      : {
+          status: result.found ? "met" : "unmet",
+          details: result.found ? `Found: ${result.pattern}` : "No GDAC server references",
+          evidence: result.pattern ? [result.pattern] : []
+        };
     
     setCachedData(cacheKey, finalResult);
     return finalResult;
@@ -610,12 +627,21 @@ export async function checkGDACFolderStructure(owner, repo) {
   try {
     const gdacPaths = ['/dac/', '/profiles/', '/trajectories/', '/tech/'];
     const result = await searchInCode(owner, repo, gdacPaths);
-    
-    const finalResult = {
-      status: result.found ? "met" : "unmet",
-      details: result.found ? `Found: ${result.pattern}` : "No GDAC structure references",
-      evidence: result.pattern ? [result.pattern] : []
-    };
+
+    const finalResult = result.error
+      ? {
+          status: "unmet",
+          details: /rate limit/i.test(result.error)
+            ? "Code search rate limit exceeded"
+            : "Code search unavailable",
+          evidence: [],
+          error: result.error
+        }
+      : {
+          status: result.found ? "met" : "unmet",
+          details: result.found ? `Found: ${result.pattern}` : "No GDAC structure references",
+          evidence: result.pattern ? [result.pattern] : []
+        };
     
     setCachedData(cacheKey, finalResult);
     return finalResult;
@@ -643,12 +669,21 @@ export async function checkOfficialArgoSources(owner, repo) {
     ];
     
     const result = await searchInCode(owner, repo, argoSources);
-    
-    const finalResult = {
-      status: result.found ? "met" : "unmet",
-      details: result.found ? `Found: ${result.pattern}` : "No official Argo sources",
-      evidence: result.pattern ? [result.pattern] : []
-    };
+
+    const finalResult = result.error
+      ? {
+          status: "unmet",
+          details: /rate limit/i.test(result.error)
+            ? "Code search rate limit exceeded"
+            : "Code search unavailable",
+          evidence: [],
+          error: result.error
+        }
+      : {
+          status: result.found ? "met" : "unmet",
+          details: result.found ? `Found: ${result.pattern}` : "No official Argo sources",
+          evidence: result.pattern ? [result.pattern] : []
+        };
     
     setCachedData(cacheKey, finalResult);
     return finalResult;

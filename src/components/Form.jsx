@@ -163,11 +163,24 @@ function Form({ onEvaluate }) {
       }
 
       const rateLimit = await checkRateLimit();
+      const warnings = [];
       if (rateLimit.remaining < 100) {
-        alert(
+        warnings.push(
           `⚠️ Low GitHub API rate limit: ${rateLimit.remaining} requests remaining.\n` +
             `The evaluation may fail. Consider waiting until ${rateLimit.reset}.`
         );
+      }
+      if (typeof rateLimit.searchRemaining === "number" && rateLimit.searchRemaining < 5) {
+        const searchResetLabel = rateLimit.searchReset
+          ? rateLimit.searchReset.toLocaleTimeString()
+          : "soon";
+        warnings.push(
+          `⚠️ GitHub code search rate limit is low: ${rateLimit.searchRemaining} requests remaining.\n` +
+            `Search-based checks may fail. Resets at ${searchResetLabel}.`
+        );
+      }
+      if (warnings.length > 0) {
+        alert(warnings.join("\n\n"));
       }
 
       const progressCallback = (current, total, message) => {
@@ -203,26 +216,28 @@ function Form({ onEvaluate }) {
   // ========== SELECTION SCREEN ==========
   if (isFirstEvaluation === null) {
     return (
-      <div className="evaluation-start">
-        <h2>Is this your first evaluation?</h2>
-        <p className="subtitle">
-          First-time users will answer manual questions based on their target level.
-          <br />
-          Returning users can upload their previous evaluation file.
-        </p>
-        <div className="button-group">
-          <button 
-            onClick={() => setIsFirstEvaluation(true)}
-            className="btn-primary"
-          >
-            Yes, first time
-          </button>
-          <button 
-            onClick={() => setIsFirstEvaluation(false)}
-            className="btn-secondary"
-          >
-            No, I have a file
-          </button>
+      <div className="evaluation-start-wrapper">
+        <div className="evaluation-start">
+          <h2>Is this your first evaluation?</h2>
+          <p className="subtitle">
+            First-time users will answer manual questions based on their target level.
+            <br />
+            Returning users can upload their previous evaluation file.
+          </p>
+          <div className="button-group">
+            <button 
+              onClick={() => setIsFirstEvaluation(true)}
+              className="btn-primary"
+            >
+              Yes, first time
+            </button>
+            <button 
+              onClick={() => setIsFirstEvaluation(false)}
+              className="btn-secondary"
+            >
+              No, I have a file
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -231,40 +246,44 @@ function Form({ onEvaluate }) {
   // ========== UPLOAD SCREEN ==========
   if (!isFirstEvaluation) {
     return (
-      <div className="file-upload-section">
-        <h2>Upload Your Previous Evaluation</h2>
-        <p className="subtitle">
-          We'll re-run automatic tests only.
-          <br />
-          Your manual answers will be preserved.
-        </p>
-        <input
-          type="file"
-          accept=".json"
-          onChange={handleFileUpload}
-          className="file-input"
-        />
-        {uploadError && (
-          <p className="error-message">{uploadError}</p>
-        )}
-        {uploadedFile && uploadInfo && (
-          <div className="upload-success">
-            <p className="success-message">
-              File loaded: {uploadInfo.repo}
-            </p>
-            <p className="text-sm text-gray-600 mt-2">
-              Target level: {uploadInfo.targetLevel}
-              <br />
-              {uploadInfo.restoredAnswers} manual answers restored for {uploadInfo.manualCount} manual criteria
-            </p>
+      <div className="file-upload-wrapper">
+        <div className="file-upload-section">
+          <h2>Upload Your Previous Evaluation</h2>
+          <p className="subtitle">
+            We'll re-run automatic tests only.
+            <br />
+            Your manual answers will be preserved.
+          </p>
+          <div className="file-upload-actions">
+            <input
+              type="file"
+              accept=".json"
+              onChange={handleFileUpload}
+              className="file-input"
+            />
+            <button
+              onClick={() => setIsFirstEvaluation(null)}
+              className="btn-secondary"
+            >
+              ← Back
+            </button>
           </div>
-        )}
-        <button
-          onClick={() => setIsFirstEvaluation(null)}
-          className="btn-secondary mt-4"
-        >
-          ← Back
-        </button>
+          {uploadError && (
+            <p className="error-message">{uploadError}</p>
+          )}
+          {uploadedFile && uploadInfo && (
+            <div className="upload-success">
+              <p className="success-message">
+                File loaded: {uploadInfo.repo}
+              </p>
+              <p className="text-sm text-gray-600 mt-2">
+                Target level: {uploadInfo.targetLevel}
+                <br />
+                {uploadInfo.restoredAnswers} manual answers restored for {uploadInfo.manualCount} manual criteria
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
@@ -280,38 +299,55 @@ function Form({ onEvaluate }) {
         </p>
       </div>
 
-      {/* Level selector */}
-      <div className="form-group">
-        <label htmlFor="target-level">
-          Target Level <span className="required">*</span>
-        </label>
-        <TargetLevelSelect 
-          targetLevel={targetLevel}
-          maxLevel={LEVEL_ORDER.length}
-          onChange={setTargetLevel}
-          disabled={loading}
-        />
-        <p className="helper-text">
-          Selecting a level will show criteria up to and including that level.
-        </p>
+      <div className="form-top-row">
+        {/* Level selector */}
+        <div className="form-group">
+          <label htmlFor="target-level">
+            Target Level <span className="required">*</span>
+          </label>
+          <TargetLevelSelect 
+            targetLevel={targetLevel}
+            maxLevel={LEVEL_ORDER.length}
+            onChange={setTargetLevel}
+            disabled={loading}
+          />
+          <p className="helper-text">
+            Selecting a level will show criteria up to and including that level.
+          </p>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="repo-url">
+            GitHub Repository URL <span className="required">*</span>
+          </label>
+          <input
+            id="repo-url"
+            type="url"
+            placeholder="https://github.com/owner/repository"
+            value={repoUrl}
+            onChange={(e) => setRepoUrl(e.target.value)}
+            required
+            disabled={loading}
+          />
+        </div>
+
+        <div className="form-group auto-tests">
+          <h3>Automatic checks that will run</h3>
+          <details className="auto-tests-details">
+            <summary>{autoCriteria.length} checks</summary>
+            <ul className="auto-tests-list">
+              {autoCriteria.map((criterion) => (
+                <li key={criterion.id}>
+                  <span className="auto-test-id">#{criterion.id}</span>
+                  <span className="auto-test-title">{criterion.title}</span>
+                </li>
+              ))}
+            </ul>
+          </details>
+        </div>
       </div>
 
-      <div className="form-group">
-        <label htmlFor="repo-url">
-          GitHub Repository URL <span className="required">*</span>
-        </label>
-        <input
-          id="repo-url"
-          type="url"
-          placeholder="https://github.com/owner/repository"
-          value={repoUrl}
-          onChange={(e) => setRepoUrl(e.target.value)}
-          required
-          disabled={loading}
-        />
-      </div>
-
-      {/* Stats per level*/}
+      {/* Stats per level */}
       <div className="evaluation-stats">
         <div className="stat-card">
           <span className="stat-label">Target Level</span>

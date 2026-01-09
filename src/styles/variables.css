@@ -12,4 +12,7 @@
   --ea-hero-start: #0d8adf;
   --ea-hero-mid: #0b6397;
   --ea-hero-end: #064067;
+  --ea-radius-card: 12px;
+  --ea-shadow-soft: 0 2px 8px rgba(16, 34, 51, 0.08);
+  --ea-shadow-card: 0 8px 18px rgba(16, 34, 51, 0.1);
 }

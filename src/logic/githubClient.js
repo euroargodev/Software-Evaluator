@@ -84,6 +84,10 @@ export async function checkRateLimit() {
     const { data } = await octokit.rest.rateLimit.get();
     const remaining = data.rate.remaining;
     const reset = new Date(data.rate.reset * 1000);
+    const searchRemaining = data.resources?.search?.remaining;
+    const searchReset = data.resources?.search?.reset
+      ? new Date(data.resources.search.reset * 1000)
+      : null;
     
     console.log(`🔢 GitHub API: ${remaining} requests remaining (resets at ${reset.toLocaleTimeString()})`);
     
@@ -95,7 +99,7 @@ export async function checkRateLimit() {
       );
     }
     
-    return { remaining, reset };
+    return { remaining, reset, searchRemaining, searchReset };
   } catch (error) {
     console.error("Failed to check rate limit:", error);
     throw error;

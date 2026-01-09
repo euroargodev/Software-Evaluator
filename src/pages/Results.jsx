@@ -1,4 +1,5 @@
-// Results screen that renders evaluation summary, stats, and recommendations.
+// Results screen that renders evaluation summary, stats, and grouped criteria.
+import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import logo_1 from "../img/logo_euroargo_square.png"; 
 import logo_2 from "../img/EAONE_2.png"; 
@@ -23,9 +24,48 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     achievedLevel = "Novice",
     globalScore = 0,
     details = {},
-    feedback = [],
-    stats = { metCriteria: 0, unmetCriteria: 0, totalCriteria: 0, targetLevel: null }
+    stats = { metCriteria: 0, unmetCriteria: 0, totalCriteria: 0, targetLevel: null },
+    feedback = []
   } = evaluationResult;
+
+  const rateLimitErrors = Object.values(details || {}).filter(
+    (item) => item?.error && /rate limit/i.test(item.error)
+  );
+
+  const categoryEntries = useMemo(() => {
+    const groups = {};
+    if (details && typeof details === "object") {
+      Object.entries(details).forEach(([id, criterion]) => {
+        if (!criterion) return;
+        const category = criterion.category || "General";
+        if (!groups[category]) groups[category] = [];
+        groups[category].push({ id: Number(id), ...criterion });
+      });
+    }
+
+    return Object.entries(groups)
+      .map(([category, items]) => [
+        category,
+        items.sort((a, b) => (a.id || 0) - (b.id || 0)),
+      ])
+      .sort((a, b) => a[0].localeCompare(b[0]));
+  }, [details]);
+
+  const [expandedCategories, setExpandedCategories] = useState({});
+
+  useEffect(() => {
+    setExpandedCategories((prev) => {
+      const next = {};
+      categoryEntries.forEach(([category]) => {
+        next[category] = prev[category] ?? false;
+      });
+      return next;
+    });
+  }, [categoryEntries]);
+
+  const toggleCategory = (category) => {
+    setExpandedCategories((prev) => ({ ...prev, [category]: !prev[category] }));
+  };
 
   const getBadgeDetails = (level) => {
     const badges = {
@@ -111,26 +151,14 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     console.log("✅ Evaluation file downloaded");
   };
 
-  // Group criteria safely by category
-  const criteriaByCategory = {};
-  if (details && typeof details === 'object') {
-    Object.entries(details).forEach(([id, criterion]) => {
-      if (!criterion) return;
-      
-      const category = criterion.category || "General";
-      if (!criteriaByCategory[category]) {
-        criteriaByCategory[category] = [];
-      }
-      criteriaByCategory[category].push({ id, ...criterion });
-    });
-  }
-
   return (
     <div className="results-page">
       {/* Header with Euro-Argo branding */}
       <header className="results-header">
-        <img src={logo_1} alt="Euro-Argo Logo" className="header-logo" />
-        <h1>Evaluation Results</h1>
+        <div className="header-title">
+          <img src={logo_1} alt="Euro-Argo Logo" className="header-logo" />
+          <h1>Evaluation Results</h1>
+        </div>
         <p className="repo-name">
           {repository.owner}/{repository.repo}
         </p>
@@ -138,6 +166,11 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
 
       {/* Main content */}
       <main className="results-container max-w-5xl mx-auto p-6">
+        {rateLimitErrors.length > 0 && (
+          <div className="rate-limit-banner">
+            Some automatic checks could not run due to GitHub API rate limits. Try again later.
+          </div>
+        )}
         {/* Badge */}
         <div
           className="badge-card p-8 rounded-2xl shadow-lg mb-8 text-center"
@@ -189,60 +222,57 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
           </div>
         </div>
 
-      {/* Recommendations */}
-      {feedback && feedback.length > 0 && (
-        <section className="recommendations-section">
-          <h2 className="section-title">Recommendations for Improvement</h2>
-          
-          <div className="recommendations-container">
-            {feedback.map((item, idx) => (
-              <div
-                key={idx}
-                className={`recommendation-block ${
-                  item.priority === "high"
-                    ? "priority-high"
-                    : item.priority === "info"
-                    ? "priority-info"
-                    : "priority-normal"
-                }`}
-              >
-                <h3 className="recommendation-header">{item.message}</h3>
-                
-                {item.missing && item.missing.length > 0 && (
-                  <table className="criteria-table">
-                    <thead>
-                      <tr>
-                        <th>Status</th>
-                        <th>Criterion</th>
-                        <th>Priority</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {item.missing.map((m) => (
-                        <tr key={m.id} className={m.isBlocker ? "blocker-row" : ""}>
-                          <td className="status-cell">
-                            <span className={`status-indicator ${m.checked ? "validated" : "missing"}`}>
-                              {m.checked ? "Validated" : "Missing"}
-                            </span>
-                          </td>
-                          <td className="criterion-title">{m.title}</td>
-                          <td className="priority-cell">
-                            {m.isBlocker && !m.checked && (
-                              <span className="badge-required">Required</span>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                )}
+      <section className="criteria-section">
+        <h2 className="section-title">See which criteria are met</h2>
+        {categoryEntries.map(([category, items]) => (
+          <div key={category} className="category-group">
+            <button
+              type="button"
+              className={`category-header ${expandedCategories[category] ? "open" : ""}`}
+              onClick={() => toggleCategory(category)}
+            >
+              <div className="category-title">
+                <span>{category}</span>
+                <span className="category-count">{items.length} items</span>
               </div>
-            ))}
+              <span className="toggle-icon" aria-hidden="true">
+                {expandedCategories[category] ? "−" : "+"}
+              </span>
+            </button>
+            {expandedCategories[category] && (
+              <div className="criteria-list">
+                {items.map((criterion) => (
+                  <div
+                    key={criterion.id}
+                    className={`criteria-item ${criterion.status === "met" ? "met" : "unmet"}`}
+                  >
+                    <span
+                      className={`status-indicator ${
+                        criterion.status === "met" ? "validated" : "missing"
+                      }`}
+                    >
+                      {criterion.status === "met" ? "Validated" : "Missing"}
+                    </span>
+                    <div className="criteria-text">
+                      <span className="criterion-title">{criterion.title}</span>
+                      {criterion.evidence && criterion.evidence.length > 0 && (
+                        <span className="criteria-evidence">
+                          Evidence: {Array.isArray(criterion.evidence) ? criterion.evidence.join(", ") : criterion.evidence}
+                        </span>
+                      )}
+                    </div>
+                    <span className="criteria-meta">
+                      {criterion.type === "auto" ? "Auto" : "Manual"} · {criterion.level}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        </section>
-      )}
+        ))}
+      </section>
 
-      {/* BOUTONS D'ACTION */}
+      {/* BUTTONS */}
       <div className="action-buttons">
         <button onClick={handleDownload} className="btn-primary">
           Download Evaluation Report
@@ -261,7 +291,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
         </div>
       </main>
 
-      {/* ⭐ FOOTER AVEC LOGO */}
+      {/* FOOTER */}
       <footer className="results-footer">
         <div className="footer-funding">
           <p className="footer-project">

@@ -1,5 +1,4 @@
 // src/components/TargetLevelSelect.jsx
-import React from "react";
 import PropTypes from "prop-types";
 
 // Dropdown letting users cap the level they want to be evaluated against.
@@ -8,9 +7,6 @@ function TargetLevelSelect({ targetLevel, maxLevel, onChange, disabled }) {
 
   return (
     <div className="target-level-select">
-      <label>
-        Target Level <span className="optional">(optional)</span>
-      </label>
       <select
         value={targetLevel}
         onChange={(e) => onChange(e.target.value)}

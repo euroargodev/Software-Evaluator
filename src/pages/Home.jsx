@@ -10,8 +10,10 @@ function Home({ onEvaluate }) {
     <div className="home-page">
       {/* Hero header with Euro-Argo logo */}
       <header className="home-header">
-        <img src={logo_1} alt="Euro-Argo Logo" className="header-logo" />
-        <h1>Software Evaluator</h1>
+        <div className="header-title">
+          <img src={logo_1} alt="Euro-Argo Logo" className="header-logo" />
+          <h1>Software Evaluator</h1>
+        </div>
         <p>Evaluate your software against EuroArgo development guidelines</p>
       </header>
 

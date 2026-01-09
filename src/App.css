@@ -4,10 +4,7 @@ body {
   background-color: var(--ea-ice);
   color: var(--ea-ink);
   margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 60px;
+  padding-top: 0;
 }
 
 /* ===== App.css ===== */
@@ -93,4 +90,8 @@ button:hover {
 
 .hidden {
   display: none;
+}
+
+.app {
+  width: 100%;
 }

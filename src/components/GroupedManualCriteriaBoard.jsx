@@ -64,36 +64,38 @@ export default function GroupedManualCriteriaBoard({ guidelines = [], userAnswer
         Evidence is required for "Yes" answers.
       </p>
 
-      {Object.entries(grouped).map(([group, criteria]) => (
-        <div key={group} className="category-group">
-          <button
-            type="button"
-            className={`category-header ${expandedGroups[group] ? "open" : ""}`}
-            onClick={() => toggleGroup(group)}
-          >
-            <div className="category-title">
-              <span>{group}</span>
-              <span className="category-count">{criteria.length} items</span>
-            </div>
-            <span className="toggle-icon" aria-hidden="true">
-              {expandedGroups[group] ? "−" : "+"}
-            </span>
-          </button>
+      <div className="category-groups">
+        {Object.entries(grouped).map(([group, criteria]) => (
+          <div key={group} className="category-group">
+            <button
+              type="button"
+              className={`category-header ${expandedGroups[group] ? "open" : ""}`}
+              onClick={() => toggleGroup(group)}
+            >
+              <div className="category-title">
+                <span>{group}</span>
+                <span className="category-count">{criteria.length} items</span>
+              </div>
+              <span className="toggle-icon" aria-hidden="true">
+                {expandedGroups[group] ? "−" : "+"}
+              </span>
+            </button>
 
-          {expandedGroups[group] && (
-            <div className="criteria-grid">
-              {criteria.map((crit) => (
-                <ManualCriterion
-                  key={crit.id}
-                  criterion={crit}
-                  answer={userAnswers[crit.id] || {}}
-                  onChange={(answerObj) => handleChange(crit.id, answerObj)}
-                />
-              ))}
-            </div>
-          )}
-        </div>
-      ))}
+            {expandedGroups[group] && (
+              <div className="criteria-grid">
+                {criteria.map((crit) => (
+                  <ManualCriterion
+                    key={crit.id}
+                    criterion={crit}
+                    answer={userAnswers[crit.id] || {}}
+                    onChange={(answerObj) => handleChange(crit.id, answerObj)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
