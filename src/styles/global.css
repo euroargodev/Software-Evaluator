@@ -1,9 +1,9 @@
 /* === global.css ===
-   Feuille de style principale de l'application
-   Gère la typographie, les couleurs et la mise en page globale.
+   Main application stylesheet.
+   Handles typography, colors, and global layout.
 */
 
-/* --- Reset et base --- */
+/* --- Reset and base --- */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5 {
   color: var(--ea-ink);
 }
 
-/* --- Conteneur principal --- */
+/* --- Main container --- */
 #root {
   display: flex;
   flex-direction: column;

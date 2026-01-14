@@ -4,7 +4,7 @@ import { getGitHubClient } from "./githubClient.js";
 
 /**
  * MAP: Criterion ID → Test Function
- * Contient tous les critères auto avec doublons explicitement mappés
+ * Contains all auto criteria with explicit duplicate mappings
  */
 export const githubCriterionMap = {
   // ==================== LANGUAGE & LICENSE ====================

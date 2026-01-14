@@ -52,6 +52,8 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
   }, [details]);
 
   const [expandedCategories, setExpandedCategories] = useState({});
+  const [showScoreDetails, setShowScoreDetails] = useState(false);
+  const [badgeCopyStatus, setBadgeCopyStatus] = useState("");
 
   useEffect(() => {
     setExpandedCategories((prev) => {
@@ -111,6 +113,76 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
 
   const badge = getBadgeDetails(validatedLevel);
   const targetLevel = repository?.targetLevel || stats?.targetLevel;
+  const autoCount = Number.isFinite(stats?.autoCriteria) ? stats.autoCriteria : null;
+  const manualCount = Number.isFinite(stats?.manualCriteria) ? stats.manualCriteria : null;
+  const levelOrder = ["Novice", "Beginner", "Intermediate", "Advanced", "Expert"];
+  const scoreValue = Number.isFinite(globalScore) ? globalScore : 0;
+  const scorePercent = Number.isFinite(globalScore)
+    ? (globalScore * 100).toFixed(1)
+    : "0.0";
+  const progressTier =
+    scoreValue >= 0.8 ? "high" : scoreValue >= 0.6 ? "mid" : "low";
+  const scoreTier =
+    globalScore >= 0.8 ? "high" : globalScore >= 0.6 ? "mid" : "low";
+  const scoreNote =
+    scoreTier === "high"
+      ? "Great job - strong alignment with the selected scope."
+      : scoreTier === "mid"
+        ? "Good progress - a few key wins can lift your level."
+        : "Solid start - focus on the most impactful criteria first.";
+  const progressBadgeColor =
+    progressTier === "high" ? "16a34a" : progressTier === "mid" ? "f59e0b" : "dc2626";
+
+  const makeShieldUrl = (label, message, color) =>
+    `https://img.shields.io/badge/${encodeURIComponent(label)}-${encodeURIComponent(message)}-${color}?style=flat`;
+
+  const progressLabel = targetLevel ? `Target ${targetLevel}` : "Progress";
+  const progressBadgeUrl = makeShieldUrl(
+    progressLabel,
+    `${scorePercent}% complete`,
+    progressBadgeColor
+  );
+  const badgeMarkdown = `![${progressLabel}: ${scorePercent}% complete](${progressBadgeUrl})`;
+
+  const nextWins = Object.values(details || {})
+    .filter((criterion) => criterion?.status === "unmet")
+    .sort((a, b) => {
+      const levelDelta =
+        levelOrder.indexOf(a.level || "Novice") - levelOrder.indexOf(b.level || "Novice");
+      if (levelDelta !== 0) return levelDelta;
+      return (a.id || 0) - (b.id || 0);
+    })
+    .slice(0, 3);
+
+  const handleCopyBadges = async () => {
+    try {
+      await navigator.clipboard.writeText(badgeMarkdown);
+      setBadgeCopyStatus("Badge snippet copied.");
+      setTimeout(() => setBadgeCopyStatus(""), 2500);
+    } catch (error) {
+      console.error("Failed to copy badge snippet:", error);
+      setBadgeCopyStatus("Copy failed. Use the image URL instead.");
+      setTimeout(() => setBadgeCopyStatus(""), 3000);
+    }
+  };
+
+  const downloadBadge = async (url, filename) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(objectUrl);
+    } catch (error) {
+      console.error("Failed to download badge:", error);
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+  };
 
   const handleDownload = () => {
     const evaluationFile = {
@@ -186,17 +258,74 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
           <div className="text-5xl font-bold mb-2 text-gray-800">
             {(globalScore * 100).toFixed(1)}%
           </div>
+          <p className={`score-note ${scoreTier}`}>
+            {scoreNote} You met {stats.metCriteria} of {stats.totalCriteria} criteria.
+          </p>
+          <div className="score-explain">
+            <button
+              type="button"
+              className="score-explain-btn"
+              onClick={() => setShowScoreDetails((prev) => !prev)}
+              aria-expanded={showScoreDetails}
+            >
+              Understand my score
+              <span className="score-explain-icon">{showScoreDetails ? "-" : "+"}</span>
+            </button>
+            {showScoreDetails && (
+              <div className="score-explain-panel">
+                <p>
+                  The score reflects the share of criteria met within the evaluated scope
+                  {autoCount !== null && manualCount !== null
+                    ? ` (${stats.totalCriteria} criteria: ${autoCount} auto, ${manualCount} manual).`
+                    : ` (${stats.totalCriteria} criteria).`}
+                </p>
+                <ul>
+                  <li>The scope depends on the chosen target level.</li>
+                  <li>
+                    The displayed level is capped by the target level (if you choose "Beginner",
+                    you cannot reach "Intermediate").
+                  </li>
+                  <li>Higher-level criteria carry more weight in the final score.</li>
+                  <li>Auto checks can fail if GitHub rate limits the API.</li>
+                </ul>
+              </div>
+            )}
+          </div>
           <p className="text-xl text-gray-700 mb-2">{badge.message}</p>
           <p className="text-gray-600 italic">{badge.description}</p>
-          <div className="mt-3 flex justify-center gap-3 flex-wrap text-sm">
-            {targetLevel && (
-              <span className="inline-flex items-center gap-2 px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100">
-                🎯 Target: {targetLevel}
-              </span>
-            )}
-            <span className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">
-              📈 Achieved (raw): {achievedLevel}
+          <div className="badge-chips">
+            <span className={`badge-pill badge-progress ${progressTier}`}>
+              {progressLabel}: {scorePercent}% complete
             </span>
+          </div>
+          <div className="badge-downloads">
+            <div className="badge-downloads-header">
+              <span>Badge for your README</span>
+              <span className="badge-downloads-note">Copy or download as SVG</span>
+            </div>
+            <div className="badge-preview">
+              <img src={progressBadgeUrl} alt={`${progressLabel} ${scorePercent}% complete`} />
+            </div>
+            <div className="badge-actions">
+              <button type="button" className="btn-tertiary" onClick={handleCopyBadges}>
+                Copy Markdown
+              </button>
+              <button
+                type="button"
+                className="btn-tertiary"
+                onClick={() =>
+                  downloadBadge(
+                    progressBadgeUrl,
+                    `${repository.owner}_${repository.repo}_progress_badge.svg`
+                  )
+                }
+              >
+                Download Badge
+              </button>
+            </div>
+            {badgeCopyStatus && (
+              <div className="badge-copy-status">{badgeCopyStatus}</div>
+            )}
           </div>
         </div>
 
@@ -222,18 +351,57 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
           </div>
         </div>
 
+        <section className="next-wins">
+          <div className="next-wins-header">
+            <h3>Next wins</h3>
+            <span className="next-wins-subtitle">Quick improvements with the biggest impact</span>
+          </div>
+          {nextWins.length > 0 ? (
+            <ul className="next-wins-list">
+              {nextWins.map((criterion) => (
+                <li key={criterion.id} className="next-wins-item">
+                  <span className="next-wins-title">{criterion.title}</span>
+                  <span className="next-wins-meta">
+                    {criterion.type === "auto" ? "Auto" : "Manual"} · {criterion.level}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="next-wins-empty">
+              All criteria are met. Great job!
+            </div>
+          )}
+        </section>
+
       <section className="criteria-section">
         <h2 className="section-title">See which criteria are met</h2>
-        {categoryEntries.map(([category, items]) => (
+        <div className="criteria-grid">
+        {categoryEntries.map(([category, items]) => {
+          const metCount = items.filter((criterion) => criterion.status === "met").length;
+          const unmetCount = items.length - metCount;
+          const categoryTone =
+            metCount > unmetCount ? "positive" : metCount < unmetCount ? "negative" : "neutral";
+
+          const progress = items.length > 0 ? Math.round((metCount / items.length) * 100) : 0;
+          return (
           <div key={category} className="category-group">
             <button
               type="button"
-              className={`category-header ${expandedCategories[category] ? "open" : ""}`}
+              className={`category-header ${categoryTone} ${expandedCategories[category] ? "open" : ""}`}
               onClick={() => toggleCategory(category)}
             >
               <div className="category-title">
                 <span>{category}</span>
-                <span className="category-count">{items.length} items</span>
+                <span className="category-count">
+                  {metCount}/{items.length} met
+                </span>
+                <div className={`category-progress ${categoryTone}`} aria-hidden="true">
+                  <div
+                    className="category-progress-fill"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
               </div>
               <span className="toggle-icon" aria-hidden="true">
                 {expandedCategories[category] ? "−" : "+"}
@@ -269,7 +437,9 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
               </div>
             )}
           </div>
-        ))}
+        );
+        })}
+        </div>
       </section>
 
       {/* BUTTONS */}

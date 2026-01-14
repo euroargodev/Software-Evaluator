@@ -127,6 +127,28 @@ export async function evaluateProject(
     return "Novice";
   })();
 
+  // Completed level based on fully met criteria up to each level
+  const completedLevel = (() => {
+    let achieved = null;
+    for (const level of levelOrder) {
+      const levelIndex = levelOrder.indexOf(level);
+      const required = guidelines.filter(
+        (criterion) => levelOrder.indexOf(criterion.level) <= levelIndex
+      );
+      const allMet = required.every(
+        (criterion) => results[criterion.id]?.status === "met"
+      );
+      if (allMet) {
+        achieved = level;
+      } else {
+        break;
+      }
+    }
+    return achieved;
+  })();
+  const achievedLevel = completedLevel || levelOrder[0];
+  const achievedComplete = Boolean(completedLevel);
+
   // Cap the displayed level to the target if provided
   let validatedLevel = scoreLevel;
   if (effectiveTarget) {
@@ -150,7 +172,9 @@ export async function evaluateProject(
 
   return {
     validatedLevel,
-    achievedLevel: scoreLevel,
+    achievedLevel,
+    achievedComplete,
+    scoreLevel,
     globalScore,
     details: results,
     feedback,

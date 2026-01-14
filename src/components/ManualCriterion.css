@@ -98,7 +98,7 @@
   background: #fbe2e2;
 }
 
-/* Petites icônes rondes */
+/* Small round icons */
 .mc-icon {
   width: 12px;
   height: 12px;
@@ -115,7 +115,7 @@
 }
 .mc-icon.unmet { background: #d9534f; }
 
-/* === CHAMP EVIDENCE === */
+/* === EVIDENCE FIELD === */
 .mc-evidence {
   margin-top: 0.6rem;
   position: relative;
