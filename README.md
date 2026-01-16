@@ -81,6 +81,32 @@ src/
 └── main.jsx                 # Entry point
 ```
 
+## Updating Criteria
+
+The app reads criteria from `src/data/guidelines_v2.json`, which is generated from `src/data/guidelines.json`.
+To update criteria safely, follow this workflow:
+
+1. Update the source file:
+   - Edit `src/data/guidelines.json`.
+2. Regenerate the compiled file:
+   - Run `node src/data/scripts/generateNewGuidelines.js`.
+   - This rewrites `src/data/guidelines_v2.json`.
+3. Verify auto checks:
+   - Ensure auto-checkable IDs are correct in `src/data/scripts/generateNewGuidelines.js` (`autoIds` list).
+   - Map any new auto criteria in `src/logic/github.js` (`githubCriterionMap`).
+   - Add or update tests in `src/logic/githubTests.js` if needed.
+4. Run a quick smoke test locally to confirm the results screen renders and auto checks run.
+
+Do:
+- Keep criterion IDs stable. IDs come from the order in `guidelines.json`, so reordering nodes changes IDs.
+- Update mappings when IDs change or new auto criteria are added.
+- Commit `guidelines_v2.json` with the updated source.
+
+Do not:
+- Edit `guidelines_v2.json` by hand.
+- Reorder criteria in `guidelines.json` unless you also update IDs and mappings.
+- Mark a criterion as auto if no test exists.
+
 ## How It Works
 
 1. User selects a target level and pastes a GitHub repository URL.
