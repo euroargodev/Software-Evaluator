@@ -58,6 +58,21 @@ function classifyCriterion(title) {
   return "General";
 }
 
+const scopeAliases = {
+  "Argo specific": "Argo specific",
+  "General guideline": "General"
+};
+
+function normalizeScope(label) {
+  if (!label) return "";
+  return scopeAliases[label] || label;
+}
+
+function buildScopeLabel(fields) {
+  const secondary = normalizeScope(fields["Label #2"]);
+  return secondary || "General";
+}
+
 /**
  * Get criterion group (logical theme)
  */
@@ -118,7 +133,9 @@ function generateNewGuidelines() {
       title,
       question: generateQuestion(title),
       category: classifyCriterion(title),
-      group: getCriterionGroup(id), 
+      group: buildScopeLabel(fields),
+      labelPrimary: fields["Label #1"] || "",
+      labelSecondary: fields["Label #2"] || "",
       level,
       type,
       weight: {

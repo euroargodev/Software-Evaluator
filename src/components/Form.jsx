@@ -290,15 +290,6 @@ function Form({ onEvaluate }) {
   // ========== FORMULAIRE PRINCIPAL ==========
   return (
     <form onSubmit={handleSubmit} className="form-container">
-      <div className="form-header">
-        <h1>Argo Software Assessment</h1>
-        <p className="subtitle">
-          Select your target level and answer the corresponding manual criteria.
-          <br />
-          Automatic checks will run when you submit.
-        </p>
-      </div>
-
       <div className="form-top-row">
         {/* Level selector */}
         <div className="form-group">

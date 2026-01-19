@@ -4,7 +4,9 @@
     "title": "Other Data used by the software are explicitly identified and traceable with a persistent identifier (DOI) when available",
     "question": "Other Data used by the software are explicitly identified and traceable with a persistent identifier (DOI) when available",
     "category": "FAIR Data",
-    "group": "Metadata & Identification",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Beginner",
     "type": "manual",
     "weight": 1.2,
@@ -19,7 +21,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.739Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -30,7 +32,9 @@
     "title": "Argo papers and DOIs are referenced in the software metadata",
     "question": "Argo papers and DOIs are referenced in the software metadata",
     "category": "FAIR Data",
-    "group": "Metadata & Identification",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Beginner",
     "type": "manual",
     "weight": 1.2,
@@ -45,7 +49,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -56,7 +60,9 @@
     "title": "The software has been presented to the Argo community (e.g. Data Management Team meeting)",
     "question": "The software has been presented to the Argo community (e.g. Data Management Team meeting)",
     "category": "Community",
-    "group": "Other",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Beginner",
     "type": "manual",
     "weight": 1.2,
@@ -71,7 +77,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -82,7 +88,9 @@
     "title": "The software documentation includes usage guidelines and examples",
     "question": "The software documentation includes usage guidelines and examples",
     "category": "Documentation",
-    "group": "Documentation",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Beginner",
     "type": "manual",
     "weight": 1.2,
@@ -97,7 +105,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -108,7 +116,9 @@
     "title": "The software uses an open-source programming language (https://en.wikipedia.org/wiki/List_of_open-source_programming_languages)",
     "question": "The software uses an open-source programming language (https://en.wikipedia.org/wiki/List_of_open-source_programming_languages)",
     "category": "General",
-    "group": "Code Quality & Standards",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Novice",
     "type": "auto",
     "weight": 1,
@@ -123,7 +133,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -134,7 +144,9 @@
     "title": "The software uses a programming language adopted within the Argo community (e.g. Matlab, Python, R, Java, Julia)",
     "question": "The software uses a programming language adopted within the Argo community (e.g. Matlab, Python, R, Java, Julia)",
     "category": "Community",
-    "group": "Code Quality & Standards",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Novice",
     "type": "auto",
     "weight": 1,
@@ -149,7 +161,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -160,7 +172,9 @@
     "title": "The codebase includes comments and is documented following referenced standards (e.g. numpy style docstrings in Python)",
     "question": "The codebase includes comments and is documented following referenced standards (e.g. numpy style docstrings in Python)",
     "category": "General",
-    "group": "Code Quality & Standards",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Beginner",
     "type": "manual",
     "weight": 1.2,
@@ -175,7 +189,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -186,7 +200,9 @@
     "title": "The codebase is formatted following referenced standards (e.g. black in Python)",
     "question": "The codebase is formatted following referenced standards (e.g. black in Python)",
     "category": "General",
-    "group": "Code Quality & Standards",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "auto",
     "weight": 1.5,
@@ -201,7 +217,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -212,7 +228,9 @@
     "title": "The project is hosted on a web-based developer platform (e.g., GitHub or GitLab).",
     "question": "The project is hosted on a web-based developer platform (e.g., GitHub or GitLab).",
     "category": "General",
-    "group": "Version Control & Hosting",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Beginner",
     "type": "auto",
     "weight": 1.2,
@@ -227,7 +245,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -238,7 +256,9 @@
     "title": "The software provides a clear description of its dependencies",
     "question": "The software provides a clear description of its dependencies",
     "category": "Continuous Integration",
-    "group": "Version Control & Hosting",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Beginner",
     "type": "auto",
     "weight": 1.2,
@@ -253,7 +273,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -264,7 +284,9 @@
     "title": "The software is released under an open-source license (include an open-source LICENSE file with the license content to the codebase)",
     "question": "The software is released under an open-source license (include an open-source LICENSE file with the license content to the codebase)",
     "category": "Licensing",
-    "group": "Licensing & Citation",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Novice",
     "type": "auto",
     "weight": 1,
@@ -279,7 +301,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -290,7 +312,9 @@
     "title": "The project includes a basic documentation (e.g. a README file)",
     "question": "The project includes a basic documentation (e.g. a README file)",
     "category": "Documentation",
-    "group": "Documentation",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Novice",
     "type": "auto",
     "weight": 1,
@@ -305,7 +329,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -316,7 +340,9 @@
     "title": "The software documentation has an API reference section automatically generated",
     "question": "The software documentation has an API reference section automatically generated",
     "category": "Documentation",
-    "group": "Documentation",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -331,7 +357,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -342,7 +368,9 @@
     "title": "The software documentation is hosted on the web",
     "question": "The software documentation is hosted on the web",
     "category": "Documentation",
-    "group": "Documentation",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -357,7 +385,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -368,7 +396,9 @@
     "title": "The software documentation includes installation guidelines",
     "question": "The software documentation includes installation guidelines",
     "category": "Documentation",
-    "group": "Documentation",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -383,7 +413,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -394,7 +424,9 @@
     "title": "The software includes continuous integration and unit testing",
     "question": "The software includes continuous integration and unit testing",
     "category": "Continuous Integration",
-    "group": "Testing & Integration",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -409,7 +441,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -420,7 +452,9 @@
     "title": "Unit tests cover multiple platforms and operating systems",
     "question": "Unit tests cover multiple platforms and operating systems",
     "category": "Continuous Integration",
-    "group": "Testing & Integration",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Advanced",
     "type": "manual",
     "weight": 2,
@@ -435,7 +469,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -446,7 +480,9 @@
     "title": "The software includes continuous deployment",
     "question": "The software includes continuous deployment",
     "category": "General",
-    "group": "Testing & Integration",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Advanced",
     "type": "manual",
     "weight": 2,
@@ -461,7 +497,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -472,7 +508,9 @@
     "title": "The software is distributed via well-known services (e.g., pip or conda for Python)",
     "question": "The software is distributed via well-known services (e.g., pip or conda for Python)",
     "category": "General",
-    "group": "Distribution & Registry",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -487,7 +525,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -498,7 +536,9 @@
     "title": "The software has a unique persistent identifier (e.g. DOI from paper or Zenodo, SWHID)",
     "question": "The software has a unique persistent identifier (e.g. DOI from paper or Zenodo, SWHID)",
     "category": "FAIR Data",
-    "group": "Metadata & Identification",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -513,7 +553,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -524,7 +564,9 @@
     "title": "There is a published paper associated with the software (e.g. JOSS article)",
     "question": "There is a published paper associated with the software (e.g. JOSS article)",
     "category": "Continuous Integration",
-    "group": "Data & FAIR Compliance",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Expert",
     "type": "manual",
     "weight": 2.5,
@@ -539,7 +581,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -550,7 +592,9 @@
     "title": "Argo Data used by the software are traceable with a persistent identifier (Argo GDAC DOI or snapshot DOIs)",
     "question": "Argo Data used by the software are traceable with a persistent identifier (Argo GDAC DOI or snapshot DOIs)",
     "category": "FAIR Data",
-    "group": "Metadata & Identification",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Beginner",
     "type": "manual",
     "weight": 1.2,
@@ -565,7 +609,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -576,7 +620,9 @@
     "title": "Other Data used by the software should be accessible online",
     "question": "Other Data used by the software should be accessible online",
     "category": "Argo Compliance",
-    "group": "Data & FAIR Compliance",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Novice",
     "type": "manual",
     "weight": 1,
@@ -591,7 +637,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -602,7 +648,9 @@
     "title": "Data produced by the software respect Argo file formats and conventions wherever relevant (e.g. NetCDF CF-1.7)",
     "question": "Data produced by the software respect Argo file formats and conventions wherever relevant (e.g. NetCDF CF-1.7)",
     "category": "Argo Compliance",
-    "group": "Data & FAIR Compliance",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Beginner",
     "type": "manual",
     "weight": 1.2,
@@ -617,7 +665,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -628,7 +676,9 @@
     "title": "Metadata produced by the software follow Argo conventions (as in reference tables provided by the NVS server)",
     "question": "Metadata produced by the software follow Argo conventions (as in reference tables provided by the NVS server)",
     "category": "Argo Compliance",
-    "group": "Data & FAIR Compliance",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Beginner",
     "type": "manual",
     "weight": 1.2,
@@ -643,7 +693,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -654,7 +704,9 @@
     "title": "The software uses the Argo vocabulary server (to enforce conventions as defined in Argo reference tables)",
     "question": "The software uses the Argo vocabulary server (to enforce conventions as defined in Argo reference tables)",
     "category": "Argo Compliance",
-    "group": "Data & FAIR Compliance",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -669,7 +721,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -680,7 +732,9 @@
     "title": "The software documentation and codebase are written in English",
     "question": "The software documentation and codebase are written in English",
     "category": "Documentation",
-    "group": "Language & Accessibility",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Beginner",
     "type": "auto",
     "weight": 1.2,
@@ -695,7 +749,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -706,7 +760,9 @@
     "title": "Software training sessions are periodically organized",
     "question": "Software training sessions are periodically organized",
     "category": "General",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Expert",
     "type": "manual",
     "weight": 2.5,
@@ -721,7 +777,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -732,7 +788,9 @@
     "title": "The methodology implemented by the software has been presented to the Argo community (e.g. Data Management Team meeting)",
     "question": "The methodology implemented by the software has been presented to the Argo community (e.g. Data Management Team meeting)",
     "category": "Community",
-    "group": "Community & Collaboration",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -747,7 +805,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -758,7 +816,9 @@
     "title": "A version control tool is used to manage the project (e.g., Git)",
     "question": "A version control tool is used to manage the project (e.g., Git)",
     "category": "Versioning",
-    "group": "Version Control & Hosting",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Beginner",
     "type": "auto",
     "weight": 1.2,
@@ -773,7 +833,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -784,7 +844,9 @@
     "title": "Argo Data accessed remotely by the software are retrieved from an official GDAC server (http, ftp, s3 servers)",
     "question": "Argo Data accessed remotely by the software are retrieved from an official GDAC server (http, ftp, s3 servers)",
     "category": "Continuous Integration",
-    "group": "Data & FAIR Compliance",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Beginner",
     "type": "auto",
     "weight": 1.2,
@@ -799,7 +861,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -810,7 +872,9 @@
     "title": "The project is hosted on an Argo developer platform (eg: github/euroargodev, github/ArgoDMQC, github/ArgoRTQC or any other project or institute level organisation)",
     "question": "The project is hosted on an Argo developer platform (eg: github/euroargodev, github/ArgoDMQC, github/ArgoRTQC or any other project or institute level organisation)",
     "category": "Argo Compliance",
-    "group": "Version Control & Hosting",
+    "group": "Argo specific",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "Argo specific",
     "level": "Beginner",
     "type": "auto",
     "weight": 1.2,
@@ -825,7 +889,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -836,7 +900,9 @@
     "title": "The project includes a README file",
     "question": "The project includes a README file",
     "category": "Documentation",
-    "group": "Version Control & Hosting",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Novice",
     "type": "auto",
     "weight": 1,
@@ -851,7 +917,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -862,7 +928,9 @@
     "title": "The project includes a LICENSE file",
     "question": "The project includes a LICENSE file",
     "category": "Licensing",
-    "group": "Licensing & Citation",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Novice",
     "type": "auto",
     "weight": 1,
@@ -877,7 +945,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -888,7 +956,9 @@
     "title": "The project has multiple collaborators from outside the Argo community",
     "question": "The project has multiple collaborators from outside the Argo community",
     "category": "Community",
-    "group": "Community & Collaboration",
+    "group": "Argo specific",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "Argo specific",
     "level": "Advanced",
     "type": "manual",
     "weight": 2,
@@ -903,7 +973,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -914,7 +984,9 @@
     "title": "The project has multiple collaborators from the Argo community",
     "question": "The project has multiple collaborators from the Argo community",
     "category": "Community",
-    "group": "Community & Collaboration",
+    "group": "Argo specific",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "Argo specific",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -929,7 +1001,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -940,7 +1012,9 @@
     "title": "Each collaborator is clearly identified within the project",
     "question": "Each collaborator is clearly identified within the project",
     "category": "General",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -955,7 +1029,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -966,7 +1040,9 @@
     "title": "The project includes a document describing expected contributions (e.g. a CONTRIBUTING file)",
     "question": "The project includes a document describing expected contributions (e.g. a CONTRIBUTING file)",
     "category": "Governance",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Advanced",
     "type": "auto",
     "weight": 2,
@@ -981,7 +1057,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.973Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -992,7 +1068,9 @@
     "title": "Issues or bugs are managed through the development web platform (e.g., GitHub or GitLab issues)",
     "question": "Issues or bugs are managed through the development web platform (e.g., GitHub or GitLab issues)",
     "category": "General",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "auto",
     "weight": 1.5,
@@ -1007,7 +1085,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1018,7 +1096,9 @@
     "title": "Issues or bug reports are described as fully as possible (e.g. use labels, reproducible example)",
     "question": "Issues or bug reports are described as fully as possible (e.g. use labels, reproducible example)",
     "category": "Continuous Integration",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Advanced",
     "type": "manual",
     "weight": 2,
@@ -1033,7 +1113,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1044,7 +1124,9 @@
     "title": "Issues or bugs are explicitly referencing the concerned Argo mission (e.g. core, deep, BGC, ...) or component (e.g. trajectories, decoding,...)",
     "question": "Issues or bugs are explicitly referencing the concerned Argo mission (e.g. core, deep, BGC, ...) or component (e.g. trajectories, decoding,...)",
     "category": "Continuous Integration",
-    "group": "Community & Collaboration",
+    "group": "Argo specific",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "Argo specific",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -1059,7 +1141,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1070,7 +1152,9 @@
     "title": "Every significant change within the code is managed through a pull (or merge) request",
     "question": "Every significant change within the code is managed through a pull (or merge) request",
     "category": "General",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "auto",
     "weight": 1.5,
@@ -1085,7 +1169,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1096,7 +1180,9 @@
     "title": "Each pull request is reviewed by at least one collaborator",
     "question": "Each pull request is reviewed by at least one collaborator",
     "category": "General",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Advanced",
     "type": "manual",
     "weight": 2,
@@ -1111,7 +1197,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1122,7 +1208,9 @@
     "title": "Code review meetings are organized when needed",
     "question": "Code review meetings are organized when needed",
     "category": "General",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Advanced",
     "type": "manual",
     "weight": 2,
@@ -1137,7 +1225,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1148,7 +1236,9 @@
     "title": "Project meetings are periodically organized",
     "question": "Project meetings are periodically organized",
     "category": "General",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Advanced",
     "type": "manual",
     "weight": 2,
@@ -1163,7 +1253,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1174,7 +1264,9 @@
     "title": "User meetings or workshops are held and communicated within the Argo community",
     "question": "User meetings or workshops are held and communicated within the Argo community",
     "category": "Community",
-    "group": "Community & Collaboration",
+    "group": "Argo specific",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "Argo specific",
     "level": "Expert",
     "type": "manual",
     "weight": 2.5,
@@ -1189,7 +1281,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1200,7 +1292,9 @@
     "title": "The project includes a CONTRIBUTING file",
     "question": "The project includes a CONTRIBUTING file",
     "category": "General",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "auto",
     "weight": 1.5,
@@ -1215,7 +1309,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1226,7 +1320,9 @@
     "title": "The software documentation includes the list of operating systems and environments supported",
     "question": "The software documentation includes the list of operating systems and environments supported",
     "category": "Documentation",
-    "group": "Documentation",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -1241,7 +1337,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1252,7 +1348,9 @@
     "title": "The software documentation includes the definition of the execution environment supported",
     "question": "The software documentation includes the definition of the execution environment supported",
     "category": "Documentation",
-    "group": "Documentation",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -1267,7 +1365,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1278,7 +1376,9 @@
     "title": "The project includes a change log",
     "question": "The project includes a change log",
     "category": "General",
-    "group": "Version Control & Hosting",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Advanced",
     "type": "auto",
     "weight": 2,
@@ -1293,7 +1393,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1304,7 +1404,9 @@
     "title": "The software documentation includes the list of changes to the codebase between each software releases",
     "question": "The software documentation includes the list of changes to the codebase between each software releases",
     "category": "Documentation",
-    "group": "Documentation",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Advanced",
     "type": "manual",
     "weight": 2,
@@ -1319,7 +1421,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1330,7 +1432,9 @@
     "title": "The project clearly list all software identifiers in the README file (e.g. DOI, SWHID)",
     "question": "The project clearly list all software identifiers in the README file (e.g. DOI, SWHID)",
     "category": "Documentation",
-    "group": "Metadata & Identification",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -1345,7 +1449,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1356,7 +1460,9 @@
     "title": "The software is registered in at least one public software registry (e.g., Zenodo, Seanoe, Research Software Directory)",
     "question": "The software is registered in at least one public software registry (e.g., Zenodo, Seanoe, Research Software Directory)",
     "category": "General",
-    "group": "Metadata & Identification",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -1371,7 +1477,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1382,7 +1488,9 @@
     "title": "The software is registered in an Argo software registry (e.g. AST and Argo-BGC dedicated webpages)",
     "question": "The software is registered in an Argo software registry (e.g. AST and Argo-BGC dedicated webpages)",
     "category": "Argo Compliance",
-    "group": "Metadata & Identification",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -1397,7 +1505,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1408,7 +1516,9 @@
     "title": "Data produced by the software preserve the Argo license (CC BY 4.0)",
     "question": "Data produced by the software preserve the Argo license (CC BY 4.0)",
     "category": "Licensing",
-    "group": "Licensing & Citation",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Advanced",
     "type": "manual",
     "weight": 2,
@@ -1423,7 +1533,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1434,7 +1544,9 @@
     "title": "The project include a CITATION.cff file to indicate how to cite the software",
     "question": "The project include a CITATION.cff file to indicate how to cite the software",
     "category": "FAIR Data",
-    "group": "Licensing & Citation",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Advanced",
     "type": "manual",
     "weight": 2,
@@ -1449,7 +1561,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1460,7 +1572,9 @@
     "title": "The codebase is designed with modular components to facilitate reuse, testing and maintenance",
     "question": "The codebase is designed with modular components to facilitate reuse, testing and maintenance",
     "category": "Continuous Integration",
-    "group": "Code Quality & Standards",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -1475,7 +1589,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1486,7 +1600,9 @@
     "title": "The codebase is \"consistent\", i.e. it follows consistent naming conventions, coding styles, and design patterns throughout the software",
     "question": "The codebase is \"consistent\", i.e. it follows consistent naming conventions, coding styles, and design patterns throughout the software",
     "category": "General",
-    "group": "Code Quality & Standards",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Beginner",
     "type": "manual",
     "weight": 1.2,
@@ -1501,7 +1617,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1512,7 +1628,9 @@
     "title": "The codebase includes comments and is documented to explain the purpose and functionality of each module, class, and function",
     "question": "The codebase includes comments and is documented to explain the purpose and functionality of each module, class, and function",
     "category": "General",
-    "group": "Code Quality & Standards",
+    "group": "General",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "General guideline",
     "level": "Novice",
     "type": "manual",
     "weight": 1,
@@ -1527,7 +1645,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1538,7 +1656,9 @@
     "title": "The project defines expected standards of conduct when engaging in the project (e.g. includes a CODE_OF_CONDUCT file to the codebase)",
     "question": "The project defines expected standards of conduct when engaging in the project (e.g. includes a CODE_OF_CONDUCT file to the codebase)",
     "category": "General",
-    "group": "Licensing & Citation",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -1553,7 +1673,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false
@@ -1564,7 +1684,9 @@
     "title": "Argo Data accessed locally by the software must be assumed to be organised following the GDAC folder structure",
     "question": "Argo Data accessed locally by the software must be assumed to be organised following the GDAC folder structure",
     "category": "Argo Compliance",
-    "group": "Data & FAIR Compliance",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Beginner",
     "type": "auto",
     "weight": 1.2,
@@ -1579,7 +1701,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1590,7 +1712,9 @@
     "title": "Argo Meta-Data accessed remotely by the software are retrieved from an official Argo sources (GDAC ftp, GDAC https, NVS, SparQL, STAC)",
     "question": "Argo Meta-Data accessed remotely by the software are retrieved from an official Argo sources (GDAC ftp, GDAC https, NVS, SparQL, STAC)",
     "category": "Continuous Integration",
-    "group": "Data & FAIR Compliance",
+    "group": "Argo specific",
+    "labelPrimary": "Open-Source",
+    "labelSecondary": "Argo specific",
     "level": "Beginner",
     "type": "auto",
     "weight": 1.2,
@@ -1605,7 +1729,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": true
@@ -1616,7 +1740,9 @@
     "title": "The project allows any user to submit an issue or bug report and ease the process (e.g. provide list of labels, issue templates)",
     "question": "The project allows any user to submit an issue or bug report and ease the process (e.g. provide list of labels, issue templates)",
     "category": "General",
-    "group": "Community & Collaboration",
+    "group": "General",
+    "labelPrimary": "Collaborative",
+    "labelSecondary": "General guideline",
     "level": "Intermediate",
     "type": "manual",
     "weight": 1.5,
@@ -1631,7 +1757,7 @@
       "visible": true
     },
     "metadata": {
-      "generatedAt": "2025-10-31T15:16:13.974Z",
+      "generatedAt": "2026-01-19T13:26:00.740Z",
       "sourceFile": "guidelines.json",
       "version": "2.0",
       "autoCheckable": false

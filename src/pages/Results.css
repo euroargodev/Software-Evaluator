@@ -780,6 +780,53 @@
   margin-top: 1rem;
 }
 
+.results-page .level-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1rem;
+}
+
+.results-page .level-group {
+  background: #ffffff;
+  border: 1px solid var(--ea-border);
+  border-radius: var(--ea-radius-card);
+  padding: 0.9rem 1rem 1rem;
+  box-shadow: var(--ea-shadow-soft);
+}
+
+.results-page .level-group.positive {
+  border-color: #bbf7d0;
+  background: #f0fdf4;
+}
+
+.results-page .level-group.negative {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.results-page .level-group.neutral {
+  border-color: #e2e8f0;
+  background: #f8fafc;
+}
+
+.results-page .level-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.results-page .level-title {
+  font-weight: 700;
+  color: var(--ea-ink);
+}
+
+.results-page .level-count {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
 .criteria-item {
   display: grid;
   grid-template-columns: auto 1fr auto;

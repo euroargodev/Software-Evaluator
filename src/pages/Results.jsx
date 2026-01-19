@@ -32,23 +32,42 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     (item) => item?.error && /rate limit/i.test(item.error)
   );
 
-  const categoryEntries = useMemo(() => {
-    const groups = {};
+  const scopeEntries = useMemo(() => {
+    const scopes = {};
     if (details && typeof details === "object") {
       Object.entries(details).forEach(([id, criterion]) => {
         if (!criterion) return;
-        const category = criterion.category || "General";
-        if (!groups[category]) groups[category] = [];
-        groups[category].push({ id: Number(id), ...criterion });
+        const scope = criterion.group || "General";
+        const level = criterion.level || "Unknown";
+        if (!scopes[scope]) scopes[scope] = {};
+        if (!scopes[scope][level]) scopes[scope][level] = [];
+        scopes[scope][level].push({ id: Number(id), ...criterion });
       });
     }
 
-    return Object.entries(groups)
-      .map(([category, items]) => [
-        category,
-        items.sort((a, b) => (a.id || 0) - (b.id || 0)),
-      ])
-      .sort((a, b) => a[0].localeCompare(b[0]));
+    const levelOrder = ["Novice", "Beginner", "Intermediate", "Advanced", "Expert"];
+    const scopeOrder = ["Argo specific", "General"];
+
+    return Object.entries(scopes)
+      .map(([scope, levels]) => {
+        const levelEntries = Object.entries(levels)
+          .map(([level, items]) => [
+            level,
+            items.sort((a, b) => (a.id || 0) - (b.id || 0)),
+          ])
+          .sort(
+            (a, b) => levelOrder.indexOf(a[0]) - levelOrder.indexOf(b[0])
+          );
+        return [scope, levelEntries];
+      })
+      .sort(([a], [b]) => {
+        const aIndex = scopeOrder.indexOf(a);
+        const bIndex = scopeOrder.indexOf(b);
+        if (aIndex === -1 && bIndex === -1) return a.localeCompare(b);
+        if (aIndex === -1) return 1;
+        if (bIndex === -1) return -1;
+        return aIndex - bIndex;
+      });
   }, [details]);
 
   const [expandedCategories, setExpandedCategories] = useState({});
@@ -58,12 +77,12 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
   useEffect(() => {
     setExpandedCategories((prev) => {
       const next = {};
-      categoryEntries.forEach(([category]) => {
-        next[category] = prev[category] ?? false;
+      scopeEntries.forEach(([scope]) => {
+        next[scope] = prev[scope] ?? false;
       });
       return next;
     });
-  }, [categoryEntries]);
+  }, [scopeEntries]);
 
   const toggleCategory = (category) => {
     setExpandedCategories((prev) => ({ ...prev, [category]: !prev[category] }));
@@ -133,14 +152,27 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
   const progressBadgeColor =
     progressTier === "high" ? "16a34a" : progressTier === "mid" ? "f59e0b" : "dc2626";
 
-  const makeShieldUrl = (label, message, color) =>
-    `https://img.shields.io/badge/${encodeURIComponent(label)}-${encodeURIComponent(message)}-${color}?style=flat`;
+  const badgeLogoUrl =
+    "https://raw.githubusercontent.com/euroargodev/Software-Evaluator/main/public/badges/euroargo-logo.svg";
+  const makeShieldUrl = (label, message, color, options = {}) => {
+    const params = new URLSearchParams({
+      style: "flat",
+      ...(options.logo ? { logo: options.logo } : {}),
+      ...(options.logoWidth ? { logoWidth: String(options.logoWidth) } : {}),
+      ...(options.labelColor ? { labelColor: options.labelColor } : {})
+    });
+    return `https://img.shields.io/badge/${encodeURIComponent(label)}-${encodeURIComponent(message)}-${color}?${params.toString()}`;
+  };
 
   const progressLabel = targetLevel ? `Target ${targetLevel}` : "Progress";
   const progressBadgeUrl = makeShieldUrl(
     progressLabel,
     `${scorePercent}% complete`,
-    progressBadgeColor
+    progressBadgeColor,
+    {
+      logo: badgeLogoUrl,
+      logoWidth: 14
+    }
   );
   const badgeMarkdown = `![${progressLabel}: ${scorePercent}% complete](${progressBadgeUrl})`;
 
@@ -377,26 +409,27 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
       <section className="criteria-section">
         <h2 className="section-title">See which criteria are met</h2>
         <div className="criteria-grid">
-        {categoryEntries.map(([category, items]) => {
-          const metCount = items.filter((criterion) => criterion.status === "met").length;
-          const unmetCount = items.length - metCount;
-          const categoryTone =
+        {scopeEntries.map(([scope, levelEntries]) => {
+          const flatItems = levelEntries.flatMap(([, items]) => items);
+          const metCount = flatItems.filter((criterion) => criterion.status === "met").length;
+          const unmetCount = flatItems.length - metCount;
+          const scopeTone =
             metCount > unmetCount ? "positive" : metCount < unmetCount ? "negative" : "neutral";
 
-          const progress = items.length > 0 ? Math.round((metCount / items.length) * 100) : 0;
+          const progress = flatItems.length > 0 ? Math.round((metCount / flatItems.length) * 100) : 0;
           return (
-          <div key={category} className="category-group">
+          <div key={scope} className="category-group">
             <button
               type="button"
-              className={`category-header ${categoryTone} ${expandedCategories[category] ? "open" : ""}`}
-              onClick={() => toggleCategory(category)}
+              className={`category-header ${scopeTone} ${expandedCategories[scope] ? "open" : ""}`}
+              onClick={() => toggleCategory(scope)}
             >
               <div className="category-title">
-                <span>{category}</span>
+                <span>{scope}</span>
                 <span className="category-count">
-                  {metCount}/{items.length} met
+                  {metCount}/{flatItems.length} met
                 </span>
-                <div className={`category-progress ${categoryTone}`} aria-hidden="true">
+                <div className={`category-progress ${scopeTone}`} aria-hidden="true">
                   <div
                     className="category-progress-fill"
                     style={{ width: `${progress}%` }}
@@ -404,36 +437,52 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
                 </div>
               </div>
               <span className="toggle-icon" aria-hidden="true">
-                {expandedCategories[category] ? "−" : "+"}
+                {expandedCategories[scope] ? "−" : "+"}
               </span>
             </button>
-            {expandedCategories[category] && (
-              <div className="criteria-list">
-                {items.map((criterion) => (
-                  <div
-                    key={criterion.id}
-                    className={`criteria-item ${criterion.status === "met" ? "met" : "unmet"}`}
-                  >
-                    <span
-                      className={`status-indicator ${
-                        criterion.status === "met" ? "validated" : "missing"
-                      }`}
-                    >
-                      {criterion.status === "met" ? "Validated" : "Missing"}
-                    </span>
-                    <div className="criteria-text">
-                      <span className="criterion-title">{criterion.title}</span>
-                      {criterion.evidence && criterion.evidence.length > 0 && (
-                        <span className="criteria-evidence">
-                          Evidence: {Array.isArray(criterion.evidence) ? criterion.evidence.join(", ") : criterion.evidence}
-                        </span>
-                      )}
+            {expandedCategories[scope] && (
+              <div className="level-groups">
+                {levelEntries.map(([level, items]) => {
+                  const levelMet = items.filter((criterion) => criterion.status === "met").length;
+                  const levelUnmet = items.length - levelMet;
+                  const levelTone =
+                    levelMet > levelUnmet ? "positive" : levelMet < levelUnmet ? "negative" : "neutral";
+                  return (
+                    <div key={`${scope}-${level}`} className={`level-group ${levelTone}`}>
+                      <div className="level-header">
+                        <span className="level-title">{level}</span>
+                        <span className="level-count">{levelMet}/{items.length} met</span>
+                      </div>
+                      <div className="criteria-list">
+                        {items.map((criterion) => (
+                          <div
+                            key={criterion.id}
+                            className={`criteria-item ${criterion.status === "met" ? "met" : "unmet"}`}
+                          >
+                            <span
+                              className={`status-indicator ${
+                                criterion.status === "met" ? "validated" : "missing"
+                              }`}
+                            >
+                              {criterion.status === "met" ? "Validated" : "Missing"}
+                            </span>
+                            <div className="criteria-text">
+                              <span className="criterion-title">{criterion.title}</span>
+                              {criterion.evidence && criterion.evidence.length > 0 && (
+                                <span className="criteria-evidence">
+                                  Evidence: {Array.isArray(criterion.evidence) ? criterion.evidence.join(", ") : criterion.evidence}
+                                </span>
+                              )}
+                            </div>
+                            <span className="criteria-meta">
+                              {criterion.type === "auto" ? "Auto" : "Manual"} · {criterion.level}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                    <span className="criteria-meta">
-                      {criterion.type === "auto" ? "Auto" : "Manual"} · {criterion.level}
-                    </span>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>

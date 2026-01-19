@@ -32,9 +32,6 @@ export default function ManualCriterion({ criterion, answer, onChange }) {
       <div className="mc-header">
         <div>
           <h4 className="mc-title">{criterion.title}</h4>
-          <span className={`level-badge ${criterion.level.toLowerCase()}`}>
-            {criterion.level}
-          </span>
           {criterion.description && <p className="mc-info">{criterion.description}</p>}
         </div>
       </div>
