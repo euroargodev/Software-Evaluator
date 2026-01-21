@@ -174,11 +174,60 @@ function buildLanguageResult(owner, repo, id, allowList) {
 /**
  * CRITERION 4: Open-Source Language
  */
-export const checkOpenSourceLanguage = (owner, repo) =>
-  buildLanguageResult(owner, repo, 4, [
-    "Python", "R", "JavaScript", "TypeScript", "Java", "C++", "C", "Julia",
-    "Go", "Rust", "Ruby", "PHP", "Shell", "HTML", "CSS", "MATLAB"
-  ])();
+export async function checkOpenSourceLanguage(owner, repo) {
+  const cacheKey = `criterion_4_${owner}_${repo}`;
+  const cached = getCachedData(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const openSourceAllowList = [
+      "Python", "R", "JavaScript", "TypeScript", "Java", "C++", "C", "Julia",
+      "Go", "Rust", "Ruby", "PHP", "Shell", "HTML", "CSS"
+    ];
+    const languages = await getRepoLanguages(owner, repo);
+    const matched = languages.filter((lang) => openSourceAllowList.includes(lang));
+
+    const hasMatlabLanguage = languages.some(
+      (lang) => lang.toLowerCase() === "matlab"
+    );
+    let matlabEvidence = hasMatlabLanguage
+      ? ["MATLAB (.m) treated as GNU Octave"]
+      : [];
+    let hasMatlabFiles = false;
+
+    if (!hasMatlabLanguage) {
+      const files = await getRepoFiles(owner, repo);
+      const matlabFiles = files.filter((file) => file.toLowerCase().endsWith(".m"));
+      if (matlabFiles.length > 0) {
+        hasMatlabFiles = true;
+        matlabEvidence = matlabFiles.slice(0, 3);
+      }
+    }
+
+    const hasOctave = hasMatlabLanguage || hasMatlabFiles;
+    const status = matched.length > 0 || hasOctave ? "met" : "unmet";
+
+    const languageDetails =
+      languages.length > 0 ? languages.join(", ") : "None detected";
+    const detailParts = [`Languages: ${languageDetails}`];
+    if (hasOctave) {
+      detailParts.push("MATLAB .m treated as GNU Octave (open-source)");
+    }
+
+    const result = {
+      status,
+      details: detailParts.join(". "),
+      evidence: matched.length > 0 ? matched : matlabEvidence,
+    };
+
+    setCachedData(cacheKey, result);
+    return result;
+  } catch (error) {
+    const result = { status: "unmet", error: error.message };
+    setCachedData(cacheKey, result);
+    return result;
+  }
+}
 
 /**
  * CRITERION 5: Argo-Adopted Language
@@ -317,10 +366,10 @@ export async function checkHasLicense(owner, repo) {
 }
 
 /**
- * CRITERION 11/32: README File
+ * CRITERION 32: README File
  */
 export async function checkReadmeExists(owner, repo) {
-  const cacheKey = `criterion_11_${owner}_${repo}`;
+  const cacheKey = `criterion_32_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
@@ -405,48 +454,6 @@ export async function checkEnglishLanguage(owner, repo) {
 }
 
 /**
- * CRITERION 30: Uses GDAC Servers
- */
-export async function checkUsesGDACServers(owner, repo) {
-  const cacheKey = `criterion_30_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const gdacPatterns = [
-      'ftp.ifremer.fr',
-      'data-argo.ifremer.fr',
-      'usgodae.org',
-      'gdac'
-    ];
-    
-    const result = await searchInCode(owner, repo, gdacPatterns);
-
-    const finalResult = result.error
-      ? {
-          status: "unmet",
-          details: /rate limit/i.test(result.error)
-            ? "Code search rate limit exceeded"
-            : "Code search unavailable",
-          evidence: [],
-          error: result.error
-        }
-      : {
-          status: result.found ? "met" : "unmet",
-          details: result.found ? `Found: ${result.pattern}` : "No GDAC server references",
-          evidence: result.pattern ? [result.pattern] : []
-        };
-    
-    setCachedData(cacheKey, finalResult);
-    return finalResult;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
-/**
  * CRITERION 31: Hosted on Argo developer platform (approx: owner contains "argo")
  */
 export async function checkHostedOnArgoOrg(owner, repo) {
@@ -493,6 +500,36 @@ export async function checkContributingFile(owner, repo) {
       evidence: files.filter(f => contributingFiles.includes(f))
     };
     
+    setCachedData(cacheKey, result);
+    return result;
+  } catch (error) {
+    const result = { status: "unmet", error: error.message };
+    setCachedData(cacheKey, result);
+    return result;
+  }
+}
+
+/**
+ * CRITERION 55: CITATION.cff file
+ */
+export async function checkCitationFile(owner, repo) {
+  const cacheKey = `criterion_55_${owner}_${repo}`;
+  const cached = getCachedData(cacheKey);
+  if (cached) return cached;
+
+  try {
+    const files = await getRepoFiles(owner, repo);
+    const upper = files.map((f) => f.toUpperCase());
+    const hasCitation = upper.includes("CITATION.CFF");
+
+    const result = {
+      status: hasCitation ? "met" : "unmet",
+      details: hasCitation ? "CITATION.cff file found" : "No CITATION.cff file",
+      evidence: hasCitation
+        ? files.filter((f) => f.toUpperCase() === "CITATION.CFF")
+        : []
+    };
+
     setCachedData(cacheKey, result);
     return result;
   } catch (error) {
@@ -609,84 +646,6 @@ export async function checkHasChangelog(owner, repo) {
     
     setCachedData(cacheKey, result);
     return result;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
-/**
- * CRITERION 60: GDAC Folder Structure
- */
-export async function checkGDACFolderStructure(owner, repo) {
-  const cacheKey = `criterion_60_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const gdacPaths = ['/dac/', '/profiles/', '/trajectories/', '/tech/'];
-    const result = await searchInCode(owner, repo, gdacPaths);
-
-    const finalResult = result.error
-      ? {
-          status: "unmet",
-          details: /rate limit/i.test(result.error)
-            ? "Code search rate limit exceeded"
-            : "Code search unavailable",
-          evidence: [],
-          error: result.error
-        }
-      : {
-          status: result.found ? "met" : "unmet",
-          details: result.found ? `Found: ${result.pattern}` : "No GDAC structure references",
-          evidence: result.pattern ? [result.pattern] : []
-        };
-    
-    setCachedData(cacheKey, finalResult);
-    return finalResult;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
-/**
- * CRITERION 61: Official Argo Sources
- */
-export async function checkOfficialArgoSources(owner, repo) {
-  const cacheKey = `criterion_61_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const argoSources = [
-      'ifremer.fr',
-      'nvs.nerc.ac.uk',
-      'argovis.colorado.edu',
-      'argo.ucsd.edu'
-    ];
-    
-    const result = await searchInCode(owner, repo, argoSources);
-
-    const finalResult = result.error
-      ? {
-          status: "unmet",
-          details: /rate limit/i.test(result.error)
-            ? "Code search rate limit exceeded"
-            : "Code search unavailable",
-          evidence: [],
-          error: result.error
-        }
-      : {
-          status: result.found ? "met" : "unmet",
-          details: result.found ? `Found: ${result.pattern}` : "No official Argo sources",
-          evidence: result.pattern ? [result.pattern] : []
-        };
-    
-    setCachedData(cacheKey, finalResult);
-    return finalResult;
   } catch (error) {
     const result = { status: "unmet", error: error.message };
     setCachedData(cacheKey, result);

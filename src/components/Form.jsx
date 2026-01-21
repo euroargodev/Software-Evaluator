@@ -100,9 +100,16 @@ function Form({ onEvaluate }) {
     reader.onload = (e) => {
       try {
         const json = JSON.parse(e.target.result);
-        const nextTarget = json.targetLevel && LEVEL_ORDER.includes(json.targetLevel)
-          ? json.targetLevel
-          : targetLevel;
+        const nextTargetCandidates = [
+          json.targetLevel,
+          json.evaluation?.targetLevel,
+          json.evaluation?.stats?.targetLevel,
+          json.stats?.targetLevel,
+          json.repository?.targetLevel,
+          json.evaluation?.level
+        ];
+        const nextTarget =
+          nextTargetCandidates.find((level) => LEVEL_ORDER.includes(level)) || targetLevel;
         const manualForFile = getFilteredCriteria(nextTarget).filter(c => c.type === "manual");
 
         const { valid, errors, cleanedAnswers, repoUrl: repoFromFile } =
@@ -290,6 +297,12 @@ function Form({ onEvaluate }) {
   // ========== FORMULAIRE PRINCIPAL ==========
   return (
     <form onSubmit={handleSubmit} className="form-container">
+      <div className="form-intro">
+        <p className="form-intro-text">
+          Select your target level and answer the corresponding manual criteria. Automatic
+          checks will run when you submit.
+        </p>
+      </div>
       <div className="form-top-row">
         {/* Level selector */}
         <div className="form-group">

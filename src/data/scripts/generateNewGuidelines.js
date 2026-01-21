@@ -21,20 +21,17 @@ const autoIds = [
   8,  // Version control system
   9,  // Dependencies clearly described
   10, // Has LICENSE file
-  11, // Has README
   26, // English language
   29, // Has GitHub topics
-  30, // Uses GDAC servers
   31, // Has .gitignore
   32, // Protected main branch
   33, // Has GitHub description
+  55, // Has CITATION.cff file
   37, // Repo URL in code
   38, // Has CITATION file
   41, // Has CONTRIBUTING file
   46, // Has tests
   49, // Has releases/tags
-  60, // Assumes GDAC folder structure
-  61, // Uses official Argo sources
 ];
 
 console.log(`📊 Total auto-checkable criteria: ${autoIds.length}`);
@@ -46,6 +43,7 @@ function classifyCriterion(title) {
   if (!title) return "General";
   const t = title.toLowerCase();
 
+  if (t.includes("published paper") || t.includes("joss")) return "Referencing";
   if (t.includes("readme") || t.includes("documentation")) return "Documentation";
   if (t.includes("license") || t.includes("licence")) return "Licensing";
   if (t.includes("doi") || t.includes("identifier") || t.includes("citation")) return "FAIR Data";

@@ -20,11 +20,11 @@ export const githubCriterionMap = {
 
   // ==================== DOCUMENTATION FILES ====================
   9: tests.checkDependenciesFile,
-  11: tests.checkReadmeExists,        // README requirement
   26: tests.checkEnglishLanguage,
   32: tests.checkReadmeExists,        // duplicate guideline for README
   37: tests.checkContributingFile,    // contribution guidelines document
   46: tests.checkContributingFile,    // duplicate guideline for CONTRIBUTING file
+  55: tests.checkCitationFile,        // CITATION.cff file
   38: tests.checkIssuesManagedOnPlatform, // issues enabled/templates on platform
 
   // ==================== CODE QUALITY ====================
@@ -33,11 +33,6 @@ export const githubCriterionMap = {
   // ==================== CHANGE MANAGEMENT / RELEASES ====================
   41: tests.checkChangesViaPullRequests, // evidence of PR workflow
   49: tests.checkHasChangelog,
-
-  // ==================== ARGO COMPLIANCE ====================
-  30: tests.checkUsesGDACServers,
-  60: tests.checkGDACFolderStructure,
-  61: tests.checkOfficialArgoSources,
 };
 
 /**

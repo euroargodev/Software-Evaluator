@@ -62,7 +62,7 @@
 ======================================== */
 
 .home-content {
-  flex: 1;
+  flex: 0 0 auto;
   padding: 1rem 1.25rem 0.4rem;
   max-width: 1400px;
   margin: 0 auto;
