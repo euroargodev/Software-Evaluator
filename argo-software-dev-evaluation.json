@@ -1,0 +1,932 @@
+{
+  "targetLevel": "Intermediate",
+  "metadata": {
+    "version": "1.0",
+    "tool": "EuroArgo Software Evaluator"
+  },
+  "repository": {
+    "owner": "euroargodev",
+    "repo": "boundary_currents_pcm",
+    "url": "https://github.com/euroargodev/boundary_currents_pcm"
+  },
+  "evaluation": {
+    "level": "Novice",
+    "targetLevel": "Intermediate",
+    "achievedLevel": "Novice",
+    "score": 0.2225755166931637,
+    "stats": {
+      "totalCriteria": 48,
+      "metCriteria": 12,
+      "unmetCriteria": 36,
+      "weightedScore": 14,
+      "totalWeight": 62.90000000000002,
+      "autoCriteria": 14,
+      "manualCriteria": 34,
+      "targetLevel": "Intermediate"
+    }
+  },
+  "details": {
+    "0": {
+      "title": "Other Data used by the software are explicitly identified and traceable with a persistent identifier (DOI) when available",
+      "level": "Beginner",
+      "category": "FAIR Data",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "1": {
+      "title": "Argo papers and DOIs are referenced in the software metadata",
+      "level": "Beginner",
+      "category": "FAIR Data",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "2": {
+      "title": "The software has been presented to the Argo community (e.g. Data Management Team meeting)",
+      "level": "Beginner",
+      "category": "Community",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "3": {
+      "title": "The software documentation includes usage guidelines and examples",
+      "level": "Beginner",
+      "category": "Documentation",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "4": {
+      "title": "The software uses an open-source programming language (https://en.wikipedia.org/wiki/List_of_open-source_programming_languages)",
+      "level": "Novice",
+      "category": "General",
+      "group": "General",
+      "status": "met",
+      "weight": 1,
+      "type": "auto",
+      "evidence": [
+        "Python"
+      ]
+    },
+    "5": {
+      "title": "The software uses a programming language adopted within the Argo community (e.g. Matlab, Python, R, Java, Julia)",
+      "level": "Novice",
+      "category": "Community",
+      "group": "Argo specific",
+      "status": "met",
+      "weight": 1,
+      "type": "auto",
+      "evidence": [
+        "Python"
+      ]
+    },
+    "6": {
+      "title": "The codebase includes comments and is documented following referenced standards (e.g. numpy style docstrings in Python)",
+      "level": "Beginner",
+      "category": "General",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "7": {
+      "title": "The codebase is formatted following referenced standards (e.g. black in Python)",
+      "level": "Intermediate",
+      "category": "General",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "auto",
+      "evidence": []
+    },
+    "8": {
+      "title": "The project is hosted on a web-based developer platform (e.g., GitHub or GitLab).",
+      "level": "Beginner",
+      "category": "General",
+      "group": "General",
+      "status": "met",
+      "weight": 1.2,
+      "type": "auto",
+      "evidence": [
+        "GitHub repository"
+      ]
+    },
+    "9": {
+      "title": "The software provides a clear description of its dependencies",
+      "level": "Beginner",
+      "category": "Continuous Integration",
+      "group": "General",
+      "status": "met",
+      "weight": 1.2,
+      "type": "auto",
+      "evidence": [
+        "requirements.txt"
+      ]
+    },
+    "10": {
+      "title": "The software is released under an open-source license (include an open-source LICENSE file with the license content to the codebase)",
+      "level": "Novice",
+      "category": "Licensing",
+      "group": "General",
+      "status": "met",
+      "weight": 1,
+      "type": "auto",
+      "evidence": [
+        "LICENSE"
+      ]
+    },
+    "11": {
+      "title": "The project includes a basic documentation (e.g. a README file)",
+      "level": "Novice",
+      "category": "Documentation",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1,
+      "type": "manual",
+      "evidence": null
+    },
+    "12": {
+      "title": "The software documentation has an API reference section automatically generated",
+      "level": "Intermediate",
+      "category": "Documentation",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "13": {
+      "title": "The software documentation is hosted on the web",
+      "level": "Intermediate",
+      "category": "Documentation",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "14": {
+      "title": "The software documentation includes installation guidelines",
+      "level": "Intermediate",
+      "category": "Documentation",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "15": {
+      "title": "The software includes continuous integration and unit testing",
+      "level": "Intermediate",
+      "category": "Continuous Integration",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "18": {
+      "title": "The software is distributed via well-known services (e.g., pip or conda for Python)",
+      "level": "Intermediate",
+      "category": "General",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "19": {
+      "title": "The software has a unique persistent identifier (e.g. DOI from paper or Zenodo, SWHID)",
+      "level": "Intermediate",
+      "category": "FAIR Data",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "21": {
+      "title": "Argo Data used by the software are traceable with a persistent identifier (Argo GDAC DOI or snapshot DOIs)",
+      "level": "Beginner",
+      "category": "FAIR Data",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "22": {
+      "title": "Other Data used by the software should be accessible online",
+      "level": "Novice",
+      "category": "Argo Compliance",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1,
+      "type": "manual",
+      "evidence": null
+    },
+    "23": {
+      "title": "Data produced by the software respect Argo file formats and conventions wherever relevant (e.g. NetCDF CF-1.7)",
+      "level": "Beginner",
+      "category": "Argo Compliance",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "24": {
+      "title": "Metadata produced by the software follow Argo conventions (as in reference tables provided by the NVS server)",
+      "level": "Beginner",
+      "category": "Argo Compliance",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "25": {
+      "title": "The software uses the Argo vocabulary server (to enforce conventions as defined in Argo reference tables)",
+      "level": "Intermediate",
+      "category": "Argo Compliance",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "26": {
+      "title": "The software documentation and codebase are written in English",
+      "level": "Beginner",
+      "category": "Documentation",
+      "group": "General",
+      "status": "met",
+      "weight": 1.2,
+      "type": "auto",
+      "evidence": [
+        "6/7 common English words found"
+      ]
+    },
+    "28": {
+      "title": "The methodology implemented by the software has been presented to the Argo community (e.g. Data Management Team meeting)",
+      "level": "Intermediate",
+      "category": "Community",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "29": {
+      "title": "A version control tool is used to manage the project (e.g., Git)",
+      "level": "Beginner",
+      "category": "Versioning",
+      "group": "General",
+      "status": "met",
+      "weight": 1.2,
+      "type": "auto",
+      "evidence": [
+        "GitHub repository"
+      ]
+    },
+    "30": {
+      "title": "Argo Data accessed remotely by the software are retrieved from an official GDAC server (http, ftp, s3 servers)",
+      "level": "Beginner",
+      "category": "Continuous Integration",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "31": {
+      "title": "The project is hosted on an Argo developer platform (eg: github/euroargodev, github/ArgoDMQC, github/ArgoRTQC or any other project or institute level organisation)",
+      "level": "Beginner",
+      "category": "Argo Compliance",
+      "group": "Argo specific",
+      "status": "met",
+      "weight": 1.2,
+      "type": "auto",
+      "evidence": [
+        "euroargodev"
+      ]
+    },
+    "32": {
+      "title": "The project includes a README file",
+      "level": "Novice",
+      "category": "Documentation",
+      "group": "General",
+      "status": "met",
+      "weight": 1,
+      "type": "auto",
+      "evidence": [
+        "README detected via API"
+      ]
+    },
+    "33": {
+      "title": "The project includes a LICENSE file",
+      "level": "Novice",
+      "category": "Licensing",
+      "group": "General",
+      "status": "met",
+      "weight": 1,
+      "type": "auto",
+      "evidence": [
+        "LICENSE"
+      ]
+    },
+    "35": {
+      "title": "The project has multiple collaborators from the Argo community",
+      "level": "Intermediate",
+      "category": "Community",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "36": {
+      "title": "Each collaborator is clearly identified within the project",
+      "level": "Intermediate",
+      "category": "General",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "38": {
+      "title": "Issues or bugs are managed through the development web platform (e.g., GitHub or GitLab issues)",
+      "level": "Intermediate",
+      "category": "General",
+      "group": "General",
+      "status": "met",
+      "weight": 1.5,
+      "type": "auto",
+      "evidence": [
+        "issues_enabled"
+      ]
+    },
+    "40": {
+      "title": "Issues or bugs are explicitly referencing the concerned Argo mission (e.g. core, deep, BGC, ...) or component (e.g. trajectories, decoding,...)",
+      "level": "Intermediate",
+      "category": "Continuous Integration",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "41": {
+      "title": "Every significant change within the code is managed through a pull (or merge) request",
+      "level": "Intermediate",
+      "category": "General",
+      "group": "General",
+      "status": "met",
+      "weight": 1.5,
+      "type": "auto",
+      "evidence": [
+        "PR #18"
+      ]
+    },
+    "46": {
+      "title": "The project includes a CONTRIBUTING file",
+      "level": "Intermediate",
+      "category": "General",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "auto",
+      "evidence": []
+    },
+    "47": {
+      "title": "The software documentation includes the list of operating systems and environments supported",
+      "level": "Intermediate",
+      "category": "Documentation",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "48": {
+      "title": "The software documentation includes the definition of the execution environment supported",
+      "level": "Intermediate",
+      "category": "Documentation",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "51": {
+      "title": "The project clearly list all software identifiers in the README file (e.g. DOI, SWHID)",
+      "level": "Intermediate",
+      "category": "Documentation",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "52": {
+      "title": "The software is registered in at least one public software registry (e.g., Zenodo, Seanoe, Research Software Directory)",
+      "level": "Intermediate",
+      "category": "General",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "53": {
+      "title": "The software is registered in an Argo software registry (e.g. AST and Argo-BGC dedicated webpages)",
+      "level": "Intermediate",
+      "category": "Argo Compliance",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "56": {
+      "title": "The codebase is designed with modular components to facilitate reuse, testing and maintenance",
+      "level": "Intermediate",
+      "category": "Continuous Integration",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "57": {
+      "title": "The codebase is \"consistent\", i.e. it follows consistent naming conventions, coding styles, and design patterns throughout the software",
+      "level": "Beginner",
+      "category": "General",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "58": {
+      "title": "The codebase includes comments and is documented to explain the purpose and functionality of each module, class, and function",
+      "level": "Novice",
+      "category": "General",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1,
+      "type": "manual",
+      "evidence": null
+    },
+    "59": {
+      "title": "The project defines expected standards of conduct when engaging in the project (e.g. includes a CODE_OF_CONDUCT file to the codebase)",
+      "level": "Intermediate",
+      "category": "General",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    },
+    "60": {
+      "title": "Argo Data accessed locally by the software must be assumed to be organised following the GDAC folder structure",
+      "level": "Beginner",
+      "category": "Argo Compliance",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "61": {
+      "title": "Argo Meta-Data accessed remotely by the software are retrieved from an official Argo sources (GDAC ftp, GDAC https, NVS, SparQL, STAC)",
+      "level": "Beginner",
+      "category": "Continuous Integration",
+      "group": "Argo specific",
+      "status": "unmet",
+      "weight": 1.2,
+      "type": "manual",
+      "evidence": null
+    },
+    "62": {
+      "title": "The project allows any user to submit an issue or bug report and ease the process (e.g. provide list of labels, issue templates)",
+      "level": "Intermediate",
+      "category": "General",
+      "group": "General",
+      "status": "unmet",
+      "weight": 1.5,
+      "type": "manual",
+      "evidence": null
+    }
+  },
+  "userAnswers": {
+    "0": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "1": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "2": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "3": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "6": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "11": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "12": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "13": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "14": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "15": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "18": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "19": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "21": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "22": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "23": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "24": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "25": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "28": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "30": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "35": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "36": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "40": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "47": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "48": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "51": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "52": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "53": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "56": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "57": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "58": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "59": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "60": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "61": {
+      "status": "unmet",
+      "evidence": ""
+    },
+    "62": {
+      "status": "unmet",
+      "evidence": ""
+    }
+  },
+  "feedback": [
+    {
+      "category": "Argo Compliance",
+      "priority": "high",
+      "message": "Critical: Improve your Argo Compliance practices to reach the next level",
+      "missing": [
+        {
+          "id": 22,
+          "level": "Novice",
+          "title": "Other Data used by the software should be accessible online",
+          "isBlocker": true
+        },
+        {
+          "id": 23,
+          "level": "Beginner",
+          "title": "Data produced by the software respect Argo file formats and conventions wherever relevant (e.g. NetCDF CF-1.7)",
+          "isBlocker": true
+        },
+        {
+          "id": 24,
+          "level": "Beginner",
+          "title": "Metadata produced by the software follow Argo conventions (as in reference tables provided by the NVS server)",
+          "isBlocker": true
+        },
+        {
+          "id": 60,
+          "level": "Beginner",
+          "title": "Argo Data accessed locally by the software must be assumed to be organised following the GDAC folder structure",
+          "isBlocker": true
+        },
+        {
+          "id": 25,
+          "level": "Intermediate",
+          "title": "The software uses the Argo vocabulary server (to enforce conventions as defined in Argo reference tables)",
+          "isBlocker": false
+        },
+        {
+          "id": 53,
+          "level": "Intermediate",
+          "title": "The software is registered in an Argo software registry (e.g. AST and Argo-BGC dedicated webpages)",
+          "isBlocker": false
+        }
+      ]
+    },
+    {
+      "category": "FAIR Data",
+      "priority": "high",
+      "message": "Critical: Improve your FAIR Data practices to reach the next level",
+      "missing": [
+        {
+          "id": 0,
+          "level": "Beginner",
+          "title": "Other Data used by the software are explicitly identified and traceable with a persistent identifier (DOI) when available",
+          "isBlocker": true
+        },
+        {
+          "id": 1,
+          "level": "Beginner",
+          "title": "Argo papers and DOIs are referenced in the software metadata",
+          "isBlocker": true
+        },
+        {
+          "id": 21,
+          "level": "Beginner",
+          "title": "Argo Data used by the software are traceable with a persistent identifier (Argo GDAC DOI or snapshot DOIs)",
+          "isBlocker": true
+        },
+        {
+          "id": 19,
+          "level": "Intermediate",
+          "title": "The software has a unique persistent identifier (e.g. DOI from paper or Zenodo, SWHID)",
+          "isBlocker": false
+        }
+      ]
+    },
+    {
+      "category": "General",
+      "priority": "high",
+      "message": "Critical: Improve your General practices to reach the next level",
+      "missing": [
+        {
+          "id": 58,
+          "level": "Novice",
+          "title": "The codebase includes comments and is documented to explain the purpose and functionality of each module, class, and function",
+          "isBlocker": true
+        },
+        {
+          "id": 6,
+          "level": "Beginner",
+          "title": "The codebase includes comments and is documented following referenced standards (e.g. numpy style docstrings in Python)",
+          "isBlocker": true
+        },
+        {
+          "id": 57,
+          "level": "Beginner",
+          "title": "The codebase is \"consistent\", i.e. it follows consistent naming conventions, coding styles, and design patterns throughout the software",
+          "isBlocker": true
+        },
+        {
+          "id": 7,
+          "level": "Intermediate",
+          "title": "The codebase is formatted following referenced standards (e.g. black in Python)",
+          "isBlocker": false
+        },
+        {
+          "id": 18,
+          "level": "Intermediate",
+          "title": "The software is distributed via well-known services (e.g., pip or conda for Python)",
+          "isBlocker": false
+        },
+        {
+          "id": 36,
+          "level": "Intermediate",
+          "title": "Each collaborator is clearly identified within the project",
+          "isBlocker": false
+        },
+        {
+          "id": 46,
+          "level": "Intermediate",
+          "title": "The project includes a CONTRIBUTING file",
+          "isBlocker": false
+        },
+        {
+          "id": 52,
+          "level": "Intermediate",
+          "title": "The software is registered in at least one public software registry (e.g., Zenodo, Seanoe, Research Software Directory)",
+          "isBlocker": false
+        },
+        {
+          "id": 59,
+          "level": "Intermediate",
+          "title": "The project defines expected standards of conduct when engaging in the project (e.g. includes a CODE_OF_CONDUCT file to the codebase)",
+          "isBlocker": false
+        },
+        {
+          "id": 62,
+          "level": "Intermediate",
+          "title": "The project allows any user to submit an issue or bug report and ease the process (e.g. provide list of labels, issue templates)",
+          "isBlocker": false
+        }
+      ]
+    },
+    {
+      "category": "Documentation",
+      "priority": "high",
+      "message": "Critical: Improve your Documentation practices to reach the next level",
+      "missing": [
+        {
+          "id": 11,
+          "level": "Novice",
+          "title": "The project includes a basic documentation (e.g. a README file)",
+          "isBlocker": true
+        },
+        {
+          "id": 3,
+          "level": "Beginner",
+          "title": "The software documentation includes usage guidelines and examples",
+          "isBlocker": true
+        },
+        {
+          "id": 12,
+          "level": "Intermediate",
+          "title": "The software documentation has an API reference section automatically generated",
+          "isBlocker": false
+        },
+        {
+          "id": 13,
+          "level": "Intermediate",
+          "title": "The software documentation is hosted on the web",
+          "isBlocker": false
+        },
+        {
+          "id": 14,
+          "level": "Intermediate",
+          "title": "The software documentation includes installation guidelines",
+          "isBlocker": false
+        },
+        {
+          "id": 47,
+          "level": "Intermediate",
+          "title": "The software documentation includes the list of operating systems and environments supported",
+          "isBlocker": false
+        },
+        {
+          "id": 48,
+          "level": "Intermediate",
+          "title": "The software documentation includes the definition of the execution environment supported",
+          "isBlocker": false
+        },
+        {
+          "id": 51,
+          "level": "Intermediate",
+          "title": "The project clearly list all software identifiers in the README file (e.g. DOI, SWHID)",
+          "isBlocker": false
+        }
+      ]
+    },
+    {
+      "category": "Continuous Integration",
+      "priority": "high",
+      "message": "Critical: Improve your Continuous Integration practices to reach the next level",
+      "missing": [
+        {
+          "id": 30,
+          "level": "Beginner",
+          "title": "Argo Data accessed remotely by the software are retrieved from an official GDAC server (http, ftp, s3 servers)",
+          "isBlocker": true
+        },
+        {
+          "id": 61,
+          "level": "Beginner",
+          "title": "Argo Meta-Data accessed remotely by the software are retrieved from an official Argo sources (GDAC ftp, GDAC https, NVS, SparQL, STAC)",
+          "isBlocker": true
+        },
+        {
+          "id": 15,
+          "level": "Intermediate",
+          "title": "The software includes continuous integration and unit testing",
+          "isBlocker": false
+        },
+        {
+          "id": 40,
+          "level": "Intermediate",
+          "title": "Issues or bugs are explicitly referencing the concerned Argo mission (e.g. core, deep, BGC, ...) or component (e.g. trajectories, decoding,...)",
+          "isBlocker": false
+        },
+        {
+          "id": 56,
+          "level": "Intermediate",
+          "title": "The codebase is designed with modular components to facilitate reuse, testing and maintenance",
+          "isBlocker": false
+        }
+      ]
+    },
+    {
+      "category": "Community",
+      "priority": "high",
+      "message": "Critical: Improve your Community practices to reach the next level",
+      "missing": [
+        {
+          "id": 2,
+          "level": "Beginner",
+          "title": "The software has been presented to the Argo community (e.g. Data Management Team meeting)",
+          "isBlocker": true
+        },
+        {
+          "id": 28,
+          "level": "Intermediate",
+          "title": "The methodology implemented by the software has been presented to the Argo community (e.g. Data Management Team meeting)",
+          "isBlocker": false
+        },
+        {
+          "id": 35,
+          "level": "Intermediate",
+          "title": "The project has multiple collaborators from the Argo community",
+          "isBlocker": false
+        }
+      ]
+    }
+  ]
+}
