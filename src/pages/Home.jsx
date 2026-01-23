@@ -2,7 +2,6 @@
 import PropTypes from "prop-types";
 import Form from "../components/Form";
 import logo_1 from "../img/logo_euroargo_square.png"; 
-import logo_2 from "../img/EAONE_2.png"; 
 import "./Home.css";
 
 function Home({ onEvaluate }) {
@@ -13,8 +12,22 @@ function Home({ onEvaluate }) {
         <div className="header-title">
           <img src={logo_1} alt="Euro-Argo Logo" className="header-logo" />
           <h1>Software Evaluator</h1>
+          <span className="beta-pill">Beta</span>
         </div>
-        <p>Evaluate your software against EuroArgo development guidelines</p>
+        <p className="header-subtitle">
+          Evaluate your software against EuroArgo development guidelines.
+        </p>
+        <p className="header-guidelines">
+          Reference criteria :&nbsp;
+          <a
+            href="https://github.com/euroargodev/software_guidelines"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="header-guidelines-link"
+          >
+            software_guidelines
+          </a>
+        </p>
       </header>
 
       {/* Evaluation form */}
@@ -36,8 +49,6 @@ function Home({ onEvaluate }) {
           </p>
         </div>
 
-        <img src={logo_2} alt="Euro-Argo Logo" className="footer-logo" />
-        
         <div className="footer-links">
           <a href="https://www.euro-argo.eu" target="_blank" rel="noopener noreferrer">
             Euro-Argo Website

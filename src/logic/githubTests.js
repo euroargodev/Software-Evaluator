@@ -143,7 +143,7 @@ async function searchInCode(owner, repo, patterns) {
 
 
 // Helper to DRY language-based criteria (open-source vs Argo-adopted)
-function buildLanguageResult(owner, repo, id, allowList) {
+function buildLanguageResult(owner, repo, id, allowList, options = {}) {
   return async () => {
     const cacheKey = `criterion_${id}_${owner}_${repo}`;
     const cached = getCachedData(cacheKey);
@@ -152,12 +152,26 @@ function buildLanguageResult(owner, repo, id, allowList) {
     try {
       const languages = await getRepoLanguages(owner, repo);
       const matched = languages.filter((lang) => allowList.includes(lang));
+      const languageDetails =
+        languages.length > 0 ? languages.join(", ") : "None detected";
+      let status = matched.length > 0 ? "met" : "unmet";
+      let evidence = matched;
+      let details = `Languages: ${languageDetails}`;
 
-      const result = {
-        status: matched.length > 0 ? "met" : "unmet",
-        details: `Languages: ${languages.join(", ")}`,
-        evidence: matched,
-      };
+      if (status === "unmet" && typeof options.fallback === "function") {
+        const fallback = await options.fallback({ owner, repo, languages });
+        if (fallback?.status === "met") {
+          status = "met";
+        }
+        if (fallback?.details) {
+          details = `${details}. ${fallback.details}`;
+        }
+        if (Array.isArray(fallback?.evidence) && fallback.evidence.length > 0) {
+          evidence = fallback.evidence;
+        }
+      }
+
+      const result = { status, details, evidence };
 
       setCachedData(cacheKey, result);
       return result;
@@ -174,61 +188,43 @@ function buildLanguageResult(owner, repo, id, allowList) {
 /**
  * CRITERION 4: Open-Source Language
  */
-export async function checkOpenSourceLanguage(owner, repo) {
-  const cacheKey = `criterion_4_${owner}_${repo}`;
-  const cached = getCachedData(cacheKey);
-  if (cached) return cached;
-
-  try {
-    const openSourceAllowList = [
+export const checkOpenSourceLanguage = (owner, repo) =>
+  buildLanguageResult(
+    owner,
+    repo,
+    4,
+    [
       "Python", "R", "JavaScript", "TypeScript", "Java", "C++", "C", "Julia",
       "Go", "Rust", "Ruby", "PHP", "Shell", "HTML", "CSS"
-    ];
-    const languages = await getRepoLanguages(owner, repo);
-    const matched = languages.filter((lang) => openSourceAllowList.includes(lang));
+    ],
+    {
+      fallback: async ({ owner: repoOwner, repo: repoName, languages }) => {
+        const hasMatlabLanguage = languages.some(
+          (lang) => lang.toLowerCase() === "matlab"
+        );
+        if (hasMatlabLanguage) {
+          return {
+            status: "met",
+            details: "MATLAB .m treated as GNU Octave (open-source)",
+            evidence: ["MATLAB (.m) treated as GNU Octave"],
+          };
+        }
 
-    const hasMatlabLanguage = languages.some(
-      (lang) => lang.toLowerCase() === "matlab"
-    );
-    let matlabEvidence = hasMatlabLanguage
-      ? ["MATLAB (.m) treated as GNU Octave"]
-      : [];
-    let hasMatlabFiles = false;
+        const files = await getRepoFiles(repoOwner, repoName);
+        const matlabFiles = files.filter((file) =>
+          file.toLowerCase().endsWith(".m")
+        );
+        if (matlabFiles.length === 0) return null;
 
-    if (!hasMatlabLanguage) {
-      const files = await getRepoFiles(owner, repo);
-      const matlabFiles = files.filter((file) => file.toLowerCase().endsWith(".m"));
-      if (matlabFiles.length > 0) {
-        hasMatlabFiles = true;
-        matlabEvidence = matlabFiles.slice(0, 3);
-      }
+        return {
+          status: "met",
+          details: "MATLAB .m treated as GNU Octave (open-source)",
+          evidence: matlabFiles.slice(0, 3),
+        };
+      },
     }
-
-    const hasOctave = hasMatlabLanguage || hasMatlabFiles;
-    const status = matched.length > 0 || hasOctave ? "met" : "unmet";
-
-    const languageDetails =
-      languages.length > 0 ? languages.join(", ") : "None detected";
-    const detailParts = [`Languages: ${languageDetails}`];
-    if (hasOctave) {
-      detailParts.push("MATLAB .m treated as GNU Octave (open-source)");
-    }
-
-    const result = {
-      status,
-      details: detailParts.join(". "),
-      evidence: matched.length > 0 ? matched : matlabEvidence,
-    };
-
-    setCachedData(cacheKey, result);
-    return result;
-  } catch (error) {
-    const result = { status: "unmet", error: error.message };
-    setCachedData(cacheKey, result);
-    return result;
-  }
-}
-
+  )();
+  
 /**
  * CRITERION 5: Argo-Adopted Language
  */

@@ -2,8 +2,9 @@
 import { useEffect, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import logo_1 from "../img/logo_euroargo_square.png"; 
-import logo_2 from "../img/EAONE_2.png"; 
 import "./Results.css";
+
+const EVALUATION_FILE_NAME = "argo-software-dev-evaluation.json";
 
 function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
   // Guard against direct navigation without data
@@ -72,7 +73,6 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
 
   const [expandedCategories, setExpandedCategories] = useState({});
   const [showScoreDetails, setShowScoreDetails] = useState(false);
-  const [badgeCopyStatus, setBadgeCopyStatus] = useState("");
 
   useEffect(() => {
     setExpandedCategories((prev) => {
@@ -185,25 +185,11 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
   );
   const badgeMarkdown = `![${badgeLabel}: ${badgeMessage}](${progressBadgeUrl})`;
 
-  const nextWins = Object.values(details || {})
-    .filter((criterion) => criterion?.status === "unmet")
-    .sort((a, b) => {
-      const levelDelta =
-        levelOrder.indexOf(a.level || "Novice") - levelOrder.indexOf(b.level || "Novice");
-      if (levelDelta !== 0) return levelDelta;
-      return (a.id || 0) - (b.id || 0);
-    })
-    .slice(0, 3);
-
   const handleCopyBadges = async () => {
     try {
       await navigator.clipboard.writeText(badgeMarkdown);
-      setBadgeCopyStatus("Badge snippet copied.");
-      setTimeout(() => setBadgeCopyStatus(""), 2500);
     } catch (error) {
       console.error("Failed to copy badge snippet:", error);
-      setBadgeCopyStatus("Copy failed. Use the image URL instead.");
-      setTimeout(() => setBadgeCopyStatus(""), 3000);
     }
   };
 
@@ -224,13 +210,21 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
       window.open(url, "_blank", "noopener,noreferrer");
     }
   };
+  const nextWins = Object.values(details || {})
+    .filter((criterion) => criterion?.status === "unmet")
+    .sort((a, b) => {
+      const levelDelta =
+        levelOrder.indexOf(a.level || "Novice") - levelOrder.indexOf(b.level || "Novice");
+      if (levelDelta !== 0) return levelDelta;
+      return (a.id || 0) - (b.id || 0);
+    })
+    .slice(0, 3);
 
   const handleDownload = () => {
     const downloadTargetLevel = repository?.targetLevel || stats?.targetLevel || null;
     const evaluationFile = {
       targetLevel: downloadTargetLevel,
       metadata: {
-        generatedAt: new Date().toISOString(),
         version: "1.0",
         tool: "EuroArgo Software Evaluator"
       },
@@ -244,8 +238,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
         targetLevel: downloadTargetLevel,
         achievedLevel,
         score: globalScore,
-        stats: stats,
-        evaluatedAt: new Date().toISOString()
+        stats: stats
       },
       details: details,
       userAnswers: userAnswers || {},
@@ -258,7 +251,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `${repository.owner}_${repository.repo}_evaluation_${new Date().toISOString().split('T')[0]}.json`;
+    link.download = EVALUATION_FILE_NAME;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -274,6 +267,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
         <div className="header-title">
           <img src={logo_1} alt="Euro-Argo Logo" className="header-logo" />
           <h1>Evaluation Results</h1>
+          <span className="beta-pill">Beta</span>
         </div>
         <p className="repo-name">
           {repository.owner}/{repository.repo}
@@ -295,10 +289,12 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
             borderLeft: `6px solid ${badge.color}`
           }}
         >
-          <div className="text-6xl mb-4">{badge.emoji}</div>
-          <h2 className="text-3xl font-bold mb-2" style={{ color: badge.color }}>
-            {validatedLevel} Level
-          </h2>
+          <div className="badge-heading">
+            <span className="badge-emoji">{badge.emoji}</span>
+            <h2 className="badge-level-title" style={{ color: badge.color }}>
+              {validatedLevel} Level
+            </h2>
+          </div>
           <div className="text-5xl font-bold mb-2 text-gray-800">
             {(globalScore * 100).toFixed(1)}%
           </div>
@@ -337,44 +333,51 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
           </div>
           <p className="text-xl text-gray-700 mb-2">{badge.message}</p>
           <p className="text-gray-600 italic">{badge.description}</p>
-          <div className="badge-chips">
-            <span className={`badge-pill badge-progress ${progressTier}`}>
-              {badgeLabel}: {badgeMessage}
-            </span>
-          </div>
           <div className="badge-downloads">
             <div className="badge-downloads-header">
               <span>Badge for your README</span>
-              <span className="badge-downloads-note">Copy or download as SVG</span>
+              <div className="badge-downloads-actions">
+                <button
+                  type="button"
+                  className="btn-tertiary"
+                  onClick={handleCopyBadges}
+                >
+                  Copy Markdown
+                </button>
+                <button
+                  type="button"
+                  className="btn-tertiary"
+                  onClick={() =>
+                    downloadBadge(
+                      progressBadgeUrl,
+                      `${repository.owner}_${repository.repo}_progress_badge.svg`
+                    )
+                  }
+                >
+                  Download SVG
+                </button>
+              </div>
             </div>
             <div className="badge-preview">
               <img src={progressBadgeUrl} alt={`${badgeLabel} ${badgeMessage}`} />
             </div>
-            <div className="badge-actions">
-              <button type="button" className="btn-tertiary" onClick={handleCopyBadges}>
-                Copy Markdown
-              </button>
-              <button
-                type="button"
-                className="btn-tertiary"
-                onClick={() =>
-                  downloadBadge(
-                    progressBadgeUrl,
-                    `${repository.owner}_${repository.repo}_progress_badge.svg`
-                  )
-                }
-              >
-                Download Badge
-              </button>
-            </div>
-            {badgeCopyStatus && (
-              <div className="badge-copy-status">{badgeCopyStatus}</div>
-            )}
+          </div>
+          <div className="badge-footer">
+            <button onClick={handleDownload} className="btn-primary">
+              Download Evaluation Report
+            </button>
           </div>
         </div>
 
+        <div className="report-actions">
+          <p className="pro-tip-inline">
+            <strong>Pro Tip:</strong> Save this report and add it to your repository root as{" "}
+            <strong>{EVALUATION_FILE_NAME}</strong> so you can restore your answers later.
+          </p>
+        </div>
+
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="stats-grid grid grid-cols-3 gap-4 mb-8">
           <div className="stat-card bg-green-50 p-4 rounded-lg text-center border border-green-200">
             <div className="text-3xl font-bold text-green-600">
               {stats.metCriteria}
@@ -505,21 +508,10 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
 
       {/* BUTTONS */}
       <div className="action-buttons">
-        <button onClick={handleDownload} className="btn-primary">
-          Download Evaluation Report
-        </button>
         <button onClick={onGoBack} className="btn-secondary">
           Return to Form
         </button>
       </div>
-
-        {/* PRO TIP */}
-        <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm text-gray-700">
-            <strong>Pro Tip:</strong> Save this evaluation file! You can upload it on your next visit 
-            to skip answering manual questions again. We'll only re-run the automatic tests.
-          </p>
-        </div>
       </main>
 
       {/* FOOTER */}
@@ -536,8 +528,6 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
           </p>
         </div>
 
-        <img src={logo_2} alt="Euro-Argo Logo" className="footer-logo" />
-        
         <div className="footer-links">
           <a href="https://www.euro-argo.eu" target="_blank" rel="noopener noreferrer">
             Euro-Argo Website

@@ -11,6 +11,7 @@ import "./Form.css";
 
 // Fixed order to compare target level and criterion level
 const LEVEL_ORDER = ["Novice", "Beginner", "Intermediate", "Advanced", "Expert"];
+const EVALUATION_FILE_NAME = "argo-software-dev-evaluation.json";
 
 function Form({ onEvaluate }) {
   const [repoUrl, setRepoUrl] = useState("");
@@ -22,6 +23,9 @@ function Form({ onEvaluate }) {
   const [uploadError, setUploadError] = useState("");
   const [uploadInfo, setUploadInfo] = useState(null);
   const [progress, setProgress] = useState({ current: 0, total: 0, message: "" });
+  const [importMode, setImportMode] = useState("upload");
+  const [repoLookup, setRepoLookup] = useState("");
+  const [repoLookupLoading, setRepoLookupLoading] = useState(false);
 
   const guidelines = Array.isArray(guidelinesRaw) ? guidelinesRaw : [];
 
@@ -79,10 +83,7 @@ function Form({ onEvaluate }) {
       });
     }
 
-    const repoUrl =
-      json.repository?.url || (json.repository?.owner && json.repository?.repo
-        ? `https://github.com/${json.repository.owner}/${json.repository.repo}`
-        : "");
+    const repoUrl = json.repository?.url || (json.repository?.owner && json.repository?.repo? `https://github.com/${json.repository.owner}/${json.repository.repo}` : "");
 
     return {
       valid: errors.length === 0,
@@ -90,6 +91,43 @@ function Form({ onEvaluate }) {
       cleanedAnswers,
       repoUrl,
     };
+  };
+
+  const processEvaluationJson = (json) => {
+    const nextTargetCandidates = [
+      json.targetLevel,
+      json.evaluation?.targetLevel,
+      json.evaluation?.stats?.targetLevel,
+      json.stats?.targetLevel,
+      json.repository?.targetLevel,
+      json.evaluation?.level
+    ];
+    const nextTarget = nextTargetCandidates.find((level) => LEVEL_ORDER.includes(level)) || targetLevel;
+    const manualForFile = getFilteredCriteria(nextTarget).filter(c => c.type === "manual");
+
+    const { valid, errors, cleanedAnswers, repoUrl: repoFromFile } = validateEvaluationFile(json, manualForFile);
+
+    if (!valid) {
+      setUploadError(errors.join(" "));
+      setUploadedFile(null);
+      setUploadInfo(null);
+      return false;
+    }
+
+    setUploadError("");
+    setUploadedFile(json);
+    setUploadInfo({
+      repo: `${json.repository.owner}/${json.repository.repo}`,
+      targetLevel: nextTarget,
+      manualCount: manualForFile.length,
+      restoredAnswers: Object.values(cleanedAnswers || {}).filter(a => a?.status).length
+    });
+
+    setTargetLevel(nextTarget);
+    setUserAnswers(cleanedAnswers);
+    setRepoUrl(repoFromFile);
+    setIsFirstEvaluation(true);
+    return true;
   };
 
   const handleFileUpload = (event) => {
@@ -100,41 +138,7 @@ function Form({ onEvaluate }) {
     reader.onload = (e) => {
       try {
         const json = JSON.parse(e.target.result);
-        const nextTargetCandidates = [
-          json.targetLevel,
-          json.evaluation?.targetLevel,
-          json.evaluation?.stats?.targetLevel,
-          json.stats?.targetLevel,
-          json.repository?.targetLevel,
-          json.evaluation?.level
-        ];
-        const nextTarget =
-          nextTargetCandidates.find((level) => LEVEL_ORDER.includes(level)) || targetLevel;
-        const manualForFile = getFilteredCriteria(nextTarget).filter(c => c.type === "manual");
-
-        const { valid, errors, cleanedAnswers, repoUrl: repoFromFile } =
-          validateEvaluationFile(json, manualForFile);
-
-        if (!valid) {
-          setUploadError(errors.join(" "));
-          setUploadedFile(null);
-          setUploadInfo(null);
-          return;
-        }
-
-        setUploadError("");
-        setUploadedFile(json);
-        setUploadInfo({
-          repo: `${json.repository.owner}/${json.repository.repo}`,
-          targetLevel: nextTarget,
-          manualCount: manualForFile.length,
-          restoredAnswers: Object.values(cleanedAnswers || {}).filter(a => a?.status).length
-        });
-
-        setTargetLevel(nextTarget);
-        setUserAnswers(cleanedAnswers);
-        setRepoUrl(repoFromFile);
-        setIsFirstEvaluation(true); // jump straight to the form after a valid upload
+        processEvaluationJson(json);
       } catch (error) {
         console.error("Error parsing file:", error);
         alert("❌ Invalid file format. Please upload a valid evaluation JSON file.");
@@ -144,6 +148,55 @@ function Form({ onEvaluate }) {
       }
     };
     reader.readAsText(file);
+  };
+
+  const parseRepoInput = (input) => {
+    if (!input) throw new Error("Repository is required.");
+    if (input.includes("github.com")) return parseGitHubUrl(input);
+    const match = input.match(/^([^\/\s]+)\/([^\/\s]+)$/);
+    if (!match) throw new Error("Use owner/repo or a GitHub URL.");
+    return { owner: match[1], repo: match[2] };
+  };
+
+  const getDefaultBranch = async (owner, repo) => {
+    const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data?.default_branch || null;
+  };
+
+  const fetchEvaluationFromRepo = async () => {
+    setUploadError("");
+    setRepoLookupLoading(true);
+
+    try {
+      const { owner, repo } = parseRepoInput(repoLookup.trim());
+      const defaultBranch = await getDefaultBranch(owner, repo);
+      const branches = [defaultBranch, "main", "master"].filter(
+        (branch, index, list) => branch && list.indexOf(branch) === index
+      );
+
+      for (const branch of branches) {
+        const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${EVALUATION_FILE_NAME}`;
+        const response = await fetch(url, { cache: "no-store" });
+        if (response.ok) {
+          const json = await response.json();
+          const processed = processEvaluationJson(json);
+          if (!processed) return;
+          setRepoLookupLoading(false);
+          return;
+        }
+        if (response.status !== 404) {
+          throw new Error("Unable to access evaluation file.");
+        }
+      }
+
+      setUploadError("Evaluation file not found in the repository.");
+    } catch (error) {
+      setUploadError(error.message);
+    } finally {
+      setRepoLookupLoading(false);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -242,7 +295,7 @@ function Form({ onEvaluate }) {
               onClick={() => setIsFirstEvaluation(false)}
               className="btn-secondary"
             >
-              No, I have a file
+              No
             </button>
           </div>
         </div>
@@ -261,20 +314,55 @@ function Form({ onEvaluate }) {
             <br />
             Your manual answers will be preserved.
           </p>
-          <div className="file-upload-actions">
-            <input
-              type="file"
-              accept=".json"
-              onChange={handleFileUpload}
-              className="file-input"
-            />
+          <div className="import-toggle">
             <button
-              onClick={() => setIsFirstEvaluation(null)}
-              className="btn-secondary"
+              type="button"
+              onClick={() => setImportMode("upload")}
+              className={importMode === "upload" ? "btn-primary" : "btn-secondary"}
             >
-              ← Back
+              Upload file
+            </button>
+            <button
+              type="button"
+              onClick={() => setImportMode("repo")}
+              className={importMode === "repo" ? "btn-primary" : "btn-secondary"}
+            >
+              Fetch from repo
             </button>
           </div>
+          {importMode === "repo" && (
+            <p className="file-upload-note">
+              We look for <strong>{EVALUATION_FILE_NAME}</strong> at the repository root.
+            </p>
+          )}
+          {importMode === "upload" ? (
+            <div className="file-upload-actions">
+              <input
+                type="file"
+                accept=".json"
+                onChange={handleFileUpload}
+                className="file-input"
+              />
+            </div>
+          ) : (
+            <div className="file-upload-actions">
+              <input
+                type="text"
+                value={repoLookup}
+                onChange={(event) => setRepoLookup(event.target.value)}
+                className="file-input"
+                placeholder="owner/repo or GitHub URL"
+              />
+              <button
+                type="button"
+                onClick={fetchEvaluationFromRepo}
+                className="btn-primary"
+                disabled={repoLookupLoading}
+              >
+                {repoLookupLoading ? "Fetching..." : "Fetch"}
+              </button>
+            </div>
+          )}
           {uploadError && (
             <p className="error-message">{uploadError}</p>
           )}
@@ -290,6 +378,15 @@ function Form({ onEvaluate }) {
               </p>
             </div>
           )}
+          <div className="file-upload-footer">
+            <button
+              type="button"
+              onClick={() => setIsFirstEvaluation(null)}
+              className="btn-secondary"
+            >
+              ← Back
+            </button>
+          </div>
         </div>
       </div>
     );

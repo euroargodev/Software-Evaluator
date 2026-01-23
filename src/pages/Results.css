@@ -30,6 +30,20 @@
   gap: 0.9rem;
 }
 
+.beta-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
 .header-logo {
   width: 70px;
   height: auto;
@@ -77,6 +91,22 @@
   margin: 1.5rem auto;
   padding: 1.5rem;
   width: 100%;
+}
+
+.report-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  margin: -0.5rem 0 2rem;
+}
+
+.pro-tip-inline {
+  margin: 0;
+  text-align: center;
+  color: #4b5563;
+  font-size: 0.85rem;
+  line-height: 1.35;
 }
 
 /* Rate limit warning */
@@ -243,16 +273,38 @@
   gap: 0.65rem;
 }
 
+.badge-heading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.badge-emoji {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.badge-level-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
 .badge-downloads-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 0.8rem;
   color: #475569;
+  gap: 0.8rem;
 }
 
-.badge-downloads-note {
-  color: #64748b;
+.badge-downloads-actions {
+  display: inline-flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .badge-preview {
@@ -273,9 +325,19 @@
   flex-wrap: wrap;
 }
 
+.badge-footer {
+  margin-top: 0.9rem;
+  display: flex;
+  justify-content: center;
+}
+
+.stats-grid {
+  margin-top: 1rem;
+}
+
 .btn-tertiary {
-  padding: 0.45rem 0.9rem;
-  font-size: 0.85rem;
+  padding: 0.24rem 0.6rem;
+  font-size: 0.7rem;
   border-radius: 8px;
   border: 1px solid var(--ea-border);
   background: #ffffff;

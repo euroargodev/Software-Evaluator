@@ -26,6 +26,20 @@
   gap: 0.9rem;
 }
 
+.beta-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
 .header-logo {
   width: 60px;
   height: auto;
@@ -55,6 +69,27 @@
   max-width: 650px;
   line-height: 1.4;
   font-weight: 400;
+}
+
+.header-subtitle {
+  margin: 0.35rem auto 0.4rem;
+}
+
+.header-guidelines {
+  margin: 0.2rem auto 0;
+  font-size: 0.82rem;
+  opacity: 0.9;
+  font-weight: 500;
+}
+
+.header-guidelines-link {
+  color: #e6f4ff;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.header-guidelines-link:hover {
+  color: #ffffff;
 }
 
 /* ========================================
