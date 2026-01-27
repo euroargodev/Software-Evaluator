@@ -165,12 +165,12 @@ function Form({ onEvaluate }) {
     return data?.default_branch || null;
   };
 
-  const fetchEvaluationFromRepo = async () => {
+  const fetchEvaluationFromRepo = async (input = repoLookup) => {
     setUploadError("");
     setRepoLookupLoading(true);
 
     try {
-      const { owner, repo } = parseRepoInput(repoLookup.trim());
+      const { owner, repo } = parseRepoInput(input.trim());
       const defaultBranch = await getDefaultBranch(owner, repo);
       const branches = [defaultBranch, "main", "master"].filter(
         (branch, index, list) => branch && list.indexOf(branch) === index
@@ -198,6 +198,17 @@ function Form({ onEvaluate }) {
       setRepoLookupLoading(false);
     }
   };
+
+  useEffect(() => {
+    const repoParam = new URLSearchParams(window.location.search).get("repo");
+    if (!repoParam) return;
+
+    setRepoUrl(repoParam);
+    setIsFirstEvaluation(false);
+    setImportMode("repo");
+    setRepoLookup(repoParam);
+    fetchEvaluationFromRepo(repoParam);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
