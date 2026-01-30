@@ -1,5 +1,6 @@
 // Results screen that renders evaluation summary, stats, and grouped criteria.
 import { useEffect, useMemo, useState } from "react";
+import { trackEvent } from "../logic/telemetry";
 import PropTypes from "prop-types";
 import logo_1 from "../img/logo_euroargo_square.png"; 
 import "./Results.css";
@@ -183,11 +184,18 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     progressBadgeColor,
     { labelColor: badgeLabelColor }
   );
-  const badgeMarkdown = `![${badgeLabel}: ${badgeMessage}](${progressBadgeUrl})`;
+  const repoUrl =
+    repository.url || `https://github.com/${repository.owner}/${repository.repo}`;
+  const baseUrl = `${window.location.origin}${window.location.pathname}`;
+  const evaluationLink = `${baseUrl}?repo=${encodeURIComponent(repoUrl)}`;
+  const badgeMarkdown = `[![${badgeLabel}: ${badgeMessage}](${progressBadgeUrl})](${evaluationLink})`;
 
   const handleCopyBadges = async () => {
     try {
       await navigator.clipboard.writeText(badgeMarkdown);
+      trackEvent("copy_badge_markdown", {
+        repo: `${repository.owner}/${repository.repo}`,
+      });
     } catch (error) {
       console.error("Failed to copy badge snippet:", error);
     }
@@ -205,6 +213,9 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(objectUrl);
+      trackEvent("download_badge_svg", {
+        repo: `${repository.owner}/${repository.repo}`,
+      });
     } catch (error) {
       console.error("Failed to download badge:", error);
       window.open(url, "_blank", "noopener,noreferrer");
@@ -257,6 +268,9 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
 
+    trackEvent("download_evaluation_report", {
+      repo: `${repository.owner}/${repository.repo}`,
+    });
     console.log("✅ Evaluation file downloaded");
   };
 
@@ -405,8 +419,8 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
           </div>
           {nextWins.length > 0 ? (
             <ul className="next-wins-list">
-              {nextWins.map((criterion) => (
-                <li key={criterion.id} className="next-wins-item">
+              {nextWins.map((criterion, index) => (
+                <li key={criterion.id ?? `next-win-${index}`} className="next-wins-item">
                   <span className="next-wins-title">{criterion.title}</span>
                   <span className="next-wins-meta">
                     {criterion.type === "auto" ? "Auto" : "Manual"} · {criterion.level}
@@ -433,7 +447,7 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
 
           const progress = flatItems.length > 0 ? Math.round((metCount / flatItems.length) * 100) : 0;
           return (
-          <div key={scope} className="category-group">
+          <div key={scope || "unknown-scope"} className="category-group">
             <button
               type="button"
               className={`category-header ${scopeTone} ${expandedCategories[scope] ? "open" : ""}`}
@@ -469,9 +483,9 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
                         <span className="level-count">{levelMet}/{items.length} met</span>
                       </div>
                       <div className="criteria-list">
-                        {items.map((criterion) => (
+                        {items.map((criterion, index) => (
                           <div
-                            key={criterion.id}
+                            key={criterion.id ?? `${scope}-${level}-${index}`}
                             className={`criteria-item ${criterion.status === "met" ? "met" : "unmet"}`}
                           >
                             <span

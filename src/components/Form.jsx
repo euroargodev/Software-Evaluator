@@ -1,6 +1,7 @@
 // src/components/Form.jsx
 // Collects repository info, lets the user answer manual criteria, and triggers auto checks.
 import { useState, useEffect } from "react";
+import { trackEvent } from "../logic/telemetry";
 import PropTypes from "prop-types";
 import TargetLevelSelect from "./TargetLevelSelect";
 import GroupedManualCriteriaBoard from "./GroupedManualCriteriaBoard";
@@ -138,7 +139,12 @@ function Form({ onEvaluate }) {
     reader.onload = (e) => {
       try {
         const json = JSON.parse(e.target.result);
-        processEvaluationJson(json);
+        const processed = processEvaluationJson(json);
+        if (processed) {
+          trackEvent("upload_evaluation_file", {
+            repo: `${json.repository?.owner || "unknown"}/${json.repository?.repo || "unknown"}`,
+          });
+        }
       } catch (error) {
         console.error("Error parsing file:", error);
         alert("❌ Invalid file format. Please upload a valid evaluation JSON file.");
@@ -158,6 +164,35 @@ function Form({ onEvaluate }) {
     return { owner: match[1], repo: match[2] };
   };
 
+  const resolveEvaluationFileUrl = (input) => {
+    if (!input) return null;
+    const trimmed = input.trim();
+    
+    if (trimmed.includes("github.com")) {
+      // Logique GitHub ici
+      try {
+        const url = new URL(trimmed);
+        const parts = url.pathname.split("/").filter(Boolean);
+        if (url.hostname === "raw.githubusercontent.com" && parts.length >= 4) {
+          return trimmed;
+        }
+        if (url.hostname === "github.com" && parts.length >= 5) {
+          const [owner, repo, marker, branch, ...pathParts] = parts;
+          if (marker === "blob" || marker === "raw") {
+            const rawPath = [owner, repo, branch, ...pathParts].join("/");
+            return `https://raw.githubusercontent.com/${rawPath}`;
+          }
+        }
+      } catch {
+        return null;
+      }
+    } else if (trimmed.endsWith(".json")) {
+      return trimmed;
+    }
+    
+    return null;
+  };
+
   const getDefaultBranch = async (owner, repo) => {
     const response = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
     if (!response.ok) return null;
@@ -170,7 +205,20 @@ function Form({ onEvaluate }) {
     setRepoLookupLoading(true);
 
     try {
-      const { owner, repo } = parseRepoInput(input.trim());
+      const candidate = typeof input === "string" ? input : "";
+      const fileUrl = resolveEvaluationFileUrl(candidate);
+      if (fileUrl) {
+        const response = await fetch(fileUrl, { cache: "no-store" });
+        if (!response.ok) throw new Error("Unable to access evaluation file.");
+        const json = await response.json();
+        const processed = processEvaluationJson(json);
+        if (!processed) return;
+        trackEvent("fetch_evaluation_file", { url: fileUrl });
+        setRepoLookupLoading(false);
+        return;
+      }
+
+      const { owner, repo } = parseRepoInput(candidate.trim());
       const defaultBranch = await getDefaultBranch(owner, repo);
       const branches = [defaultBranch, "main", "master"].filter(
         (branch, index, list) => branch && list.indexOf(branch) === index
@@ -183,6 +231,10 @@ function Form({ onEvaluate }) {
           const json = await response.json();
           const processed = processEvaluationJson(json);
           if (!processed) return;
+          trackEvent("fetch_evaluation_file", {
+            repo: `${owner}/${repo}`,
+            branch,
+          });
           setRepoLookupLoading(false);
           return;
         }
@@ -203,7 +255,7 @@ function Form({ onEvaluate }) {
     const repoParam = new URLSearchParams(window.location.search).get("repo");
     if (!repoParam) return;
 
-    setRepoUrl(repoParam);
+    setRepoUrl(repoParam || "");
     setIsFirstEvaluation(false);
     setImportMode("repo");
     setRepoLookup(repoParam);
@@ -217,6 +269,10 @@ function Form({ onEvaluate }) {
 
     try {
       const { owner, repo } = parseGitHubUrl(repoUrl);
+      trackEvent("evaluate_submit", {
+        repo: `${owner}/${repo}`,
+        targetLevel,
+      });
 
       // Ensure every manual criterion is answered
       const missingAnswers = manualCriteria.filter(
@@ -359,14 +415,14 @@ function Form({ onEvaluate }) {
             <div className="file-upload-actions">
               <input
                 type="text"
-                value={repoLookup}
+                value={repoLookup ?? ""}
                 onChange={(event) => setRepoLookup(event.target.value)}
                 className="file-input"
                 placeholder="owner/repo or GitHub URL"
               />
               <button
                 type="button"
-                onClick={fetchEvaluationFromRepo}
+                onClick={() => fetchEvaluationFromRepo()}
                 className="btn-primary"
                 disabled={repoLookupLoading}
               >
@@ -436,7 +492,7 @@ function Form({ onEvaluate }) {
             id="repo-url"
             type="url"
             placeholder="https://github.com/owner/repository"
-            value={repoUrl}
+            value={repoUrl ?? ""}
             onChange={(e) => setRepoUrl(e.target.value)}
             required
             disabled={loading}

@@ -33,14 +33,14 @@
 .beta-pill {
   display: inline-flex;
   align-items: center;
-  padding: 0.15rem 0.5rem;
+  padding: 0.32rem 0.9rem;
   border-radius: 999px;
-  font-size: 0.7rem;
+  font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(220, 38, 38, 0.4);
+  border: 1px solid rgba(248, 113, 113, 0.9);
   color: #fff;
 }
 

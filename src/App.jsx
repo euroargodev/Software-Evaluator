@@ -1,5 +1,6 @@
 // Root view switcher between the Home form and Results page.
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { trackEvent } from "./logic/telemetry";
 import Home from "./pages/Home";
 import Results from "./pages/Results";
 import "./App.css";
@@ -26,6 +27,13 @@ function App() {
     setEvaluationResult(null);
     setUserAnswers({});
   };
+
+  useEffect(() => {
+    trackEvent("pageview", {
+      view,
+      path: `${window.location.pathname}${window.location.search}`,
+    });
+  }, [view]);
 
   return (
     <div className="app">

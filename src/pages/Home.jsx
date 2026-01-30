@@ -15,17 +15,16 @@ function Home({ onEvaluate }) {
           <span className="beta-pill">Beta</span>
         </div>
         <p className="header-subtitle">
-          Evaluate your software against EuroArgo development guidelines.
+          Evaluate your software against Euro-Argo software development guidelines.
         </p>
         <p className="header-guidelines">
-          Reference criteria :&nbsp;
           <a
             href="https://github.com/euroargodev/software_guidelines"
             target="_blank"
             rel="noopener noreferrer"
             className="header-guidelines-link"
           >
-            software_guidelines
+            Click here for detailed guidelines descriptions <span className="header-link-icon">↗</span>
           </a>
         </p>
       </header>

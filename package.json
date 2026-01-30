@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@octokit/rest": "^20.0.2",
+    "@typedigital/telemetrydeck-react": "^0.5.0",
     "octokit": "^3.1.2",
     "prop-types": "^15.8.1",
     "react": "^19.1.1",

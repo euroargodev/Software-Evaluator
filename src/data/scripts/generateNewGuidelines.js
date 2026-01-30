@@ -72,24 +72,6 @@ function buildScopeLabel(fields) {
 }
 
 /**
- * Get criterion group (logical theme)
- */
-function getCriterionGroup(id) {
-  if ([0, 1, 19, 21, 51, 52, 53].includes(id)) return "Metadata & Identification";
-  if ([3, 11, 12, 13, 14, 47, 48, 50].includes(id)) return "Documentation";
-  if ([4, 5, 6, 7, 56, 57, 58].includes(id)) return "Code Quality & Standards";
-  if ([15, 16, 17].includes(id)) return "Testing & Integration";
-  if ([10, 33, 54, 55, 59].includes(id)) return "Licensing & Citation";
-  if ([27, 28, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 62].includes(id))
-    return "Community & Collaboration";
-  if ([8, 9, 29, 31, 32, 49].includes(id)) return "Version Control & Hosting";
-  if ([20, 22, 23, 24, 25, 30, 60, 61].includes(id)) return "Data & FAIR Compliance";
-  if ([26].includes(id)) return "Language & Accessibility";
-  if ([18, 52].includes(id)) return "Distribution & Registry";
-  return "Other";
-}
-
-/**
  * Generate question from criterion title
  */
 function generateQuestion(title) {
