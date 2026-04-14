@@ -556,7 +556,7 @@ function Form({ onEvaluate }) {
 
       <div className="form-actions">
         <button type="submit" disabled={loading} className="evaluate-btn">
-          {loading ? "⏳ Evaluating..." : "Evaluate Repository"}
+          {loading ? "⏳ Evaluating..." : "Evaluate Repository blablabla"}
         </button>
 
         <button
