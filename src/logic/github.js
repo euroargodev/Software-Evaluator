@@ -1,39 +1,13 @@
-// src/logic/github.js
-import * as tests from "./githubTests.js";
 import { getGitHubClient } from "./githubClient.js";
+import * as tests from "./githubTests.js";
 
-/**
- * MAP: Criterion ID → Test Function
- * Contains all auto criteria with explicit duplicate mappings
- */
-export const githubCriterionMap = {
-  // ==================== LANGUAGE & LICENSE ====================
-  4: tests.checkOpenSourceLanguage,
-  5: tests.checkLanguageAdoptedByArgo,
-  10: tests.checkHasLicense,
-  33: tests.checkHasLicense,          // duplicate guideline for LICENSE file
-
-  // ==================== VERSION CONTROL ====================
-  8: tests.checkVersionControl,       // hosted on a web-based platform
-  29: tests.checkVersionControl,      // version control tool used (Git)
-  31: tests.checkHostedOnArgoOrg,     // hosted under an Argo organization/user
-
-  // ==================== DOCUMENTATION FILES ====================
-  9: tests.checkDependenciesFile,
-  26: tests.checkEnglishLanguage,
-  32: tests.checkReadmeExists,        // duplicate guideline for README
-  37: tests.checkContributingFile,    // contribution guidelines document
-  46: tests.checkContributingFile,    // duplicate guideline for CONTRIBUTING file
-  55: tests.checkCitationFile,        // CITATION.cff file
-  38: tests.checkIssuesManagedOnPlatform, // issues enabled/templates on platform
-
-  // ==================== CODE QUALITY ====================
-  7: tests.checkCodeFormatting,
-
-  // ==================== CHANGE MANAGEMENT / RELEASES ====================
-  41: tests.checkChangesViaPullRequests, // evidence of PR workflow
-  49: tests.checkHasChangelog,
-};
+function resolveTestFunction(testFunction) {
+  if (typeof testFunction === "function") return testFunction;
+  if (typeof testFunction === "string" && tests[testFunction]) {
+    return tests[testFunction];
+  }
+  return null;
+}
 
 /**
  * Run ONLY the specified automatic tests in PARALLEL
@@ -50,122 +24,96 @@ export async function checkRepoFeatures(owner, repo, autoCriteria = [], onProgre
 
   const results = {};
 
-  // Short-circuit if nothing to test
   if (autoCriteria.length === 0) {
     console.log(`⚠️ No auto criteria to test for this level`);
     return results;
   }
 
   const octokit = getGitHubClient();
-
-  // Validate repository exists when a token is available
   if (octokit) {
     try {
       await octokit.rest.repos.get({ owner, repo });
       console.log(`✅ Repository ${owner}/${repo} accessible`);
     } catch (error) {
       console.error(`❌ Repository ${owner}/${repo} not found:`, error.message);
-      
-      // Mark all requested criteria as unmet if repo cannot be fetched
       return Object.fromEntries(
-        autoCriteria.map(criterion => [
+        autoCriteria.map((criterion) => [
           criterion.id,
-          { 
-            status: "unmet", 
-            error: "Repository not found or inaccessible" 
-          }
+          {
+            status: "unmet",
+            error: "Repository not found or inaccessible",
+          },
         ])
       );
     }
   }
 
-  // Keep only criteria backed by a test function
-  const testsToRun = autoCriteria.filter(criterion => {
-    const hasTest = criterion.id in githubCriterionMap;
-    
-    if (!hasTest) {
-      console.warn(`⚠️ No test function for criterion #${criterion.id}: ${criterion.title}`);
-      results[criterion.id] = {
-        status: "unmet",
-        error: "Test function not implemented"
-      };
-    }
-    
-    return hasTest;
-  });
-
-  const totalTests = testsToRun.length;
+  const totalTests = autoCriteria.length;
   let completed = 0;
 
   console.log(`🚀 Running ${totalTests} automatic checks in parallel...`);
 
-  // Execute tests in parallel
-  const promises = testsToRun.map(async (criterion) => {
+  const promises = autoCriteria.map(async (criterion) => {
     const id = criterion.id;
-    const testFn = githubCriterionMap[id];
+    const testFn = resolveTestFunction(criterion.testFunction);
+
+    if (!testFn) {
+      completed++;
+      const message = `No valid test function for criterion #${id}`;
+      console.warn(`⚠️ ${message}: ${criterion.title}`);
+      if (onProgress) {
+        onProgress(completed, totalTests, `${criterion.title} (no test function)`);
+      }
+      return [
+        id,
+        {
+          status: "unmet",
+          error: "Test function not implemented",
+        },
+      ];
+    }
 
     try {
       console.log(`  🔍 Testing #${id}: ${criterion.title} (${criterion.level})`);
-      
       const result = await testFn(owner, repo);
       completed++;
-
       if (onProgress) {
         onProgress(completed, totalTests, `${criterion.title}`);
       }
-
       console.log(`  ✅ #${id}: ${result.status}`);
       return [id, result];
-
     } catch (error) {
       completed++;
       console.error(`  ❌ #${id} failed:`, error.message);
-
       if (onProgress) {
         onProgress(completed, totalTests, `${criterion.title} (error)`);
       }
-
-      return [id, { 
-        status: "unmet", 
-        error: error.message 
-      }];
+      return [
+        id,
+        {
+          status: "unmet",
+          error: error.message,
+        },
+      ];
     }
   });
 
-  // Wait for all tests
   const settledResults = await Promise.allSettled(promises);
 
-  // Build result object from fulfilled promises
   const testResults = Object.fromEntries(
     settledResults
-      .filter(r => r.status === "fulfilled")
-      .map(r => r.value)
+      .filter((r) => r.status === "fulfilled")
+      .map((r) => r.value)
   );
 
-  // Merge with any placeholder results (criteria without tests)
   Object.assign(results, testResults);
 
-  // Final stats
-  const metCount = Object.values(results).filter(r => r.status === "met").length;
-  const unmetCount = Object.values(results).filter(r => r.status === "unmet").length;
+  const metCount = Object.values(results).filter((r) => r.status === "met").length;
+  const unmetCount = Object.values(results).filter((r) => r.status === "unmet").length;
 
   console.log(`\n✅ ========== AUTO TESTS COMPLETE ==========`);
   console.log(`📊 Results: ${metCount}/${totalTests} met, ${unmetCount}/${totalTests} unmet`);
-  console.log(`📈 Success rate: ${Math.round(metCount/totalTests*100)}%\n`);
+  console.log(`📈 Success rate: ${Math.round((metCount / totalTests) * 100)}%\n`);
 
   return results;
-}
-
-/**
- * Get list of ALL auto-checkable criterion IDs
- */
-export function getAutoCheckableCriteria() {
-  return Object.keys(githubCriterionMap).map(Number);
-}
-
-/**
- * Check if a criterion is auto-checkable
- */
-export function isAutoCheckable(criterionId) {
-  return criterionId in githubCriterionMap;
 }

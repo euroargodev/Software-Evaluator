@@ -1,0 +1,1887 @@
+[
+  {
+    "id": 1,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKz4k",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/1",
+    "title": "A version control tool is used to manage the codebase",
+    "question": "A version control tool is used to manage the codebase",
+    "category": "Versioning",
+    "group": "General",
+    "level": "Beginner",
+    "type": "auto",
+    "testFunction": "checkVersionControl",
+    "weight": 1.2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project content",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 2,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcLE5g",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/2",
+    "title": "Argo Data accessed locally by the software are assumed to be organised following the GDAC folder structure",
+    "question": "Argo Data accessed locally by the software are assumed to be organised following the GDAC folder structure",
+    "category": "Argo Compliance",
+    "group": "Argo specific",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "Accessible",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.005Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 3,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKy1g",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/3",
+    "title": "Argo Data accessed remotely by the software are retrieved from an official GDAC server (http, ftp, s3 servers)",
+    "question": "Argo Data accessed remotely by the software are retrieved from an official GDAC server (http, ftp, s3 servers)",
+    "category": "Continuous Integration",
+    "group": "Argo specific",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "Accessible",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 4,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKx7s",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/4",
+    "title": "Argo Data used by the software are traceable with a persistent identifier (Argo GDAC DOI or snapshot DOIs)",
+    "question": "Argo Data used by the software are traceable with a persistent identifier (Argo GDAC DOI or snapshot DOIs)",
+    "category": "FAIR Data",
+    "group": "Argo specific",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "Findable",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 5,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcLFsc",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/5",
+    "title": "Argo Meta-Data accessed remotely by the software are retrieved from an official Argo sources (GDAC ftp, GDAC https, NVS, SparQL, STAC)",
+    "question": "Argo Meta-Data accessed remotely by the software are retrieved from an official Argo sources (GDAC ftp, GDAC https, NVS, SparQL, STAC)",
+    "category": "Continuous Integration",
+    "group": "Argo specific",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "Reusable",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.005Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 6,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKyhw",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/6",
+    "title": "Argo papers and DOIs are referenced in the software metadata",
+    "question": "Argo papers and DOIs are referenced in the software metadata",
+    "category": "FAIR Data",
+    "group": "Argo specific",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Best effort",
+    "Argo FAIR tools": "Findable",
+    "Project Aspects": "Argo compliance",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 7,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK28U",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/7",
+    "title": "Code review meetings are organized when needed",
+    "question": "Code review meetings are organized when needed",
+    "category": "General",
+    "group": "General",
+    "level": "Advanced",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Best effort",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project Management",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 8,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcLBE8",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/8",
+    "title": "Data produced by the software preserve the Argo license (CC BY 4.0)",
+    "question": "Data produced by the software preserve the Argo license (CC BY 4.0)",
+    "category": "Licensing",
+    "group": "Argo specific",
+    "level": "Advanced",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "Reusable",
+    "Project Aspects": "Argo compliance",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 9,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKyLo",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/9",
+    "title": "Data produced by the software respect Argo file formats and conventions wherever relevant (e.g. NetCDF CF-1.7)",
+    "question": "Data produced by the software respect Argo file formats and conventions wherever relevant (e.g. NetCDF CF-1.7)",
+    "category": "Argo Compliance",
+    "group": "Argo specific",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "Findable",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 10,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK1hY",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/10",
+    "title": "Each collaborator is clearly identified within the project",
+    "question": "Each collaborator is clearly identified within the project",
+    "category": "General",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project Management",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 11,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK25U",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/11",
+    "title": "Each pull request is reviewed by at least one collaborator",
+    "question": "Each pull request is reviewed by at least one collaborator",
+    "category": "General",
+    "group": "General",
+    "level": "Advanced",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Best effort",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project Management",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 12,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK21A",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/12",
+    "title": "Every significant change within the code is managed through a pull (or merge) request",
+    "question": "Every significant change within the code is managed through a pull (or merge) request",
+    "category": "General",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "auto",
+    "testFunction": "checkChangesViaPullRequests",
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project Management",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 13,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK2MY",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/13",
+    "title": "Issues or bug reports are described as fully as possible (e.g. use labels, reproducible example)",
+    "question": "Issues or bug reports are described as fully as possible (e.g. use labels, reproducible example)",
+    "category": "Continuous Integration",
+    "group": "General",
+    "level": "Advanced",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Best effort",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project Management",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 14,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK2jQ",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/14",
+    "title": "Issues or bugs are explicitly referencing the concerned Argo mission (e.g. core, deep, BGC, ...) or component (e.g. trajectories, decoding,...)",
+    "question": "Issues or bugs are explicitly referencing the concerned Argo mission (e.g. core, deep, BGC, ...) or component (e.g. trajectories, decoding,...)",
+    "category": "Continuous Integration",
+    "group": "Argo specific",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Argo compliance",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 15,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK2DQ",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/15",
+    "title": "Issues or bugs are managed through the web-based development platform (e.g., GitHub or GitLab issues)",
+    "question": "Issues or bugs are managed through the web-based development platform (e.g., GitHub or GitLab issues)",
+    "category": "General",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "auto",
+    "testFunction": "checkIssuesManagedOnPlatform",
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project content",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 16,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKyPo",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/16",
+    "title": "Metadata produced by the software follow Argo conventions (as in reference tables provided by the NVS server)",
+    "question": "Metadata produced by the software follow Argo conventions (as in reference tables provided by the NVS server)",
+    "category": "Argo Compliance",
+    "group": "Argo specific",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "Interoperable",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 17,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKyC8",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/17",
+    "title": "Non-Argo Data used by the software are explicitly identified and traceable with a persistent identifier (DOI) when available",
+    "question": "Non-Argo Data used by the software are explicitly identified and traceable with a persistent identifier (DOI) when available",
+    "category": "FAIR Data",
+    "group": "General",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Best effort",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.003Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 18,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKx98",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/18",
+    "title": "Non-Argo Data used by the software should be accessible online",
+    "question": "Non-Argo Data used by the software should be accessible online",
+    "category": "Argo Compliance",
+    "group": "General",
+    "level": "Novice",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1,
+    "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 19,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK3Ao",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/19",
+    "title": "Project meetings are periodically organized",
+    "question": "Project meetings are periodically organized",
+    "category": "General",
+    "group": "General",
+    "level": "Advanced",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project Management",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 20,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKynA",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/20",
+    "title": "Software training sessions are periodically organized",
+    "question": "Software training sessions are periodically organized",
+    "category": "General",
+    "group": "General",
+    "level": "Expert",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 21,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcII90",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/21",
+    "title": "The codebase includes comments and is documented following referenced standards (e.g. numpy style docstrings in Python)",
+    "question": "The codebase includes comments and is documented following referenced standards (e.g. numpy style docstrings in Python)",
+    "category": "General",
+    "group": "General",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 22,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcLDvw",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/22",
+    "title": "The codebase includes comments and is documented to explain the purpose and functionality of each module, class, and function",
+    "question": "The codebase includes comments and is documented to explain the purpose and functionality of each module, class, and function",
+    "category": "General",
+    "group": "General",
+    "level": "Novice",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.005Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 23,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcLDWA",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/23",
+    "title": "The codebase is \"consistent\", i.e. it follows consistent naming conventions, coding styles, and design patterns throughout the software",
+    "question": "The codebase is \"consistent\", i.e. it follows consistent naming conventions, coding styles, and design patterns throughout the software",
+    "category": "General",
+    "group": "General",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.005Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 24,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcLC1c",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/24",
+    "title": "The codebase is designed with modular components to facilitate reuse, testing and maintenance",
+    "question": "The codebase is designed with modular components to facilitate reuse, testing and maintenance",
+    "category": "Continuous Integration",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.005Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 25,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIJCE",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/25",
+    "title": "The codebase is formatted following referenced standards (e.g. black in Python)",
+    "question": "The codebase is formatted following referenced standards (e.g. black in Python)",
+    "category": "General",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "auto",
+    "testFunction": "checkCodeFormatting",
+    "weight": 1.5,
+    "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 26,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKzJs",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/26",
+    "title": "The methodology implemented by the software has been presented to the Argo community (e.g. Data Management Team meeting)",
+    "question": "The methodology implemented by the software has been presented to the Argo community (e.g. Data Management Team meeting)",
+    "category": "Community",
+    "group": "Argo specific",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Argo compliance",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 27,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcLHLg",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/27",
+    "title": "The project allows any user to submit an issue or bug report and ease the process (e.g. provide list of labels, issue templates)",
+    "question": "The project allows any user to submit an issue or bug report and ease the process (e.g. provide list of labels, issue templates)",
+    "category": "General",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project Management",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.005Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 28,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK8Bk",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/28",
+    "title": "The project clearly list all software identifiers in the README file (e.g. DOI, SWHID)",
+    "question": "The project clearly list all software identifiers in the README file (e.g. DOI, SWHID)",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 29,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcLEP8",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/29",
+    "title": "The project defines expected standards of conduct when engaging in the project (e.g. includes a CODE_OF_CONDUCT file to the codebase)",
+    "question": "The project defines expected standards of conduct when engaging in the project (e.g. includes a CODE_OF_CONDUCT file to the codebase)",
+    "category": "General",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project content",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.005Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 30,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK1TQ",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/30",
+    "title": "The project has multiple collaborators from outside the Argo community",
+    "question": "The project has multiple collaborators from outside the Argo community",
+    "category": "Community",
+    "group": "Argo specific",
+    "level": "Advanced",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Best effort",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project Management",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 31,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK1b0",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/31",
+    "title": "The project has multiple collaborators from the Argo community",
+    "question": "The project has multiple collaborators from the Argo community",
+    "category": "Community",
+    "group": "Argo specific",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project Management",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 32,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcLCh8",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/32",
+    "title": "The project include a CITATION.cff file to indicate how to cite the software",
+    "question": "The project include a CITATION.cff file to indicate how to cite the software",
+    "category": "FAIR Data",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "auto",
+    "testFunction": "checkCitationFile",
+    "weight": 1.5,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project content",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.005Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 33,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK3Yk",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/33",
+    "title": "The project includes a CONTRIBUTING file",
+    "question": "The project includes a CONTRIBUTING file",
+    "category": "General",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "auto",
+    "testFunction": "checkContributingFile",
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project Management",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 34,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK0ok",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/34",
+    "title": "The project includes a LICENSE file",
+    "question": "The project includes a LICENSE file",
+    "category": "Licensing",
+    "group": "General",
+    "level": "Novice",
+    "type": "auto",
+    "testFunction": "checkHasLicense",
+    "weight": 1,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project content",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 35,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK0gM",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/35",
+    "title": "The project includes a README file",
+    "question": "The project includes a README file",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Novice",
+    "type": "auto",
+    "testFunction": "checkReadmeExists",
+    "weight": 1,
+    "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project content",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 36,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIKfQ",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/36",
+    "title": "The project includes a basic documentation",
+    "question": "The project includes a basic documentation",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Novice",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 37,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK474",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/37",
+    "title": "The project includes a change log",
+    "question": "The project includes a change log",
+    "category": "General",
+    "group": "General",
+    "level": "Advanced",
+    "type": "auto",
+    "testFunction": "checkHasChangelog",
+    "weight": 2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project content",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 38,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK1oo",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/38",
+    "title": "The project includes a document describing how to contribute",
+    "question": "The project includes a document describing how to contribute",
+    "category": "General",
+    "group": "General",
+    "level": "Advanced",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project content",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 39,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIJTQ",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/39",
+    "title": "The project is hosted on a web-based development platform (e.g., GitHub or GitLab).",
+    "question": "The project is hosted on a web-based development platform (e.g., GitHub or GitLab).",
+    "category": "General",
+    "group": "General",
+    "level": "Beginner",
+    "type": "auto",
+    "testFunction": "checkVersionControl",
+    "weight": 1.2,
+    "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project location",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 40,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK0QU",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/40",
+    "title": "The project is hosted on an Argo-recognised web-based development platform",
+    "question": "The project is hosted on an Argo-recognised web-based development platform",
+    "category": "Argo Compliance",
+    "group": "Argo specific",
+    "level": "Beginner",
+    "type": "auto",
+    "testFunction": "checkHostedOnArgoOrg",
+    "weight": 1.2,
+    "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project location",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 41,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKyj8",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/41",
+    "title": "The software documentation and codebase are written in English",
+    "question": "The software documentation and codebase are written in English",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Beginner",
+    "type": "auto",
+    "testFunction": "checkEnglishLanguage",
+    "weight": 1.2,
+    "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 42,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcILD4",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/42",
+    "title": "The software documentation has an API reference section automatically generated",
+    "question": "The software documentation has an API reference section automatically generated",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 43,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcILZE",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/43",
+    "title": "The software documentation includes installation guidelines",
+    "question": "The software documentation includes installation guidelines",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 44,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK4gM",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/44",
+    "title": "The software documentation includes the definition of the execution environment supported",
+    "question": "The software documentation includes the definition of the execution environment supported",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 45,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK5BY",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/45",
+    "title": "The software documentation includes the list of changes to the codebase between each software releases",
+    "question": "The software documentation includes the list of changes to the codebase between each software releases",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Advanced",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 46,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK4IM",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/46",
+    "title": "The software documentation includes the list of operating systems supported",
+    "question": "The software documentation includes the list of operating systems supported",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 47,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIMPc",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/47",
+    "title": "The software documentation includes usage guidelines and examples",
+    "question": "The software documentation includes usage guidelines and examples",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 48,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcILP0",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/48",
+    "title": "The software documentation is hosted on the web",
+    "question": "The software documentation is hosted on the web",
+    "category": "Documentation",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 49,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKxto",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/49",
+    "title": "The software has a unique persistent identifier (e.g. DOI from paper or Zenodo, SWHID)",
+    "question": "The software has a unique persistent identifier (e.g. DOI from paper or Zenodo, SWHID)",
+    "category": "FAIR Data",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project content",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 50,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKzFA",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/50",
+    "title": "The software has been presented to the Argo community (e.g. Data Management Team meeting)",
+    "question": "The software has been presented to the Argo community (e.g. Data Management Team meeting)",
+    "category": "Community",
+    "group": "Argo specific",
+    "level": "Beginner",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Best effort",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Argo compliance",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 51,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIRrw",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/51",
+    "title": "The software ensures timely distribution of updates",
+    "question": "The software ensures timely distribution of updates",
+    "category": "General",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 52,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIM_Y",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/52",
+    "title": "The software is tested and implements continuous integration",
+    "question": "The software is tested and implements continuous integration",
+    "category": "Continuous Integration",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 53,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIWMs",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/53",
+    "title": "The software is distributed via well-known services (e.g., pip or conda for Python)",
+    "question": "The software is distributed via well-known services (e.g., pip or conda for Python)",
+    "category": "General",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project location",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 54,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK88g",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/54",
+    "title": "The software is registered in an Argo software registry (e.g. AST and Argo-BGC dedicated webpages)",
+    "question": "The software is registered in an Argo software registry (e.g. AST and Argo-BGC dedicated webpages)",
+    "category": "Argo Compliance",
+    "group": "Argo specific",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project location",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 55,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK8mE",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/55",
+    "title": "The software is registered in at least one public software registry (e.g., Zenodo, Seanoe, Research Software Directory)",
+    "question": "The software is registered in at least one public software registry (e.g., Zenodo, Seanoe, Research Software Directory)",
+    "category": "General",
+    "group": "General",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project location",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 56,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIJrw",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/56",
+    "title": "The software is released under an open-source license",
+    "question": "The software is released under an open-source license",
+    "category": "Licensing",
+    "group": "General",
+    "level": "Novice",
+    "type": "auto",
+    "testFunction": "checkHasLicense",
+    "weight": 1,
+    "FAIR4RS": "Accessible",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Project content",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 57,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIJls",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/57",
+    "title": "The software provides a clear description of its dependencies",
+    "question": "The software provides a clear description of its dependencies",
+    "category": "Continuous Integration",
+    "group": "General",
+    "level": "Beginner",
+    "type": "auto",
+    "testFunction": "checkDependenciesFile",
+    "weight": 1.2,
+    "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 58,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIBSw",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/58",
+    "title": "The software uses a programming language adopted within the Argo community (e.g. Matlab, Python, R, Java, Julia)",
+    "question": "The software uses a programming language adopted within the Argo community (e.g. Matlab, Python, R, Java, Julia)",
+    "category": "Community",
+    "group": "Argo specific",
+    "level": "Novice",
+    "type": "auto",
+    "testFunction": "checkLanguageAdoptedByArgo",
+    "weight": 1,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 59,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIBPY",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/59",
+    "title": "The software uses an open-source programming language (https://en.wikipedia.org/wiki/List_of_open-source_programming_languages)",
+    "question": "The software uses an open-source programming language (https://en.wikipedia.org/wiki/List_of_open-source_programming_languages)",
+    "category": "General",
+    "group": "General",
+    "level": "Novice",
+    "type": "auto",
+    "testFunction": "checkOpenSourceLanguage",
+    "weight": 1,
+    "FAIR4RS": "Interoperable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "auto",
+      "editable": false,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": true
+    }
+  },
+  {
+    "id": 60,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKydI",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/60",
+    "title": "The software uses the Argo vocabulary server (to enforce conventions as defined in Argo reference tables)",
+    "question": "The software uses the Argo vocabulary server (to enforce conventions as defined in Argo reference tables)",
+    "category": "Argo Compliance",
+    "group": "Argo specific",
+    "level": "Intermediate",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "Interoperable",
+    "Project Aspects": "Argo compliance",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 61,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcKxwc",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/61",
+    "title": "There is a published paper associated with the software (e.g. JOSS article)",
+    "question": "There is a published paper associated with the software (e.g. JOSS article)",
+    "category": "Referencing",
+    "group": "General",
+    "level": "Expert",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 62,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcIRWM",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/62",
+    "title": "Unit tests cover multiple operating systems",
+    "question": "Unit tests cover multiple operating systems",
+    "category": "Continuous Integration",
+    "group": "General",
+    "level": "Advanced",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2,
+    "FAIR4RS": "Reusable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Recommended",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Codebase",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 63,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcK3J0",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/63",
+    "title": "User meetings or workshops are held and communicated within the Argo community",
+    "question": "User meetings or workshops are held and communicated within the Argo community",
+    "category": "Community",
+    "group": "Argo specific",
+    "level": "Expert",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2.5,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Best effort",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Argo compliance",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.004Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 66,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgcce-4",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/66",
+    "title": "The project includes a basic description of what it does with or to the Argo dataset (e.g. read index file, calibrate salinity, plot trajectory, assess BGC variables,...)",
+    "question": "The project includes a basic description of what it does with or to the Argo dataset (e.g. read index file, calibrate salinity, plot trajectory, assess BGC variables,...)",
+    "category": "Argo Compliance",
+    "group": "Argo specific",
+    "level": "Novice",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 1,
+    "FAIR4RS": "Findable",
+    "Software Development Model (SDM)": "Open-Source",
+    "SDM requirement level": "Required",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.005Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  },
+  {
+    "id": 67,
+    "issueId": "PVTI_lADOA3TSm84A81yHzgr-Sp0",
+    "url": "https://github.com/euroargodev/software_guidelines/issues/67",
+    "title": "Publicly communicate about codebase new versions and releases (e.g. mailing list, newsletter, post on social networks, RSS feeds)",
+    "question": "Publicly communicate about codebase new versions and releases (e.g. mailing list, newsletter, post on social networks, RSS feeds)",
+    "category": "Versioning",
+    "group": "General",
+    "level": "Advanced",
+    "type": "manual",
+    "testFunction": null,
+    "weight": 2,
+    "FAIR4RS": "",
+    "Software Development Model (SDM)": "Collaborative",
+    "SDM requirement level": "Best effort",
+    "Argo FAIR tools": "",
+    "Project Aspects": "Documentation and Outreach",
+    "ui": {
+      "inputType": "boolean",
+      "editable": true,
+      "visible": true
+    },
+    "metadata": {
+      "generatedAt": "2026-05-11T14:12:54.005Z",
+      "sourceFile": "guidelines_v6.json",
+      "version": "2.0",
+      "autoCheckable": false
+    }
+  }
+]

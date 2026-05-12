@@ -34,6 +34,18 @@ export default function ManualCriterion({ criterion, answer, onChange }) {
           <h4 className="mc-title">{criterion.title}</h4>
           {criterion.description && <p className="mc-info">{criterion.description}</p>}
         </div>
+
+        {criterion.url && (
+          <a
+            href={criterion.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mc-issue-link"
+            title={`Open github issue #${criterion.id}`}
+          >
+            See issue
+          </a>
+        )}
       </div>
 
       <div className="mc-controls">

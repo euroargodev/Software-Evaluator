@@ -5,7 +5,7 @@ import { trackEvent } from "../logic/telemetry";
 import PropTypes from "prop-types";
 import TargetLevelSelect from "./TargetLevelSelect";
 import GroupedManualCriteriaBoard from "./GroupedManualCriteriaBoard";
-import guidelinesRaw from "../data/guidelines_v2.json";
+import guidelinesRaw from "../data/guidelines_v3.json";
 import { evaluateProject } from "../logic/evaluation";
 import { checkRateLimit } from "../logic/githubClient";
 import "./Form.css";

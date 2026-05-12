@@ -6,32 +6,55 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const inputPath = path.resolve(__dirname, "../guidelines.json");
-const outputPath = path.resolve(__dirname, "../guidelines_v2.json");
+
+// Utiliser guidelines_v6.json comme nouvelle source
+const inputPath = path.resolve(__dirname, "../guidelines_v6.json");
+const outputPath = path.resolve(__dirname, "../guidelines_v3.json");
 const overridesPath = path.resolve(__dirname, "../metadataOverrides.json");
+
+// Mapping des tests auto (copié de github.js)
+const githubCriterionMap = {
+  59: "checkOpenSourceLanguage",
+  58: "checkLanguageAdoptedByArgo",
+  56: "checkHasLicense",
+  34: "checkHasLicense",
+  39: "checkVersionControl",
+  1: "checkVersionControl",
+  40: "checkHostedOnArgoOrg",
+  57: "checkDependenciesFile",
+  41: "checkEnglishLanguage",
+  35: "checkReadmeExists",
+  37: "checkContributingFile",
+  33: "checkContributingFile",
+  32: "checkCitationFile",
+  15: "checkIssuesManagedOnPlatform",
+  25: "checkCodeFormatting",
+  12: "checkChangesViaPullRequests",
+  37: "checkHasChangelog",
+};
 
 /**
  * AUTO-CHECKABLE CRITERIA (20 total) - Technical verification only
  * Removed semi-auto criteria (now classified as manual)
  */
 const autoIds = [
-  4,  // Uses open-source language
-  5,  // Uses Argo-adopted language
-  7,  // Code formatting standards
-  8,  // Version control system
-  9,  // Dependencies clearly described
-  10, // Has LICENSE file
-  26, // English language
-  29, // Has GitHub topics
-  31, // Has .gitignore
-  32, // Protected main branch
-  33, // Has GitHub description
-  55, // Has CITATION.cff file
-  37, // Repo URL in code
-  38, // Has CITATION file
-  41, // Has CONTRIBUTING file
-  46, // Has tests
-  49, // Has releases/tags
+  59,  // Uses open-source language
+  58,  // Uses Argo-adopted language
+  25,  // Code formatting standards
+  39,  // Version control system
+  57,  // Dependencies clearly described
+  56, // Has LICENSE file
+  41, // English language
+  1, // Has GitHub topics
+  40, // hosted under an Argo organization/user
+  35, // Protected main branch
+  34, // Has LICENSE file
+  32, // Has CITATION.cff file
+  33, // Has CONTRIBUTING file
+  15, // issues enabled/templates on platform
+  12, // evidence of PR workflow
+  33, // duplicate guideline for CONTRIBUTING file
+  37,
 ];
 
 console.log(`📊 Total auto-checkable criteria: ${autoIds.length}`);
@@ -95,60 +118,110 @@ function generateNewGuidelines() {
     ? JSON.parse(fs.readFileSync(overridesPath, "utf-8"))
     : {};
 
-  const nodes = guidelines.data?.node?.items?.nodes || [];
+
+  // guidelines_v6.json: tableau d'objets plats
+  const nodes = Array.isArray(guidelines) ? guidelines : (guidelines.data?.node?.items?.nodes || []);
   console.log(`📋 Found ${nodes.length} criteria in source file.`);
 
-  const simplified = nodes.map((item, i) => {
-    const fields = Object.fromEntries(
-      item.fieldValues.nodes.map(fv => [fv.field?.name || "unknown", fv.text || fv.name])
-    );
+  const simplified = nodes
+    .map((item) => {
+      const title = item.content?.title || item.title || "Untitled";
+      const url = item.content?.url || null;
+      // Extraire le numéro d'issue à la fin de l'URL
+      let issueNumber = null;
+      if (url) {
+        const match = url.match(/\/issues\/(\d+)$/);
+        if (match) issueNumber = parseInt(match[1], 10);
+      }
 
-    const title = fields["Title"] || "Untitled";
-    const id = i;
-    const level = fields["Skill level"] || "Unknown";
-    const type = autoIds.includes(id) ? "auto" : "manual";
+      // Récupérer le niveau et autres champs
 
-    const baseCriterion = {
-      id,
-      title,
-      question: generateQuestion(title),
-      category: classifyCriterion(title),
-      group: buildScopeLabel(fields),
-      labelPrimary: fields["Label #1"] || "",
-      labelSecondary: fields["Label #2"] || "",
-      level,
-      type,
-      weight: {
-        Novice: 1,
-        Beginner: 1.2,
-        Intermediate: 1.5,
-        Advanced: 2,
-        Expert: 2.5,
-      }[level] || 1,
-      FAIR4RS: fields["FAIR4RS"] || "",
-      "Software Development Model (SDM)": fields["Software Development Model (SDM)"] || "",
-      "SDM requirement level": fields["SDM requirement level"] || "",
-      "Argo FAIR tools": fields["Argo FAIR tools"] || "",
-      "Project Aspects": fields["Project Aspects"] || "",
-      ui: {
-        inputType: type === "manual" ? "boolean" : "auto",
-        editable: type === "manual",
-        visible: true,
-      },
-      metadata: {
-        generatedAt: new Date().toISOString(),
-        sourceFile: "guidelines.json",
-        version: "2.0",
-        autoCheckable: type === "auto"
-      },
-    };
+      // Initialiser tous les champs à string vide
+      let level = "";
+      let FAIR4RS = "";
+      let sdm = "";
+      let sdmReq = "";
+      let argoFair = "";
+      let projectAspects = "";
+      let labelPrimary = "";
+      let labelSecondary = "";
+      let group = "";
+      if (item.fieldValues && item.fieldValues.nodes) {
+        for (const node of item.fieldValues.nodes) {
+          if (node.field?.name === "Skill level") level = node.name || node.text || level;
+          if (node.field?.name === "FAIR4RS") FAIR4RS = node.name || node.text || FAIR4RS;
+          if (node.field?.name === "Software Development Model (SDM)") sdm = node.name || node.text || sdm;
+          if (node.field?.name === "SDM requirement level") sdmReq = node.name || node.text || sdmReq;
+          if (node.field?.name === "Argo FAIR tools") argoFair = node.name || node.text || argoFair;
+          if (node.field?.name === "Project Aspects") projectAspects = node.name || node.text || projectAspects;
+          if (node.field?.name === "Label #1") labelPrimary = node.name || node.text || labelPrimary;
+          if (node.field?.name === "Label #2") labelSecondary = node.name || node.text || labelSecondary;
+          if (node.field?.name === "Scope") group = node.name || node.text || group;
+        }
+      }
+      // Valeurs par défaut si toujours vide
+      // Normaliser level et SDM requirement level pour ne garder que le mot après le tiret
+      function normalizeAfterDash(str) {
+        if (!str) return str;
+        const parts = str.split("-");
+        return parts.length > 1 ? parts[1].trim() : str.trim();
+      }
+      if (level) level = normalizeAfterDash(level);
+      else level = "Unknown";
+      if (sdmReq) sdmReq = normalizeAfterDash(sdmReq);
+      if (!group) group = "General";
 
-    // Merge with metadataOverrides.json if exists
-    return {
-      ...baseCriterion,
-      ...(overrides[id] || {}),
-    };
-  });
+      // Type auto ou manuel
+      const type = githubCriterionMap[issueNumber] ? "auto" : "manual";
+      // Ajout du nom de la fonction de test si auto
+      const testFunction = type === "auto" ? githubCriterionMap[issueNumber] : null;
+
+      const baseCriterion = {
+        id: issueNumber, // l'id devient le numéro d'issue
+        issueId: item.id,
+        url,
+        title,
+        question: generateQuestion(title),
+        category: classifyCriterion(title),
+        group: normalizeScope(group),
+        level,
+        type,
+        testFunction,
+        weight: {
+          Novice: 1,
+          Beginner: 1.2,
+          Intermediate: 1.5,
+          Advanced: 2,
+          Expert: 2.5,
+        }[level] || 1,
+        FAIR4RS,
+        "Software Development Model (SDM)": sdm,
+        "SDM requirement level": sdmReq,
+        "Argo FAIR tools": argoFair,
+        "Project Aspects": projectAspects,
+        ui: {
+          inputType: type === "manual" ? "boolean" : "auto",
+          editable: type === "manual",
+          visible: true,
+        },
+        metadata: {
+          generatedAt: new Date().toISOString(),
+          sourceFile: "guidelines_v6.json",
+          version: "2.0",
+          autoCheckable: type === "auto"
+        },
+      };
+      // Merge with metadataOverrides.json if exists
+      // Merge avec overrides mais NE SUPPRIME PLUS les champs vides
+      return {
+        ...baseCriterion,
+        ...(overrides[issueNumber] || {}),
+      };
+    })
+    // On ne garde que ceux qui ont un numéro d'issue valide
+    .filter(c => typeof c.id === 'number' && !isNaN(c.id))
+    // On trie par id (issueNumber) croissant
+    .sort((a, b) => a.id - b.id);
 
   // Statistics
   const autoCount = simplified.filter(c => c.type === "auto").length;

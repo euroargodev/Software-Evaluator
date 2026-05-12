@@ -21,7 +21,8 @@
 .mc-header {
   display: flex;
   justify-content: space-between;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 1rem;
 }
 
 .mc-header .mc-title {
@@ -30,6 +31,18 @@
   font-size: 1rem;
   line-height: 1.35;
   letter-spacing: -0.01em;
+}
+
+.mc-issue-link {
+  font-size: 0.85rem;
+  color: #475569;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  align-self: flex-start;
+}
+
+.mc-issue-link:hover {
+  color: #1f2937;
 }
 
 .mc-info {
