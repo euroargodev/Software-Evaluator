@@ -921,6 +921,18 @@
   color: #6b7280;
 }
 
+.criteria-issue-link {
+  font-size: 0.85rem;
+  color: var(--ea-ocean);
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 0.25rem;
+}
+
+.criteria-issue-link:hover {
+  text-decoration: underline;
+}
+
 .criteria-meta {
   font-size: 0.85rem;
   color: #6b7280;

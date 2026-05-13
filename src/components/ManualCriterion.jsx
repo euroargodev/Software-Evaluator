@@ -43,7 +43,7 @@ export default function ManualCriterion({ criterion, answer, onChange }) {
             className="mc-issue-link"
             title={`Open github issue #${criterion.id}`}
           >
-            See issue
+            Details↗
           </a>
         )}
       </div>

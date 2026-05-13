@@ -502,6 +502,17 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
                                   Evidence: {Array.isArray(criterion.evidence) ? criterion.evidence.join(", ") : criterion.evidence}
                                 </span>
                               )}
+                              {criterion.url && (
+                                <a
+                                  href={criterion.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="criteria-issue-link"
+                                  title={`Open GitHub issue #${criterion.id}`}
+                                >
+                                  Details↗
+                                </a>
+                              )}
                             </div>
                             <span className="criteria-meta">
                               {criterion.type === "auto" ? "Auto" : "Manual"} · {criterion.level}

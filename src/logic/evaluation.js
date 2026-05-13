@@ -68,7 +68,8 @@ export async function evaluateProject(
       status: status,
       weight: levelWeight,
       type: "manual",
-      evidence: answer?.evidence || null
+      evidence: answer?.evidence || null,
+      url: criterion.url || null
     };
 
     console.log(`  ✅ Manual #${criterion.id} [${criterion.title}]: ${status} (weight: ${levelWeight})`);
@@ -111,6 +112,7 @@ export async function evaluateProject(
       weight: levelWeight,
       type: "auto",
       evidence: autoResult?.evidence || null,
+      url: criterion.url || null,
       ...(error && { error })
     };
 

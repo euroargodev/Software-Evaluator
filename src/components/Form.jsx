@@ -505,9 +505,30 @@ function Form({ onEvaluate }) {
             <summary>{autoCriteria.length} checks</summary>
             <ul className="auto-tests-list">
               {autoCriteria.map((criterion) => (
-                <li key={criterion.id}>
-                  <span className="auto-test-id">#{criterion.id}</span>
-                  <span className="auto-test-title">{criterion.title}</span>
+                <li key={criterion.id} className="auto-test-item">
+                  <div className="auto-test-main">
+                    <span className="auto-test-title">{criterion.title}</span>
+                    <div className="auto-test-meta">
+                      <span className="auto-test-badge">#{criterion.id}</span>
+                      {criterion.level && (
+                        <span className="auto-test-badge auto-test-level">
+                          {criterion.level}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {criterion.url && (
+                    <a
+                      href={criterion.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="auto-test-link"
+                      title={`Open GitHub issue #${criterion.id}`}
+                    >
+                      Details↗
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
