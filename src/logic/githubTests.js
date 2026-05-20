@@ -229,7 +229,7 @@ export const checkOpenSourceLanguage = (owner, repo) =>
  * CRITERION 5: Argo-Adopted Language
  */
 export const checkLanguageAdoptedByArgo = (owner, repo) =>
-  buildLanguageResult(owner, repo, 5, ["Python", "R", "MATLAB", "Julia"])();
+  buildLanguageResult(owner, repo, 5, ["Python", "R", "MATLAB", "Julia", "Java", "Octave"])();
 
 /**
  * CRITERION 7: Code Formatting Standards
