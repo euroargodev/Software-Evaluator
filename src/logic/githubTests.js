@@ -613,7 +613,7 @@ export async function checkChangesViaPullRequests(owner, repo) {
 }
 
 /**
- * CRITERION 49: Has changelog
+ * CRITERION 37: Has changelog
  */
 export async function checkHasChangelog(owner, repo) {
   const cacheKey = `criterion_49_${owner}_${repo}`;
