@@ -10,7 +10,7 @@ import { evaluateProject } from "../logic/evaluation";
 import { checkRateLimit } from "../logic/githubClient";
 import "./Form.css";
 
-// Fixed order to compare target level and criterion level
+// Fixed order to compare Programming skill level and criterion level
 const LEVEL_ORDER = ["Novice", "Beginner", "Intermediate", "Advanced", "Expert"];
 const EVALUATION_FILE_NAME = "argo-software-dev-evaluation.json";
 
@@ -325,7 +325,7 @@ function Form({ onEvaluate }) {
 
       setProgress({ current: 100, total: 100, message: "Complete!" });
 
-      // Pass evaluated data up with the selected target level
+      // Pass evaluated data up with the selected Programming skill level
       onEvaluate(
         { owner, repo, url: repoUrl, targetLevel },
         evaluationResult,
@@ -347,7 +347,7 @@ function Form({ onEvaluate }) {
         <div className="evaluation-start">
           <h2>Is this your first evaluation?</h2>
           <p className="subtitle">
-            First-time users will answer manual questions based on their target level.
+            First-time users will answer manual questions based on their programming skills.
             <br />
             Returning users can upload their previous evaluation file.
           </p>
@@ -439,7 +439,7 @@ function Form({ onEvaluate }) {
                 File loaded: {uploadInfo.repo}
               </p>
               <p className="text-sm text-gray-600 mt-2">
-                Target level: {uploadInfo.targetLevel}
+                Programming skill level: {uploadInfo.targetLevel}
                 <br />
                 {uploadInfo.restoredAnswers} manual answers restored for {uploadInfo.manualCount} manual criteria
               </p>
@@ -463,7 +463,7 @@ function Form({ onEvaluate }) {
     <form onSubmit={handleSubmit} className="form-container">
       <div className="form-intro">
         <p className="form-intro-text">
-          Select your target level and answer the corresponding manual criteria. Automatic
+          Select your Programming skill level and answer the corresponding manual criteria. Automatic
           checks will run when you submit.
         </p>
       </div>
@@ -471,7 +471,7 @@ function Form({ onEvaluate }) {
         {/* Level selector */}
         <div className="form-group">
           <label htmlFor="target-level">
-            Target Level <span className="required">*</span>
+            Programming skill level <span className="required">*</span>
           </label>
           <TargetLevelSelect 
             targetLevel={targetLevel}
@@ -539,7 +539,7 @@ function Form({ onEvaluate }) {
       {/* Stats per level */}
       <div className="evaluation-stats">
         <div className="stat-card">
-          <span className="stat-label">Target Level</span>
+          <span className="stat-label">Programming Skill Level</span>
           <span className="stat-value">{targetLevel}</span>
         </div>
         <div className="stat-card">
