@@ -24,7 +24,6 @@ const githubCriterionMap = {
   57: "checkDependenciesFile",
   41: "checkEnglishLanguage",
   35: "checkReadmeExists",
-  37: "checkContributingFile",
   33: "checkContributingFile",
   32: "checkCitationFile",
   15: "checkIssuesManagedOnPlatform",
@@ -54,7 +53,7 @@ const autoIds = [
   15, // issues enabled/templates on platform
   12, // evidence of PR workflow
   33, // duplicate guideline for CONTRIBUTING file
-  37,
+  37, // Changelog
 ];
 
 console.log(`📊 Total auto-checkable criteria: ${autoIds.length}`);
