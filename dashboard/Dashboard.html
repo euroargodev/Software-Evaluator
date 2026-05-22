@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>EuroArgo Dashboard</title>
-  Dashboard.css
+  <link rel="stylesheet" href="Dashboard.css">
 </head>
 
 <body>
 
-<h1>EuroArgo Community Dashboard</h1>
+<h1>EuroArgo Dashboard</h1>
+
+<div id="summary"></div>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="Search repository...">
+  
+  <select id="sort">
+    <option value="default">Sort by</option>
+    <option value="best">Best</option>
+    <option value="worst">Worst</option>
+    <option value="name">Name</option>
+  </select>
+</div>
+
+<div id="stats"></div>
 
 <table id="dashboard">
   <thead>
@@ -24,7 +40,6 @@
   <tbody></tbody>
 </table>
 
-<!-- Popup -->
 <div id="popup" class="hidden">
   <div class="popup-content">
     <span id="close">&times;</span>
@@ -33,6 +48,7 @@
   </div>
 </div>
 
-script.jsscript>
+<script src="script.js"></script>
+
 </body>
 </html>
