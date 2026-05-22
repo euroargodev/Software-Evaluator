@@ -10,7 +10,13 @@ const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
  */
 export function getGitHubClient() {
   if (!octokitInstance) {
-    const token = import.meta.env.VITE_GH_DEPLOY_TOKEN;
+    const token =
+      (typeof import.meta !== "undefined" &&
+        import.meta.env &&
+        import.meta.env.VITE_GH_DEPLOY_TOKEN) ||
+      process.env.VITE_GH_DEPLOY_TOKEN ||
+      process.env.GITHUB_TOKEN ||
+      process.env.GH_DEPLOY_TOKEN;
     
     octokitInstance = new Octokit({
       auth: token,

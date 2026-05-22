@@ -75,7 +75,8 @@ export async function checkRepoFeatures(owner, repo, autoCriteria = [], onProgre
 
     try {
       console.log(`  🔍 Testing #${id}: ${criterion.title} (${criterion.level})`);
-      const result = await testFn(owner, repo);
+      const octokit = getGitHubClient();
+      const result = await testFn(owner, repo, octokit);
       completed++;
       if (onProgress) {
         onProgress(completed, totalTests, `${criterion.title}`);
