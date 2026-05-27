@@ -30,6 +30,7 @@ const githubCriterionMap = {
   25: "checkCodeFormatting",
   12: "checkChangesViaPullRequests",
   37: "checkHasChangelog",
+  45: "checkHasChangelog",
 };
 
 /**
@@ -54,6 +55,7 @@ const autoIds = [
   12, // evidence of PR workflow
   33, // duplicate guideline for CONTRIBUTING file
   37, // Changelog
+  45, // Changelog
 ];
 
 console.log(`📊 Total auto-checkable criteria: ${autoIds.length}`);
