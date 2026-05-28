@@ -30,6 +30,12 @@ const computeLevelScores = (repo) => {
   return result;
 };
 
+const countMetCriteria = (repo) => {
+  return Object.values(repo.details).filter(
+    (i) => i.status === "met" && i.type === "auto"
+  ).length;
+};
+
 const computeGlobalScore = (scores) => {
   return Object.values(scores).reduce((acc, s) => acc + s.score, 0) / levels.length;
 };
@@ -61,7 +67,15 @@ const renderTable = (data) => {
       cell.onclick = () => openPopup(repo.repository.repo, level, items);
       row.appendChild(cell);
     });
-
+    const totalMet = countMetCriteria(repo);
+    repoCell.innerHTML = `
+      <a href="${repo.repository.url}" target="_blank">
+        ${repo.repository.repo}
+      </a>
+      <div style="font-size:10px; color:#6b7280">
+        ${totalMet} criteria met
+      </div>
+    `;
     tbody.appendChild(row);
   });
 };
@@ -78,8 +92,7 @@ const computeStats = (data) => {
     else high++;
   });
 
-  document.getElementById("stats").innerHTML =
-    `🔴 Low: ${low} | 🟠 Medium: ${medium} | 🟢 High: ${high}`;
+  document.getElementById("stats").innerHTML ="";
 };
 
 // Load
@@ -111,17 +124,15 @@ document.getElementById("sort").addEventListener("change", (e) => {
   const value = e.target.value;
   let sorted = [...globalData];
 
-  if (value === "best") {
+  if (value === "score-desc") {
     sorted.sort((a, b) =>
-      computeGlobalScore(computeLevelScores(b)) -
-      computeGlobalScore(computeLevelScores(a))
+      countMetCriteria(b) - countMetCriteria(a)
     );
   }
 
-  if (value === "worst") {
+  if (value === "score-asc") {
     sorted.sort((a, b) =>
-      computeGlobalScore(computeLevelScores(a)) -
-      computeGlobalScore(computeLevelScores(b))
+      countMetCriteria(a) - countMetCriteria(b)
     );
   }
 
@@ -140,26 +151,45 @@ const popupTitle = document.getElementById("popup-title");
 const popupList = document.getElementById("popup-list");
 
 function openPopup(repo, level, items) {
-  popupTitle.innerText = `${repo} — ${level}`;
+  popupTitle.innerText = `${repo} - ${level}`;
   popupList.innerHTML = "";
 
-  items.sort((a, b) => (a.status === "met" ? 1 : -1));
+  items.sort((a) => (a.status === "met" ? 1 : -1));
 
   items.forEach(item => {
     const li = document.createElement("li");
 
     li.innerHTML = `
-      <strong>${item.title}</strong><br>
-      <span style="color:${item.status === "met" ? "green" : "red"}">
-        ${item.status}
-      </span>
+      <strong>${item.title}</strong>
+      ${item.url ? `
+        <a href="${item.url}" target="_blank" class="details-link">
+          Details ↗
+        </a>
+      ` : ""}
     `;
+
+    li.style.color = item.status === "met" ? "#16a34a" : "#dc2626";
 
     popupList.appendChild(li);
   });
 
   popup.classList.remove("hidden");
 }
+
+document.getElementById("export").onclick = () => {
+  const blob = new Blob([JSON.stringify(globalData, null, 2)], {
+    type: "application/json",
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = "dashboard_data.json";
+  a.click();
+
+  URL.revokeObjectURL(url);
+};
 
 document.getElementById("close").onclick = () =>
   popup.classList.add("hidden");
