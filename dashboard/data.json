@@ -52147,10 +52147,12 @@
         "level": "Intermediate",
         "category": "General",
         "group": "General",
-        "status": "unmet",
+        "status": "met",
         "weight": 1.5,
         "type": "auto",
-        "evidence": [],
+        "evidence": [
+          "PR #26"
+        ],
         "url": "https://github.com/euroargodev/software_guidelines/issues/12"
       },
       "13": {
@@ -52763,9 +52765,9 @@
     },
     "stats": {
       "totalCriteria": 65,
-      "metCriteria": 12,
-      "unmetCriteria": 53,
-      "weightedScore": 14.999999999999996,
+      "metCriteria": 13,
+      "unmetCriteria": 52,
+      "weightedScore": 16.499999999999996,
       "totalWeight": 96.40000000000002,
       "autoCriteria": 16,
       "manualCriteria": 49,
