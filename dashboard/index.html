@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>EuroArgo Dashboard</title>
+  <link rel="stylesheet" href="Dashboard.css">
+</head>
+
+<body>
+
+<header class="ea-header">
+  <div class="header-title">
+    <img src="./logo_euroargo_square.png" class="header-logo">
+    <h1>EuroArgo - Dev Dashboard</h1>
+  </div>
+
+  <p class="dashboard-description">
+    Automatic evaluation of public repositories against the Argo software development guidelines
+  </p>
+
+  <p class="header-guidelines">
+    <a
+      href="https://github.com/euroargodev/software_guidelines"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="header-guidelines-link"
+    >
+      Click here for detailed guidelines descriptions <span class="header-link-icon">↗</span>
+    </a>
+  </p>
+</header>
+
+<div id="summary"></div>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="Search repository...">
+  
+  <select id="sort">
+    <option value="default">Sort by</option>
+    <option value="score-desc">Score ↓</option>
+    <option value="score-asc">Score ↑</option>
+    <option value="name">Name</option>
+  </select>
+
+  <button id="export">Export JSON</button>
+</div>
+
+<div id="stats"></div>
+
+<div class="table-container">
+  <table id="dashboard">
+    <thead>
+      <tr>
+        <th>Repository</th>
+        <th>Novice</th>
+        <th>Beginner</th>
+        <th>Intermediate</th>
+        <th>Advanced</th>
+        <th>Expert</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<div id="popup" class="hidden">
+  <div class="popup-content">
+    <span id="close">&times;</span>
+    <h2 id="popup-title"></h2>
+    <ul id="popup-list"></ul>
+  </div>
+</div>
+
+<footer class="ea-footer">
+  <div class="footer-text">
+    <p>
+      This repository is developed within the framework of the Euro-Argo ONE project.
+    </p>
+    <p>
+      This project has received funding from the European Union’s Horizon 2020 research and innovation programme under project no <strong>101188133</strong>.
+    </p>
+    <p>
+      Call HORIZON-INFRA-2024-DEV-03: Developing, consolidating and optimising the European research infrastructures landscape, maintaining global leadership.
+    </p>
+  </div>
+
+  <img src="./EAONE_2.png" class="footer-logo">
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
