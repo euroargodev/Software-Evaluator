@@ -4,6 +4,16 @@
 
 EuroArgoDev Software Evaluator is a web-based tool that checks a public GitHub repository against the EuroArgo software guidelines. It combines manual answers with automated GitHub API checks to assign a maturity level and suggest improvements.
 
+## Dashboard
+
+In addition to the interactive evaluator, a public dashboard provides an automatic overview of Euro-Argo repositories.
+
+- Compare repositories based on the number of satisfied criteria
+- Explore results by maturity level (Novice → Expert)
+- Inspect detailed criteria for each repository
+
+[View the EuroArgo Dashboard](https://euroargodev.github.io/Software-Evaluator/dashboard/)
+
 ## Goals
 
 - Check compliance with EuroArgoDev software guidelines
@@ -126,4 +136,5 @@ MIT (see `LICENSE`).
 
 ## Live Demo
 
-[Software Evaluator on GitHub Pages](https://euroargodev.github.io/Software-Evaluator/)
+- [Software Evaluator](https://euroargodev.github.io/Software-Evaluator/)
+- [EuroArgo Dashboard](https://euroargodev.github.io/Software-Evaluator/dashboard/)
