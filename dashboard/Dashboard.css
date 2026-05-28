@@ -132,6 +132,20 @@ tbody tr:hover {
   background: #f1f5f9;
 }
 
+td a {
+  display: inline-block;
+  max-width: 100%;
+  color: #153fb3;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 20px;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 /* BARS */
 .bar {
   height: 14px;
