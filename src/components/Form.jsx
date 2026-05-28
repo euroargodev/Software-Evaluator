@@ -486,7 +486,7 @@ function Form({ onEvaluate }) {
 
         <div className="form-group">
           <label htmlFor="repo-url">
-            GitHub Repository URL <span className="required">*</span>
+            Repository URL <span className="required">*</span>
           </label>
           <input
             id="repo-url"
@@ -541,6 +541,14 @@ function Form({ onEvaluate }) {
         <div className="stat-card">
           <span className="stat-label">Programming Skill Level</span>
           <span className="stat-value">{targetLevel}</span>
+<a href="https://github.com/euroargodev/software_guidelines#-programming-skill-level"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="stat-label"
+                      title=""
+                    >
+                      ( Definition ↗ )
+                    </a>
         </div>
         <div className="stat-card">
           <span className="stat-label">Manual Criteria</span>
