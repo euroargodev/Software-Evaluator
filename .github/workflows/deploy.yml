@@ -35,7 +35,10 @@ jobs:
       - name: Upload build output
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: |
+          ./dist
+          ./dashboard
+                
 
   deploy:
     name: Deploy to GitHub Pages
