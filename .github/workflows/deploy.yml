@@ -32,10 +32,15 @@ jobs:
       - name: Build Vite project
         run: npm run build
 
+      - name: Copy dashboard
+        run: |
+         cp -r dashboard dist/
+      
       - name: Upload build output
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
+                
 
   deploy:
     name: Deploy to GitHub Pages

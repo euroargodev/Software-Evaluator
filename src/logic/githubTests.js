@@ -21,12 +21,11 @@ function decodeBase64(content) {
 /**
  * Get README content
  */
-async function getReadmeContent(owner, repo) {
+async function getReadmeContent(owner, repo, octokit) {
   const cacheKey = `readme_content_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
-  const octokit = getGitHubClient();
   if (!octokit) return null;
 
   try {
@@ -42,12 +41,11 @@ async function getReadmeContent(owner, repo) {
 /**
  * Get repository info
  */
-async function getRepoInfo(owner, repo) {
+async function getRepoInfo(owner, repo, octokit) {
   const cacheKey = `repo_info_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
-  const octokit = getGitHubClient();
   if (!octokit) throw new Error("GitHub client not initialized");
 
   try {
@@ -62,12 +60,11 @@ async function getRepoInfo(owner, repo) {
 /**
  * Get repository files at path
  */
-async function getRepoFiles(owner, repo, path = "") {
+async function getRepoFiles(owner, repo, path = "", octokit) {
   const cacheKey = `repo_files_${owner}_${repo}_${path}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
-  const octokit = getGitHubClient();
   if (!octokit) return [];
 
   try {
@@ -84,12 +81,11 @@ async function getRepoFiles(owner, repo, path = "") {
 /**
  * Get repository languages
  */
-async function getRepoLanguages(owner, repo) {
+async function getRepoLanguages(owner, repo, octokit) {
   const cacheKey = `repo_languages_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
-  const octokit = getGitHubClient();
   if (!octokit) return [];
 
   try {
@@ -105,12 +101,11 @@ async function getRepoLanguages(owner, repo) {
 /**
  * Search in code (uses GitHub Code Search API - has rate limits)
  */
-async function searchInCode(owner, repo, patterns) {
+async function searchInCode(owner, repo, patterns, octokit) {
   const cacheKey = `code_search_${owner}_${repo}_${patterns.join('_')}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
-  const octokit = getGitHubClient();
   if (!octokit) return { found: false, error: "No client" };
 
   try {
@@ -143,14 +138,14 @@ async function searchInCode(owner, repo, patterns) {
 
 
 // Helper to DRY language-based criteria (open-source vs Argo-adopted)
-function buildLanguageResult(owner, repo, id, allowList, options = {}) {
-  return async () => {
+function buildLanguageResult(owner, repo, id, allowList, options = {}){
+  return async (octokit) => {
     const cacheKey = `criterion_${id}_${owner}_${repo}`;
     const cached = getCachedData(cacheKey);
     if (cached) return cached;
 
     try {
-      const languages = await getRepoLanguages(owner, repo);
+      const languages = await getRepoLanguages(owner, repo, octokit);
       const matched = languages.filter((lang) => allowList.includes(lang));
       const languageDetails =
         languages.length > 0 ? languages.join(", ") : "None detected";
@@ -188,7 +183,7 @@ function buildLanguageResult(owner, repo, id, allowList, options = {}) {
 /**
  * CRITERION 4: Open-Source Language
  */
-export const checkOpenSourceLanguage = (owner, repo) =>
+export const checkOpenSourceLanguage = (owner, repo, octokit) =>
   buildLanguageResult(
     owner,
     repo,
@@ -210,7 +205,7 @@ export const checkOpenSourceLanguage = (owner, repo) =>
           };
         }
 
-        const files = await getRepoFiles(repoOwner, repoName);
+        const files = await getRepoFiles(repoOwner, repoName,"", octokit);
         const matlabFiles = files.filter((file) =>
           file.toLowerCase().endsWith(".m")
         );
@@ -223,24 +218,24 @@ export const checkOpenSourceLanguage = (owner, repo) =>
         };
       },
     }
-  )();
+  )(octokit);
   
 /**
  * CRITERION 5: Argo-Adopted Language
  */
-export const checkLanguageAdoptedByArgo = (owner, repo) =>
-  buildLanguageResult(owner, repo, 5, ["Python", "R", "MATLAB", "Julia", "Java", "Octave"])();
+export const checkLanguageAdoptedByArgo = (owner, repo, octokit) =>
+  buildLanguageResult(owner, repo, 5, ["Python", "R", "MATLAB", "Julia"])(octokit);
 
 /**
  * CRITERION 7: Code Formatting Standards
  */
-export async function checkCodeFormatting(owner, repo) {
+export async function checkCodeFormatting(owner, repo, octokit) {
   const cacheKey = `criterion_7_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const files = await getRepoFiles(owner, repo);
+    const files = await getRepoFiles(owner, repo,"", octokit);
     const formattingFiles = [
       '.prettierrc', '.prettierrc.json', '.prettierrc.js', '.prettierrc.cjs',
       'prettier.config.js', 'prettier.config.cjs',
@@ -271,13 +266,13 @@ export async function checkCodeFormatting(owner, repo) {
 /**
  * CRITERION 8/29: Version Control System
  */
-export async function checkVersionControl(owner, repo) {
+export async function checkVersionControl(owner, repo, octokit) {
   const cacheKey = `criterion_8_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    await getRepoInfo(owner, repo);
+    await getRepoInfo(owner, repo, octokit);
     
     const result = {
       status: "met",
@@ -297,13 +292,13 @@ export async function checkVersionControl(owner, repo) {
 /**
  * CRITERION 9: Dependencies File
  */
-export async function checkDependenciesFile(owner, repo) {
+export async function checkDependenciesFile(owner, repo, octokit) {
   const cacheKey = `criterion_9_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const files = await getRepoFiles(owner, repo);
+    const files = await getRepoFiles(owner, repo,"", octokit);
     const depFiles = [
       'requirements.txt', 'environment.yml', 'environment.yaml',
       'setup.py', 'setup.cfg', 'pyproject.toml',
@@ -331,14 +326,14 @@ export async function checkDependenciesFile(owner, repo) {
 /**
  * CRITERION 10/33: LICENSE File
  */
-export async function checkHasLicense(owner, repo) {
+export async function checkHasLicense(owner, repo, octokit) {
   const cacheKey = `criterion_10_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const info = await getRepoInfo(owner, repo);
-    const files = await getRepoFiles(owner, repo);
+    const info = await getRepoInfo(owner, repo, octokit);
+    const files = await getRepoFiles(owner, repo,"", octokit);
     
     const hasLicenseFile = files.some(f => 
       f.toUpperCase().includes('LICENSE') || f.toUpperCase().includes('LICENCE')
@@ -364,13 +359,13 @@ export async function checkHasLicense(owner, repo) {
 /**
  * CRITERION 32: README File
  */
-export async function checkReadmeExists(owner, repo) {
+export async function checkReadmeExists(owner, repo, octokit) {
   const cacheKey = `criterion_32_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const readmeContent = await getReadmeContent(owner, repo);
+    const readmeContent = await getReadmeContent(owner, repo, octokit);
     if (readmeContent) {
       const result = {
         status: "met",
@@ -381,7 +376,7 @@ export async function checkReadmeExists(owner, repo) {
       return result;
     }
 
-    const files = await getRepoFiles(owner, repo);
+    const files = await getRepoFiles(owner, repo,"", octokit);
     const upper = files.map((f) => f.toUpperCase());
     const hasReadmeByList = upper.some((f) => f.startsWith("README"));
 
@@ -411,13 +406,13 @@ export async function checkReadmeExists(owner, repo) {
 /**
  * CRITERION 26: English Language
  */
-export async function checkEnglishLanguage(owner, repo) {
+export async function checkEnglishLanguage(owner, repo, octokit) {
   const cacheKey = `criterion_26_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const readmeContent = await getReadmeContent(owner, repo);
+    const readmeContent = await getReadmeContent(owner, repo, octokit);
     
     if (!readmeContent) {
       const result = { status: "unmet", details: "No README to check" };
@@ -452,13 +447,13 @@ export async function checkEnglishLanguage(owner, repo) {
 /**
  * CRITERION 31: Hosted on Argo developer platform (approx: owner contains "argo")
  */
-export async function checkHostedOnArgoOrg(owner, repo) {
+export async function checkHostedOnArgoOrg(owner, repo, octokit) {
   const cacheKey = `criterion_31_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const info = await getRepoInfo(owner, repo);
+    const info = await getRepoInfo(owner, repo, octokit);
     const ownerLogin = info?.owner?.login || "";
     const isArgo = /argo/i.test(ownerLogin);
 
@@ -480,13 +475,13 @@ export async function checkHostedOnArgoOrg(owner, repo) {
 /**
  * CRITERION 37/46: CONTRIBUTING File
  */
-export async function checkContributingFile(owner, repo) {
+export async function checkContributingFile(owner, repo, octokit) {
   const cacheKey = `criterion_contrib_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const files = await getRepoFiles(owner, repo);
+    const files = await getRepoFiles(owner, repo,"", octokit);
     const contributingFiles = ['CONTRIBUTING.md', 'CONTRIBUTING.rst', 'CONTRIBUTING.txt', 'CONTRIBUTING'];
     const hasContributing = contributingFiles.some(f => files.includes(f));
     
@@ -508,13 +503,13 @@ export async function checkContributingFile(owner, repo) {
 /**
  * CRITERION 55: CITATION.cff file
  */
-export async function checkCitationFile(owner, repo) {
+export async function checkCitationFile(owner, repo, octokit) {
   const cacheKey = `criterion_55_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const files = await getRepoFiles(owner, repo);
+    const files = await getRepoFiles(owner, repo,"", octokit);
     const upper = files.map((f) => f.toUpperCase());
     const hasCitation = upper.includes("CITATION.CFF");
 
@@ -538,18 +533,18 @@ export async function checkCitationFile(owner, repo) {
 /**
  * CRITERION 38: Issues managed on platform (issues enabled and/or template present)
  */
-export async function checkIssuesManagedOnPlatform(owner, repo) {
+export async function checkIssuesManagedOnPlatform(owner, repo, octokit) {
   const cacheKey = `criterion_38_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const info = await getRepoInfo(owner, repo);
+    const info = await getRepoInfo(owner, repo, octokit);
     const issuesEnabled = info?.has_issues === true;
     let hasTemplate = false;
 
     try {
-      const ghFiles = await getRepoFiles(owner, repo, ".github");
+      const ghFiles = await getRepoFiles(owner, repo, ".github", octokit);
       hasTemplate = ghFiles.some((f) =>
         f.toLowerCase().startsWith("issue_template") || f.toLowerCase() === "issue_template"
       );
@@ -580,12 +575,11 @@ export async function checkIssuesManagedOnPlatform(owner, repo) {
 /**
  * CRITERION 41: Every significant change within the code is managed through a pull (or merge) request
  */
-export async function checkChangesViaPullRequests(owner, repo) {
+export async function checkChangesViaPullRequests(owner, repo, octokit) {
   const cacheKey = `criterion_41_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
-  const octokit = getGitHubClient();
   if (!octokit) return { status: "unmet", error: "No GitHub client" };
 
   try {
@@ -615,13 +609,13 @@ export async function checkChangesViaPullRequests(owner, repo) {
 /**
  * CRITERION 37: Has changelog
  */
-export async function checkHasChangelog(owner, repo) {
+export async function checkHasChangelog(owner, repo, octokit) {
   const cacheKey = `criterion_49_${owner}_${repo}`;
   const cached = getCachedData(cacheKey);
   if (cached) return cached;
 
   try {
-    const files = await getRepoFiles(owner, repo);
+    const files = await getRepoFiles(owner, repo,"", octokit);
     const candidates = [
       "CHANGELOG",
       "CHANGELOG.md",
