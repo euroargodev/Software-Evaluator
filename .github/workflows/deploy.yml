@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - Jade2097-patch-1
 
 permissions:
   contents: read
