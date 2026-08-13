@@ -23,7 +23,7 @@ In addition to the interactive evaluator, a public dashboard provides an automat
 
 ## Key Features
 
-- Manual and automatic criteria sourced from `src/data/guidelines_v2.json`
+- Manual and automatic criteria sourced from `src/data/guidelines.json`
 - Target level selection filters criteria and caps the displayed maturity
 - Grouped manual questions with evidence fields
 - Automatic checks via GitHub REST API (Octokit)
@@ -132,7 +132,7 @@ Pull requests are welcome. For major changes, open an issue to discuss what you 
 
 ## License
 
-MIT (see `LICENSE`).
+EUPL v1.2 (see `LICENSE`).
 
 ## Live Demo
 

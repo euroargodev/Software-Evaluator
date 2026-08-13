@@ -190,7 +190,7 @@ export const checkOpenSourceLanguage = (owner, repo, octokit) =>
     4,
     [
       "Python", "R", "JavaScript", "TypeScript", "Java", "C++", "C", "Julia",
-      "Go", "Rust", "Ruby", "PHP", "Shell", "HTML", "CSS"
+      "Go", "Rust", "Ruby", "PHP", "Shell", "HTML", "CSS", "Jupyter Notebook",
     ],
     {
       fallback: async ({ owner: repoOwner, repo: repoName, languages }) => {
@@ -224,7 +224,7 @@ export const checkOpenSourceLanguage = (owner, repo, octokit) =>
  * CRITERION 5: Argo-Adopted Language
  */
 export const checkLanguageAdoptedByArgo = (owner, repo, octokit) =>
-  buildLanguageResult(owner, repo, 5, ["Python", "R", "MATLAB", "Julia"])(octokit);
+  buildLanguageResult(owner, repo, 5, ["Python", "R", "MATLAB", "Julia", "Java"])(octokit);
 
 /**
  * CRITERION 7: Code Formatting Standards
@@ -243,7 +243,8 @@ export async function checkCodeFormatting(owner, repo, octokit) {
       'eslint.config.js', 'eslint.config.cjs',
       '.editorconfig', 'pyproject.toml', 'setup.cfg', 'tox.ini',
       '.flake8', '.pylintrc', '.black', '.style.yapf',
-      'ruff.toml', '.ruff.toml', 'biome.json', 'biome.jsonc'
+      'ruff.toml', '.ruff.toml', 'biome.json', 'biome.jsonc',
+      'miss_hit.cfg', '.miss_hit',
     ];
     
     const hasFormatter = formattingFiles.some(f => files.includes(f));

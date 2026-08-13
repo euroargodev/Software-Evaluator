@@ -14,47 +14,54 @@ const overridesPath = path.resolve(__dirname, "../metadataOverrides.json");
 
 // Mapping des tests auto (copié de github.js)
 const githubCriterionMap = {
-  59: "checkOpenSourceLanguage",
-  58: "checkLanguageAdoptedByArgo",
-  56: "checkHasLicense",
-  34: "checkHasLicense",
-  39: "checkVersionControl",
   1: "checkVersionControl",
-  40: "checkHostedOnArgoOrg",
-  57: "checkDependenciesFile",
-  41: "checkEnglishLanguage",
-  35: "checkReadmeExists",
-  33: "checkContributingFile",
-  32: "checkCitationFile",
+  12: "checkChangesViaPullRequests",
   15: "checkIssuesManagedOnPlatform",
   25: "checkCodeFormatting",
-  12: "checkChangesViaPullRequests",
+  27: "checkIssuesManagedOnPlatform",
+  32: "checkCitationFile",
+  33: "checkContributingFile",
+  34: "checkHasLicense",
+  35: "checkReadmeExists",
+  36: "checkReadmeExists",
   37: "checkHasChangelog",
+  38: "checkContributingFile",
+  39: "checkVersionControl",
+  40: "checkHostedOnArgoOrg",
+  41: "checkEnglishLanguage",
+  45: "checkHasChangelog",
+  56: "checkHasLicense",
+  57: "checkDependenciesFile",
+  58: "checkLanguageAdoptedByArgo",
+  59: "checkOpenSourceLanguage",
 };
 
 /**
  * AUTO-CHECKABLE CRITERIA (20 total) - Technical verification only
  * Removed semi-auto criteria (now classified as manual)
  */
-const autoIds = [
-  59,  // Uses open-source language
-  58,  // Uses Argo-adopted language
-  25,  // Code formatting standards
-  39,  // Version control system
-  57,  // Dependencies clearly described
-  56, // Has LICENSE file
-  41, // English language
-  1, // Has GitHub topics
-  40, // hosted under an Argo organization/user
-  35, // Protected main branch
-  34, // Has LICENSE file
-  32, // Has CITATION.cff file
-  33, // Has CONTRIBUTING file
-  15, // issues enabled/templates on platform
-  12, // evidence of PR workflow
-  33, // duplicate guideline for CONTRIBUTING file
-  37, // Changelog
-];
+// const autoIds = [
+//   59,  // Uses open-source language
+//   58,  // Uses Argo-adopted language
+//   25,  // Code formatting standards
+//   39,  // Version control system
+//   57,  // Dependencies clearly described
+//   56, // Has LICENSE file
+//   41, // English language
+//   1, // Has GitHub topics
+//   40, // hosted under an Argo organization/user
+//   35, // Protected main branch
+//   34, // Has LICENSE file
+//   32, // Has CITATION.cff file
+//   33, // Has CONTRIBUTING file
+//   15, // issues enabled/templates on platform
+//   12, // evidence of PR workflow
+//   33, // duplicate guideline for CONTRIBUTING file
+//   37, // Changelog
+//   45, // Changelog
+// ];
+const autoIds = Object.keys(githubCriterionMap).map(Number);
+
 
 console.log(`📊 Total auto-checkable criteria: ${autoIds.length}`);
 

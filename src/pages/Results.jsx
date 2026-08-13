@@ -95,15 +95,15 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
         emoji: "🏆",
         color: "#FFD700",
         bgColor: "#FFF9E6",
-        message: "Outstanding! Production-ready software",
-        description: "Your project exemplifies software engineering excellence"
+        message: "Outstanding! Production-ready Argo software",
+        description: "Your project exemplifies Argo software engineering excellence"
       },
       Advanced: {
         emoji: "🥇",
         color: "#C0C0C0",
         bgColor: "#F5F5F5",
         message: "Great work! Almost perfect",
-        description: "Your project follows most best practices"
+        description: "Your Argo project follows most best practices"
       },
       Intermediate: {
         emoji: "🥈",
@@ -334,9 +334,9 @@ function Results({ repository, evaluationResult, userAnswers, onGoBack }) {
                     : ` (${stats.totalCriteria} criteria).`}
                 </p>
                 <ul>
-                  <li>The scope depends on the chosen target level.</li>
+                  <li>The scope depends on the chosen Programming Skill Level.</li>
                   <li>
-                    The displayed level is capped by the target level (if you choose "Beginner",
+                    The displayed level is capped by the Programming Skill (if you choose "Beginner",
                     you cannot reach "Intermediate").
                   </li>
                   <li>Higher-level criteria carry more weight in the final score.</li>

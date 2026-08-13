@@ -19,9 +19,6 @@ function TargetLevelSelect({ targetLevel, maxLevel, onChange, disabled }) {
           </option>
         ))}
       </select>
-      <p className="text-sm text-gray-600 mt-1">
-        Optional: Choose a target level to focus feedback on specific criteria
-      </p>
     </div>
   );
 }
