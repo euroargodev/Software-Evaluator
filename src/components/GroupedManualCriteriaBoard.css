@@ -114,10 +114,10 @@
   color: #4b5563;
 }
 
-.criteria-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+.grouped-manual-board .criteria-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .level-groups {
@@ -169,16 +169,9 @@
     margin-bottom: 0;
   }
 
-  .criteria-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 @media (max-width: 768px) {
-  .criteria-grid {
-    grid-template-columns: 1fr;
-  }
-  
   .manual-header {
     flex-direction: column;
     align-items: flex-start;

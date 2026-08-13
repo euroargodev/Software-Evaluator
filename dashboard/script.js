@@ -144,7 +144,6 @@ document.getElementById("sort").addEventListener("change", (e) => {
 
   renderTable(sorted);
 });
-
 // Popup
 const popup = document.getElementById("popup");
 const popupTitle = document.getElementById("popup-title");
