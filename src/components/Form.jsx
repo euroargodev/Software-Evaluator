@@ -458,7 +458,7 @@ function Form({ onEvaluate }) {
       </div>
     );
   }
-  // ========== FORMULAIRE PRINCIPAL ==========
+  // ========== Main form ==========
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <div className="form-intro">
